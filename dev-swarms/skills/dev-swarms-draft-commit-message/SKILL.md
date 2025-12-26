@@ -13,3 +13,9 @@ Requirements:
 - Use the imperative mood in the summary (for example, "Add", "Fix", "Refactor")
 - Keep the summary under 72 characters
 - If there are breaking changes, include a `BREAKING CHANGE:` footer
+
+Do not add content as below, to make the message shorter
+```
+Generated with xx
+Co-Authored-By: xxx
+``
