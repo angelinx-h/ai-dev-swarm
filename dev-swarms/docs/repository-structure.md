@@ -69,10 +69,10 @@ project-root/
 ├─ 09-sprints/                       # Stage 9: AI-accelerated development execution (3–6 hour sprints)
 │  ├─ README.md                      # Folder overview and guide
 │  │
-│  ├─ user-auth/                      # Sprint folder named by ID + goal (recommended)
+│  ├─ user-auth/                      # Sprint folder named
 │  │  ├─ README.md                    # Sprint overview, status, and plan
-│  │  ├─ FEATURE-auth-login.md        # New capability
-│  │  ├─ CHANGE-login-error.md        # Bug fix
+│  │  ├─ FEATURE-auth-login.md        # New feature request
+│  │  ├─ CHANGE-login-error.md        # Feature change request
 │  │  ├─ BUG-login-error.md           # Bug fix
 │  │  └─ IMPROVE-rate-limits.md       # Improvement/refactor
 │  │
