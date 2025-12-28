@@ -176,6 +176,7 @@ If your skill needs additional reference documentation:
    - Keep files under 500 lines when possible
    - Use clear, descriptive filenames
    - Link to them from `SKILL.md` using relative paths
+   - Use symbolic link for any file under `dev-swarms/` in the project's root if ask to reference as an entire file
 
 Example reference structure:
 ```
