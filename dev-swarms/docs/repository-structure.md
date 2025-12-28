@@ -2,14 +2,21 @@ project-root/
 ├─ README.md                         # What this repo is, AI agent should update this file from time to time
 ├─ ideas.md                          # The start engine of the AI builder
 │
-├─ 00-init-ideas/                    # Stage 0: define the problem 
+│  NOTE:
+│  - This is the max doc list for each stage (large-scale projects).
+│  - Smaller scale projects (per dev-swarms/docs/software-dev-classification.md) can skip stages/files.
+│  - Example for very small projects (L0-L1):
+│    00-init-ideas/README.md         # How to implement `src/script_name.sh` or refined requirements
+│    src/script_name.sh              # The script itself
+│
+├─ 00-init-ideas/                    # Stage 0: define the problem
 │  ├─ README.md                      # Folder overview and guide
-│  ├─ problem-statement.md           
+│  ├─ problem-statement.md           # Clear problem definition and constraints
 │  ├─ target-users.md                # Who has the problem (high-level), primary audience
-│  ├─ value-proposition.md 
-│  ├─ cost-budget.md                 # total tokens and tokens for each stage maybe used, and estimation $ for these tokens
-│  └─ owner-requirement.md           # from ideas.md, any other requirments for the late stage
-│ 
+│  ├─ value-proposition.md           # Why this solution matters and the core benefits
+│  ├─ cost-budget.md                 # LLM Token budget per stage and estimated $ cost
+│  └─ owner-requirement.md           # From ideas.md + owner constraints for later stages
+│
 ├─ 01-market-research/               # Stage 1: validate problem + understand landscape
 │  ├─ README.md                      # Folder overview and guide
 │  ├─ market-overview.md             # Market size, trends, growth drivers
@@ -17,11 +24,11 @@ project-root/
 │  ├─ gap-analysis.md                # Unmet needs, opportunities competitors miss
 │  ├─ pricing-research.md            # How competitors price, willingness to pay signals
 │  └─ validation-findings.md         # Evidence the problem is real (interviews, surveys, data)
-
+│
 ├─ 02-personas/                      # Stage 2: who uses it + user stories (business language)
 │  ├─ README.md                      # Folder overview and guide
-│  ├─ persona-primary.md             # 1st main persona
-│  ├─ persona-secondary.md           # 2nd persona (optional)
+│  ├─ persona-primary.md             # Primary persona
+│  ├─ persona-secondary.md           # Secondary persona (optional)
 │  └─ user-stories.md                # Prioritized user stories (no technical design)
 │
 ├─ 03-mvp/                           # Stage 3: MVP scope and success metrics (what NOT to build)
@@ -43,31 +50,31 @@ project-root/
 │  ├─ interaction-specs.md           # States, transitions, interaction rules
 │  ├─ edge-cases.md                  # Edge cases + expected outcomes
 │  ├─ accessibility.md               # Accessibility requirements/checklist
-│  └─ mockup folder or single html fil (optional - for UI based web/mobile/desktop apps)      # use static html/css/js file(s), show case/define/ the theme/style/ basic ui userflow - most just as a project proposal for non tech customer to understand the product they will have
- │
+│  └─ mockup/                        # Static HTML/CSS/JS mockups or a single HTML file (optional)
+│
 ├─ 06-architecture/                  # Stage 6: system shape (structure, not frameworks)
 │  ├─ README.md                      # Folder overview and guide
 │  ├─ system-overview.md             # Major components + responsibilities
 │  ├─ architecture-diagram.md        # Diagram (Mermaid or image link) showing system components
 │  ├─ data-flow.md                   # Request/data flow across frontend/backend/db/external services
-│  └─ deployment-boundaries.md       # What runs local vs cloud, trust boundaries, high-level scaling assumptions
+│  └─ deployment-boundaries.md       # Local vs cloud boundaries, trust zones, scaling assumptions
 │
 ├─ 07-tech-specs/                    # Stage 7: engineering decisions & standards (policy level)
 │  ├─ README.md                      # Folder overview and guide
-│  ├─ tech-solution-research.md      # Rearch for framework/package/library/cloud provider/API provider/AI model/open source AI model etc to use
+│  ├─ tech-solution-research.md      # Research for frameworks/providers/models/tools
 │  ├─ tech-stack.md                  # Languages/frameworks/db/cloud provider choices
-│  ├─ theme-standards.md             # UI theme rules (fonts/sizes/colors) if doing infographic/UI consistency - based on the approved ux - mockup
+│  ├─ theme-standards.md             # UI theme rules (fonts/sizes/colors) if doing UI
 │  ├─ coding-standards.md            # Code style rules, repo conventions, naming, formatting
-│  ├─ testing-standards.md           # What tests are required, how to name/run them, minimum gates
-│  └─ security-standards.md          # Secure coding rules, dependency scanning, logging redaction rules
+│  ├─ testing-standards.md           # Required tests, naming, running, minimum gates
+│  └─ security-standards.md          # Secure coding rules, scanning, logging redaction rules
 │
-├─ 08-devops/                        # Stage 8: AI setup: local or cloud development environment foundation (tooling + dev stack)
+├─ 08-devops/                        # Stage 8: development environment foundation (tooling + dev stack)
 │  ├─ README.md                      # Folder overview and guide
-│  ├─ github-setup.md        # GitHub repo settings, branch protection, PR templates
-│  ├─ mcp-setup.md           # MCP tool setup: Playwright/GitHub/AWS + permissions model
-│  ├─ vscode-devcontainer.md # VS Code Dev Container + Docker configuration
+│  ├─ github-setup.md                # GitHub repo settings, branch protection, PR templates
+│  ├─ mcp-setup.md                   # MCP tool setup: Playwright/GitHub/AWS + permissions model
+│  └─ vscode-devcontainer.md         # VS Code Dev Container + Docker configuration
 │
-├─ 09-sprints/                       # Stage 9: AI-accelerated development execution with differnet type backlogs
+├─ 09-sprints/                       # Stage 9: AI-accelerated development execution with backlog types
 │  ├─ README.md                      # Folder overview and guide
 │  │
 │  ├─ user-auth/                      # Backlogs of each sprint
@@ -80,7 +87,7 @@ project-root/
 │  └─ profile-basics/
 │     └─ ...
 │
-├─ 10-deployment/                    # Stage 10: Cloud infra + deploy process + release verification
+├─ 10-deployment/                    # Stage 10: cloud infra + deploy process + release verification
 │  ├─ README.md                      # Folder overview and guide
 │  ├─ deployment-index.md            # Entry point: staging/prod deploy paths + checklists
 │  │
@@ -90,7 +97,7 @@ project-root/
 │  │  ├─ infra.template.md            # Infra summary for a service/environment
 │  │  └─ rollback.template.md         # Rollback procedure template
 │  │
-│  ├─ infra/                         # Cloud architecture/runbooks (what exists in AWS and why)
+│  ├─ infra/                         # Cloud architecture/runbooks (what exists and why)
 │  │  ├─ README.md                    # Infrastructure overview and index
 │  │  ├─ aws-overview.md              # High-level AWS layout and boundaries
 │  │  ├─ ec2.md                       # EC2 deployment approach (systemd/docker, ports, security groups)
@@ -102,10 +109,10 @@ project-root/
 │  ├─ releases/                      # Versioned releases (production-ready output)
 │  │  ├─ README.md                    # Releases index and versioning guide
 │  │  ├─ v0.1.0/                      # One release = deployable bundle + proof
-│  │  │  ├─ README.md                  # Release overview and summary
-│  │  │  ├─ release-notes.md           # What changed, highlights
-│  │  │  ├─ verification.md            # Smoke tests, URLs, screenshots, key metrics
-│  │  │  └─ rollback.md                # Rollback plan for this release
+│  │  │  ├─ README.md                 # Release overview and summary
+│  │  │  ├─ release-notes.md          # What changed, highlights
+│  │  │  ├─ verification.md           # Smoke tests, URLs, screenshots, key metrics
+│  │  │  └─ rollback.md               # Rollback plan for this release
 │  │  └─ changelog.md                 # Running changelog across releases
 │  │
 │  └─ evidence/                      # Proof of deployments (commands, console screenshots, URLs)
