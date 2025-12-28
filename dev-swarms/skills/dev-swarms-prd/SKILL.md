@@ -63,6 +63,7 @@ Follow these steps in order:
      - Problem statement
      - Value proposition
      - Owner requirements
+     - Cost budget (to understand constraints for this stage)
 
 4. **Check if `01-market-research/` folder exists (optional):**
    - If found: Read to understand:
@@ -70,38 +71,92 @@ Follow these steps in order:
      - Competitive landscape
      - Validation findings
 
-5. **Check if `04-prd/` folder exists:**
+5. **Check if this stage should be skipped:**
+   - Check if `04-prd/SKIP.md` exists
+   - **If SKIP.md exists:**
+     - Read SKIP.md to understand why this stage was skipped
+     - Inform the user: "Stage 4 (prd) is marked as SKIP because [reason from SKIP.md]"
+     - Ask the user: "Would you like to proceed to the next stage (ux)?"
+     - **If user says yes:**
+       - Exit this skill and inform them to run the next stage skill
+     - **If user says no:**
+       - Ask if they want to proceed with PRD anyway
+       - If yes, delete SKIP.md and continue with this skill
+       - If no, exit the skill
+
+6. **Check if `04-prd/` folder exists:**
    - If exists: Read all existing files to understand current PRD state
    - If NOT exists: Will create new structure
 
-6. Proceed to Step 1 with gathered context
+7. Proceed to Step 1 with gathered context
 
-### Step 1: Create/Update PRD Structure
+### Step 1: Refine Design Requirements in README and Get Approval
 
-1. **Create/Update folder structure:**
+**CRITICAL: Create/update README.md first based on previous stage results, get user approval, then create other docs.**
+
+1. **Analyze information from previous stages:**
+   - Read `03-mvp/` to understand MVP scope and features
+   - Read `02-personas/` to understand user stories (P0/P1/P2)
+   - Read `00-init-ideas/` to understand problem statement and value proposition
+   - Read `01-market-research/` (if exists) to understand market context
+   - Consider cost-budget constraints for this stage
+
+2. **Create or update 04-prd/README.md with refined requirements:**
+   - **Stage overview and objectives** (based on previous stage context)
+   - **Owners:** Product Manager (lead), UX Designer, Tech Manager
+   - **What PRD will include:**
+     - Product overview, goals, and user journeys
+     - Functional requirements (based on user stories)
+     - Non-functional requirements (performance, security, scalability)
+     - Out-of-scope items
+   - **Methodology:**
+     - How requirements will be defined (from MVP + all user stories)
+     - How functional requirements will be structured
+   - **Deliverables planned:**
+     - List of files that will be created (prd.md, functional-requirements.md, etc.)
+   - **Budget allocation for this stage** (from cost-budget.md)
+   - **Status:** In Progress (update to "Completed" after implementation)
+
+3. **Present README to user:**
+   - Show the PRD approach and what will be documented
+   - Show what documentation files will be created
+   - Explain how it aligns with previous stages
+   - Ask: "Does this PRD plan look good? Should I proceed with creating comprehensive product requirements?"
+
+4. **Wait for user approval:**
+   - **If user says yes:** Proceed to Step 2
+   - **If user says no:**
+     - Ask what needs to be changed
+     - Update README based on feedback
+     - Ask for approval again
+
+### Step 2: Create/Update PRD Structure
+
+**Only after user approves the README:**
+
+1. **Create files as specified in the approved README.md:**
+
+   **IMPORTANT:** The file structure below is a SAMPLE only. The actual files you create must follow what was approved in the README.md in Step 1.
+
+   **Typical structure (example):**
    ```
    04-prd/
-   ├── README.md
-   ├── prd.md
-   ├── functional-requirements.md
-   ├── non-functional-requirements.md
-   └── out-of-scope.md
+   ├── README.md (already created and approved in Step 1)
+   ├── prd.md (if specified in README)
+   ├── functional-requirements.md (if specified in README)
+   ├── non-functional-requirements.md (if specified in README)
+   └── out-of-scope.md (if specified in README)
    ```
 
-### Step 2: Create/Update PRD Documentation
+   **Create only the files listed in the README's "Deliverables planned" section.**
 
-**If files already exist:** Update them based on latest context from MVP and personas. Refine requirements, add new details, and ensure consistency.
+### Step 3: Create/Update PRD Documentation
 
-**If files don't exist:** Create new comprehensive PRD documents.
+**IMPORTANT: Only create PRD documentation after README is approved in Step 1.**
 
-**04-prd/README.md:**
-- Stage overview and objectives
-- Specify the owners: Product Manager (lead), UX Designer, Tech Manager
-- Summary of product vision and scope
-- Links to all PRD documentation files
-- How this PRD relates to MVP definition
+**NOTE:** The content structure below provides GUIDELINES for typical PRD documentation. Adapt based on the approved README and project needs.
 
-**prd.md (Main Product Requirements Document):**
+**prd.md (if specified in README - Main Product Requirements Document):**
 
 This is the core PRD document covering product overview, goals, and user journeys:
 
@@ -364,7 +419,7 @@ Explicitly define what is NOT included in this PRD:
 
 **Purpose**: Prevent scope creep and align stakeholders on what's NOT being built.
 
-### Step 3: Ensure Traceability
+### Step 4: Ensure Traceability
 
 Make sure all requirements map back to:
 - User stories from 02-personas/user-stories.md
@@ -378,20 +433,26 @@ Verify that:
 - Each requirement has clear acceptance criteria
 - Requirements are testable and implementable
 
-### Step 4: User Review
+### Step 5: Final User Review
 
-1. Present the PRD to the user
-2. Highlight key insights:
+1. **Inform user that PRD is complete**
+2. **Update README.md:**
+   - Change **Status** from "In Progress" to "Completed"
+   - Add a **Summary** section with key insights (2-3 paragraphs)
+   - Add a **Created Files** section listing all created files
+
+3. **Present completed work to user:**
    - Number of functional requirements (organized by category)
    - Key non-functional requirements (performance, security, compliance)
    - What's explicitly out of scope
    - How this builds on MVP definition
    - Phasing plan (MVP → v1.0 → future)
-3. Explain the completeness: "This PRD locks down WHAT the product does, not HOW it's built"
-4. Ask if they want to proceed to the next stage (UX design)
-5. Make adjustments based on user feedback
+   - Explain the completeness: "This PRD locks down WHAT the product does, not HOW it's built"
 
-### Step 5: Commit to Git (if user confirms)
+4. Ask if they want to proceed to the next stage (UX design)
+5. Make adjustments based on user feedback if needed
+
+### Step 6: Commit to Git (if user confirms)
 
 1. **If user confirms PRD is complete:**
    - Ask if they want to commit to git

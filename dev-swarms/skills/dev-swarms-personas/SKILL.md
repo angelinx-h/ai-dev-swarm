@@ -48,6 +48,7 @@ Follow these steps in order:
      - Target users
      - Value proposition
      - Owner requirements
+     - Cost budget (to understand constraints for this stage)
 
 2. **Check if `01-market-research/` exists (optional):**
    - If found: Read files to understand:
@@ -55,31 +56,90 @@ Follow these steps in order:
      - Competitor user bases
      - Market validation findings
      - Gap analysis
-   - If NOT found: Continue with just init-ideas data (acceptable for test projects)
+   - If NOT found: Continue with just init-ideas data (acceptable for L2 projects)
 
-3. Proceed to Step 1 with gathered context
+3. **Check if this stage should be skipped:**
+   - Check if `02-personas/SKIP.md` exists
+   - **If SKIP.md exists:**
+     - Read SKIP.md to understand why this stage was skipped
+     - Inform the user: "Stage 2 (personas) is marked as SKIP because [reason from SKIP.md]"
+     - Ask the user: "Would you like to proceed to the next stage (mvp)?"
+     - **If user says yes:**
+       - Exit this skill and inform them to run the next stage skill
+     - **If user says no:**
+       - Ask if they want to proceed with personas anyway
+       - If yes, delete SKIP.md and continue with this skill
+       - If no, exit the skill
 
-### Step 1: Create/Update Personas Structure
+4. **Check if `02-personas/` folder exists:**
+   - If exists: Read all existing files to understand current state
+   - If NOT exists: Will create new structure
 
-1. **Create/Update folder structure:**
+5. Proceed to Step 1 with gathered context
+
+### Step 1: Refine Design Requirements in README and Get Approval
+
+**CRITICAL: Create/update README.md first based on previous stage results, get user approval, then create other docs.**
+
+1. **Analyze information from previous stages:**
+   - Read `00-init-ideas/` to understand problem, target users, value proposition
+   - Read `01-market-research/` (if exists) to understand market segments and user validation
+   - Consider cost-budget constraints for this stage
+
+2. **Create or update 02-personas/README.md with refined requirements:**
+   - **Stage overview and objectives** (based on previous stage context)
+   - **Owners:** Product Manager, UX Designer
+   - **What personas will be created:**
+     - How many personas (1-2 typically)
+     - What market research insights will inform personas
+     - What user stories will be created (P0/P1/P2)
+   - **Methodology:**
+     - How personas will be created (based on init-ideas + market research)
+     - User story format and prioritization approach
+   - **Deliverables planned:**
+     - List of files that will be created (persona-primary.md, user-stories.md, etc.)
+   - **Budget allocation for this stage** (from cost-budget.md)
+   - **Status:** In Progress (update to "Completed" after implementation)
+
+3. **Present README to user:**
+   - Show the personas approach and what will be created
+   - Show what documentation files will be created
+   - Explain how it aligns with previous stages
+   - Ask: "Does this personas plan look good? Should I proceed with creating personas and user stories?"
+
+4. **Wait for user approval:**
+   - **If user says yes:** Proceed to Step 2
+   - **If user says no:**
+     - Ask what needs to be changed
+     - Update README based on feedback
+     - Ask for approval again
+
+### Step 2: Create/Update Personas Structure
+
+**Only after user approves the README:**
+
+1. **Create files as specified in the approved README.md:**
+
+   **IMPORTANT:** The file structure below is a SAMPLE only. The actual files you create must follow what was approved in the README.md in Step 1.
+
+   **Typical structure (example):**
    ```
    02-personas/
-   ├── README.md
-   ├── persona-primary.md
-   ├── persona-secondary.md (optional)
-   └── user-stories.md
+   ├── README.md (already created and approved in Step 1)
+   ├── persona-primary.md (if specified in README)
+   ├── persona-secondary.md (if specified in README)
+   └── user-stories.md (if specified in README)
    ```
 
-### Step 2: Create/Update User Personas
+   **Create only the files listed in the README's "Deliverables planned" section.**
 
-**02-personas/README.md:**
-- Stage overview and objectives
-- Specify the owners: Product Manager, UX Designer
-- Summary of personas created
-- Links to persona and user stories documents
-- Methodology used to create personas
+### Step 3: Create/Update User Personas
 
-**persona-primary.md:**
+**IMPORTANT: Only create personas after README is approved in Step 1.**
+
+**NOTE:** The content structure below provides GUIDELINES for typical persona content. Adapt based on the approved README and project needs.
+
+**persona-primary.md (if specified in README):**
 
 Create a detailed primary persona including:
 
@@ -128,9 +188,11 @@ If there's a distinct secondary user segment, create a second persona following 
 
 If secondary persona is not needed, you can skip creating this file.
 
-### Step 3: Create/Update User Stories
+### Step 4: Create/Update User Stories
 
-**user-stories.md:**
+**NOTE:** The content structure below provides GUIDELINES for typical user stories. Adapt based on the approved README and project needs.
+
+**user-stories.md (if specified in README):**
 
 Create prioritized user stories using the format: "As a [role], I want [feature] so that [benefit]"
 
@@ -172,7 +234,7 @@ So that [benefit/value achieved].
 - Technical considerations (if any)
 ```
 
-### Step 4: Ensure Traceability
+### Step 5: Ensure Traceability
 
 Make sure user stories map back to:
 - Problem statement from 00-init-ideas
@@ -180,17 +242,23 @@ Make sure user stories map back to:
 - Gap analysis from 01-market-research (if available)
 - Owner requirements from 00-init-ideas
 
-### Step 5: User Review
+### Step 6: Final User Review
 
-1. Present the personas and user stories to the user
-2. Highlight key insights:
+1. **Inform user that personas and user stories are complete**
+2. **Update README.md:**
+   - Change **Status** from "In Progress" to "Completed"
+   - Add a **Summary** section with key insights (2-3 paragraphs)
+   - Add a **Created Files** section listing all created files
+
+3. **Present completed work to user:**
    - Number of personas created
    - P0/P1/P2 story distribution
    - How stories address the core problem
-3. Ask if they want to proceed to the next stage (MVP definition)
-4. Make adjustments based on user feedback
 
-### Step 6: Commit to Git (if user confirms)
+4. Ask if they want to proceed to the next stage (MVP definition)
+5. Make adjustments based on user feedback if needed
+
+### Step 7: Commit to Git (if user confirms)
 
 1. **If user confirms personas and user stories are complete:**
    - Ask if they want to commit to git

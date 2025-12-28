@@ -56,6 +56,7 @@ Follow these steps in order:
      - Problem statement
      - Value proposition
      - Owner requirements
+     - Cost budget (to understand constraints for this stage)
 
 3. **Check if `01-market-research/` folder exists (optional):**
    - If found: Read to understand:
@@ -63,37 +64,89 @@ Follow these steps in order:
      - Competitor features
      - Validation findings
 
-4. **Check if `03-mvp/` folder exists:**
+4. **Check if this stage should be skipped:**
+   - Check if `03-mvp/SKIP.md` exists
+   - **If SKIP.md exists:**
+     - Read SKIP.md to understand why this stage was skipped
+     - Inform the user: "Stage 3 (mvp) is marked as SKIP because [reason from SKIP.md]"
+     - Ask the user: "Would you like to proceed to the next stage (prd)?"
+     - **If user says yes:**
+       - Exit this skill and inform them to run the next stage skill
+     - **If user says no:**
+       - Ask if they want to proceed with MVP anyway
+       - If yes, delete SKIP.md and continue with this skill
+       - If no, exit the skill
+
+5. **Check if `03-mvp/` folder exists:**
    - If exists: Read all existing files to understand current MVP definition
    - If NOT exists: Will create new structure
 
-5. Proceed to Step 1 with gathered context
+6. Proceed to Step 1 with gathered context
 
-### Step 1: Create/Update MVP Structure
+### Step 1: Refine Design Requirements in README and Get Approval
 
-1. **Create/Update folder structure:**
+**CRITICAL: Create/update README.md first based on previous stage results, get user approval, then create other docs.**
+
+1. **Analyze information from previous stages:**
+   - Read `02-personas/` to understand user personas and P0 user stories
+   - Read `00-init-ideas/` to understand problem statement and value proposition
+   - Read `01-market-research/` (if exists) to understand market context
+   - Consider cost-budget constraints for this stage
+
+2. **Create or update 03-mvp/README.md with refined requirements:**
+   - **Stage overview and objectives** (based on previous stage context)
+   - **Owners:** Product Manager, Tech Manager, UX Designer
+   - **What MVP will be defined:**
+     - How P0 features from personas will be scoped into MVP
+     - What success metrics will be defined
+     - What will be explicitly excluded (out-of-scope)
+   - **Methodology:**
+     - How MVP scope will be determined (P0 features only)
+     - Success metrics approach
+   - **Deliverables planned:**
+     - List of files that will be created (mvp-scope.md, out-of-scope.md, success-metrics.md, etc.)
+   - **Budget allocation for this stage** (from cost-budget.md)
+   - **Status:** In Progress (update to "Completed" after implementation)
+
+3. **Present README to user:**
+   - Show the MVP approach and what will be defined
+   - Show what documentation files will be created
+   - Explain how it aligns with previous stages
+   - Ask: "Does this MVP definition plan look good? Should I proceed with defining MVP scope and metrics?"
+
+4. **Wait for user approval:**
+   - **If user says yes:** Proceed to Step 2
+   - **If user says no:**
+     - Ask what needs to be changed
+     - Update README based on feedback
+     - Ask for approval again
+
+### Step 2: Create/Update MVP Structure
+
+**Only after user approves the README:**
+
+1. **Create files as specified in the approved README.md:**
+
+   **IMPORTANT:** The file structure below is a SAMPLE only. The actual files you create must follow what was approved in the README.md in Step 1.
+
+   **Typical structure (example):**
    ```
    03-mvp/
-   ├── README.md
-   ├── mvp-scope.md
-   ├── out-of-scope.md
-   └── success-metrics.md
+   ├── README.md (already created and approved in Step 1)
+   ├── mvp-scope.md (if specified in README)
+   ├── out-of-scope.md (if specified in README)
+   └── success-metrics.md (if specified in README)
    ```
 
-### Step 2: Create/Update MVP Scope Documentation
+   **Create only the files listed in the README's "Deliverables planned" section.**
 
-**If files already exist:** Update them based on latest context from personas and user feedback. Refine scope, adjust metrics, and ensure alignment with user stories.
+### Step 3: Create/Update MVP Scope Documentation
 
-**If files don't exist:** Create new files with comprehensive MVP definition.
+**IMPORTANT: Only create MVP documentation after README is approved in Step 1.**
 
-**03-mvp/README.md:**
-- Stage overview and objectives
-- Specify the owners: Product Manager, Tech Manager, UX Designer
-- Summary of MVP scope and approach
-- Links to all MVP documentation files
-- Why this MVP scope was chosen
+**NOTE:** The content structure below provides GUIDELINES for typical MVP documentation. Adapt based on the approved README and project needs.
 
-**mvp-scope.md:**
+**mvp-scope.md (if specified in README):**
 
 Define the MVP scope following these principles:
 
@@ -215,7 +268,7 @@ Define how MVP success will be measured:
    - What events need to be tracked?
    - What dashboards need to be created?
 
-### Step 3: Ensure Traceability
+### Step 4: Ensure Traceability
 
 Make sure MVP scope maps back to:
 - P0 user stories from 02-personas/user-stories.md
@@ -225,19 +278,25 @@ Make sure MVP scope maps back to:
 
 Ensure out-of-scope clearly excludes P1 and P2 features.
 
-### Step 4: User Review
+### Step 5: Final User Review
 
-1. Present the MVP definition to the user
-2. Highlight key insights:
+1. **Inform user that MVP definition is complete**
+2. **Update README.md:**
+   - Change **Status** from "In Progress" to "Completed"
+   - Add a **Summary** section with key insights (2-3 paragraphs)
+   - Add a **Created Files** section listing all created files
+
+3. **Present completed work to user:**
    - Number of P0 features in MVP scope
    - What's explicitly excluded (P1/P2 features deferred)
    - Success metrics and validation approach
    - Estimated timeline (sprints)
-3. Explain the rationale: why this is the smallest testable product
-4. Ask if they want to proceed to the next stage (PRD creation)
-5. Make adjustments based on user feedback
+   - Explain the rationale: why this is the smallest testable product
 
-### Step 5: Commit to Git (if user confirms)
+4. Ask if they want to proceed to the next stage (PRD creation)
+5. Make adjustments based on user feedback if needed
+
+### Step 6: Commit to Git (if user confirms)
 
 1. **If user confirms MVP definition is complete:**
    - Ask if they want to commit to git

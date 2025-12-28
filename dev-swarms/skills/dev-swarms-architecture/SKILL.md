@@ -62,32 +62,98 @@ Follow these steps in order:
      - Non-functional requirements (performance, security, scalability)
      - Feature list and priorities
 
-3. **Check if `03-mvp/` folder exists (recommended):**
+3. **Check if `00-init-ideas/` folder exists (recommended):**
+   - If found: Read to understand:
+     - Cost budget (to understand constraints for this stage)
+
+4. **Check if `03-mvp/` folder exists (recommended):**
    - If found: Read to understand:
      - MVP scope (what to prioritize in architecture)
      - Success metrics (inform performance targets)
 
-4. **Check if `06-architecture/` folder exists:**
+5. **Check if this stage should be skipped:**
+   - Check if `06-architecture/SKIP.md` exists
+   - **If SKIP.md exists:**
+     - Read SKIP.md to understand why this stage was skipped
+     - Inform the user: "Stage 6 (architecture) is marked as SKIP because [reason from SKIP.md]"
+     - Ask the user: "Would you like to proceed to the next stage (tech-specs)?"
+     - **If user says yes:**
+       - Exit this skill and inform them to run the next stage skill
+     - **If user says no:**
+       - Ask if they want to proceed with architecture anyway
+       - If yes, delete SKIP.md and continue with this skill
+       - If no, exit the skill
+
+6. **Check if `06-architecture/` folder exists:**
    - If exists: Read all existing files to understand current architecture state
    - If NOT exists: Will create new structure
 
-5. Proceed to Step 1 with gathered context
+7. Proceed to Step 1 with gathered context
 
-### Step 1: Create/Update Architecture Structure
+### Step 1: Refine Design Requirements in README and Get Approval
 
-1. **Create/Update folder structure:**
+**CRITICAL: Create/update README.md first based on previous stage results, get user approval, then create other docs.**
+
+1. **Analyze information from previous stages:**
+   - Read `05-ux/` to understand user flows and UI structure
+   - Read `04-prd/` to understand functional and non-functional requirements
+   - Read `03-mvp/` (if exists) to understand what to prioritize
+   - Consider cost-budget constraints for this stage
+
+2. **Create or update 06-architecture/README.md with refined requirements:**
+   - **Stage overview and objectives** (based on previous stage context)
+   - **Owners:** Tech Manager (lead), Backend Architect, Frontend Architect, AI Engineer, Content Moderator, DevOps Engineer
+   - **What architecture will include:**
+     - System components and their responsibilities
+     - Architecture diagrams (high-level + detail)
+     - Data flow for critical user journeys
+     - Deployment boundaries and scaling strategy
+   - **Methodology:**
+     - How components will be defined (from PRD requirements)
+     - Diagram approach (Mermaid for all diagrams)
+   - **Deliverables planned:**
+     - List of files that will be created (system-overview.md, architecture-diagram.md, etc.)
+   - **Budget allocation for this stage** (from cost-budget.md)
+   - **Status:** In Progress (update to "Completed" after implementation)
+
+3. **Present README to user:**
+   - Show the architecture approach and what will be designed
+   - Show what documentation files will be created
+   - Explain how it aligns with previous stages
+   - Ask: "Does this architecture plan look good? Should I proceed with designing system architecture?"
+
+4. **Wait for user approval:**
+   - **If user says yes:** Proceed to Step 2
+   - **If user says no:**
+     - Ask what needs to be changed
+     - Update README based on feedback
+     - Ask for approval again
+
+### Step 2: Create/Update Architecture Structure
+
+**Only after user approves the README:**
+
+1. **Create files as specified in the approved README.md:**
+
+   **IMPORTANT:** The file structure below is a SAMPLE only. The actual files you create must follow what was approved in the README.md in Step 1.
+
+   **Typical structure (example):**
    ```
    06-architecture/
-   ├── README.md
-   ├── system-overview.md
-   ├── architecture-diagram.md
-   ├── data-flow.md
-   └── deployment-boundaries.md
+   ├── README.md (already created and approved in Step 1)
+   ├── system-overview.md (if specified in README)
+   ├── architecture-diagram.md (if specified in README)
+   ├── data-flow.md (if specified in README)
+   └── deployment-boundaries.md (if specified in README)
    ```
 
-### Step 2: Create/Update Architecture Documentation
+   **Create only the files listed in the README's "Deliverables planned" section.**
 
-**If files already exist:** Update them based on latest context from PRD and UX. Refine architecture, add new components, and ensure consistency.
+### Step 3: Create/Update Architecture Documentation
+
+**IMPORTANT: Only create architecture documentation after README is approved in Step 1.**
+
+**NOTE:** The content structure below provides GUIDELINES for typical architecture documentation. Adapt based on the approved README and project needs.
 
 **If files don't exist:** Create new comprehensive architecture documents.
 
@@ -508,7 +574,7 @@ Define what runs where and security/trust boundaries:
    - Latency optimization
    - CDN edge locations
 
-### Step 3: Ensure Alignment
+### Step 4: Ensure Alignment
 
 Make sure architecture aligns with:
 - Non-functional requirements from 04-prd/non-functional-requirements.md
@@ -523,30 +589,36 @@ Verify that:
 - Scalability needs are met
 - Deployment is feasible
 
-### Step 4: User Review
+### Step 5: Final User Review
 
-1. **Present the architecture to the user:**
+1. **Inform user that architecture is complete**
+2. **Update README.md:**
+   - Change **Status** from "In Progress" to "Completed"
+   - Add a **Summary** section with key insights (2-3 paragraphs)
+   - Add a **Created Files** section listing all created files
+
+3. **Present completed work to user:**
    - Walk through the architecture diagrams
    - Explain major components and their responsibilities
    - Show data flow for critical user journeys
    - Explain deployment boundaries and security
 
-2. **Highlight key insights:**
+4. **Highlight key insights:**
    - Number of major components
    - Key architectural patterns used
    - Scalability approach
    - Security boundaries
    - Cloud vs. local deployment split
 
-3. **Ask questions:**
+5. **Ask questions:**
    - Does the architecture make sense?
    - Are there any components missing?
    - Any concerns about scalability or security?
    - Ready to proceed to next stage (tech specs)?
 
-4. Make adjustments based on user feedback
+6. Make adjustments based on user feedback if needed
 
-### Step 5: Commit to Git (if user confirms)
+### Step 6: Commit to Git (if user confirms)
 
 1. **If user confirms architecture is complete:**
    - Ask if they want to commit to git

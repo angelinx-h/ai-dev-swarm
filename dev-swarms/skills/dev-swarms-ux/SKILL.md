@@ -60,51 +60,108 @@ Follow these steps in order:
      - User pain points
      - User preferences and behaviors
 
-3. **Check if `03-mvp/` folder exists (recommended):**
+3. **Check if `00-init-ideas/` folder exists (recommended):**
+   - If found: Read to understand:
+     - Cost budget (to understand constraints for this stage)
+
+4. **Check if `03-mvp/` folder exists (recommended):**
    - If found: Read to understand:
      - MVP scope
      - Core features to prioritize in design
 
-4. **Check if `05-ux/` folder exists:**
+5. **Check if this stage should be skipped:**
+   - Check if `05-ux/SKIP.md` exists
+   - **If SKIP.md exists:**
+     - Read SKIP.md to understand why this stage was skipped
+     - Inform the user: "Stage 5 (ux) is marked as SKIP because [reason from SKIP.md]"
+     - Ask the user: "Would you like to proceed to the next stage (architecture)?"
+     - **If user says yes:**
+       - Exit this skill and inform them to run the next stage skill
+     - **If user says no:**
+       - Ask if they want to proceed with UX anyway
+       - If yes, delete SKIP.md and continue with this skill
+       - If no, exit the skill
+
+6. **Check if `05-ux/` folder exists:**
    - If exists: Read all existing files to understand current UX design state
    - If NOT exists: Will create new structure
 
-5. Proceed to Step 1 with gathered context
+7. Proceed to Step 1 with gathered context
 
-### Step 1: Create/Update UX Structure
+### Step 1: Refine Design Requirements in README and Get Approval
 
-1. **Create/Update folder structure:**
+**CRITICAL: Create/update README.md first based on previous stage results, get user approval, then create other docs.**
+
+1. **Analyze information from previous stages:**
+   - Read `04-prd/` to understand functional requirements and user journeys
+   - Read `02-personas/` to understand user needs and pain points
+   - Read `03-mvp/` (if exists) to understand core features to prioritize
+   - Consider cost-budget constraints for this stage
+
+2. **Create or update 05-ux/README.md with refined requirements:**
+   - **Stage overview and objectives** (based on previous stage context)
+   - **Owners:** UX Designer (lead), UI Designer, Product Manager, Content Moderator
+   - **What UX will include:**
+     - User flows for critical journeys (list key flows from PRD)
+     - Interaction specifications for components
+     - Edge cases and error handling
+     - Accessibility compliance (WCAG 2.1 Level AA)
+     - Interactive mockups (for UI-based apps)
+   - **Methodology:**
+     - How user flows will be created (from PRD requirements)
+     - Mockup approach (HTML/CSS/JS for UI apps)
+   - **Deliverables planned:**
+     - List of files that will be created (user-flows.md, mockups/, etc.)
+   - **Budget allocation for this stage** (from cost-budget.md)
+   - **Status:** In Progress (update to "Completed" after implementation)
+
+3. **Present README to user:**
+   - Show the UX approach and what will be designed
+   - Show what documentation files and mockups will be created
+   - Explain how it aligns with previous stages
+   - Ask: "Does this UX design plan look good? Should I proceed with creating user flows and mockups?"
+
+4. **Wait for user approval:**
+   - **If user says yes:** Proceed to Step 2
+   - **If user says no:**
+     - Ask what needs to be changed
+     - Update README based on feedback
+     - Ask for approval again
+
+### Step 2: Create/Update UX Structure
+
+**Only after user approves the README:**
+
+1. **Create files as specified in the approved README.md:**
+
+   **IMPORTANT:** The file structure below is a SAMPLE only. The actual files you create must follow what was approved in the README.md in Step 1.
+
+   **Typical structure (example):**
    ```
    05-ux/
-   ├── README.md
-   ├── user-flows.md
-   ├── interaction-specs.md
-   ├── edge-cases.md
-   ├── accessibility.md
-   └── mockups/                    # For UI-based applications
-       ├── index.html              # Main mockup entry point
-       ├── styles.css              # Theme and styling
-       ├── script.js               # Interactive behaviors (optional)
-       └── assets/                 # Images, icons, fonts (if needed)
+   ├── README.md (already created and approved in Step 1)
+   ├── user-flows.md (if specified in README)
+   ├── interaction-specs.md (if specified in README)
+   ├── edge-cases.md (if specified in README)
+   ├── accessibility.md (if specified in README)
+   └── mockups/ (if specified in README - for UI-based applications)
+       ├── index.html
+       ├── styles.css
+       ├── script.js
+       └── assets/
    ```
+
+   **Create only the files listed in the README's "Deliverables planned" section.**
 
    **Note**: For UI-based web/mobile/desktop apps, the `mockups/` folder with static HTML/CSS/JS files is **CRITICAL** as it showcases the product to non-technical stakeholders.
 
-### Step 2: Create/Update UX Documentation
+### Step 3: Create/Update UX Documentation
 
-**If files already exist:** Update them based on latest context from PRD and user feedback. Refine flows, update mockups, and ensure consistency.
+**IMPORTANT: Only create UX documentation after README is approved in Step 1.**
 
-**If files don't exist:** Create new comprehensive UX design documents.
+**NOTE:** The content structure below provides GUIDELINES for typical UX documentation. Adapt based on the approved README and project needs.
 
-**05-ux/README.md:**
-- Stage overview and objectives
-- Specify the owners: UX Designer (lead), UI Designer, Product Manager
-- Summary of UX approach and design philosophy
-- Links to all UX documentation files
-- Link to mockups (if applicable)
-- How to view/interact with mockups
-
-**user-flows.md:**
+**user-flows.md (if specified in README):**
 
 Define user flows with diagrams and descriptions:
 
@@ -395,7 +452,7 @@ Include any visual assets:
 - Sample images (if needed for mockup)
 - Custom fonts (if not using web fonts)
 
-### Step 3: Ensure Alignment
+### Step 4: Ensure Alignment
 
 Make sure UX design aligns with:
 - Functional requirements from 04-prd/functional-requirements.md
@@ -411,38 +468,44 @@ Verify that:
 - Mockups showcase the product effectively (for UI-based apps)
 - Interactions are clearly specified
 
-### Step 4: User Review
+### Step 5: Final User Review
 
-1. **Present the UX design to the user:**
+1. **Inform user that UX design is complete**
+2. **Update README.md:**
+   - Change **Status** from "In Progress" to "Completed"
+   - Add a **Summary** section with key insights (2-3 paragraphs)
+   - Add a **Created Files** section listing all created files
+
+3. **Present completed work to user:**
    - Show the interactive mockups (if UI-based app)
    - Walk through critical user flows
    - Demonstrate interaction patterns
    - Explain accessibility considerations
 
-2. **Highlight key insights:**
+4. **Highlight key insights:**
    - Number of user flows documented
    - Key interaction patterns defined
    - Accessibility compliance level (WCAG 2.1 Level AA)
    - Mockup screens created (if applicable)
    - Theme and design system defined
 
-3. **For mockups specifically:**
+5. **For mockups specifically:**
    - Open `mockups/index.html` in browser
    - Demonstrate navigation between screens
    - Show responsive behavior (resize browser)
    - Point out theme consistency (colors, fonts, spacing)
    - Explain how this represents the final product
 
-4. **Ask questions:**
+6. **Ask questions:**
    - Does the design align with their vision?
    - Are there any flows missing?
    - Any concerns about accessibility?
    - Should any mockup screens be added/changed?
    - Ready to proceed to next stage (architecture)?
 
-5. Make adjustments based on user feedback
+7. Make adjustments based on user feedback if needed
 
-### Step 5: Commit to Git (if user confirms)
+### Step 6: Commit to Git (if user confirms)
 
 1. **If user confirms UX design is complete:**
    - Ask if they want to commit to git

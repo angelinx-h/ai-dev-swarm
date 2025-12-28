@@ -63,41 +63,108 @@ Follow these steps in order:
      - **Border radius and shadows**
      - **Component styles**
 
-3. **Check if `04-prd/` folder exists (recommended):**
+3. **Check if `00-init-ideas/` folder exists (recommended):**
+   - If found: Read to understand:
+     - Cost budget (to understand constraints for this stage)
+
+4. **Check if `04-prd/` folder exists (recommended):**
    - If found: Read to understand:
      - Non-functional requirements (performance, security, compliance)
      - Technical constraints
 
-4. **Check if `03-mvp/` folder exists (recommended):**
+5. **Check if `03-mvp/` folder exists (recommended):**
    - If found: Read to understand:
      - MVP scope (prioritize tech choices for MVP)
      - Timeline constraints
 
-5. **Check if `07-tech-specs/` folder exists:**
+6. **Check if this stage should be skipped:**
+   - Check if `07-tech-specs/SKIP.md` exists
+   - **If SKIP.md exists:**
+     - Read SKIP.md to understand why this stage was skipped
+     - Inform the user: "Stage 7 (tech-specs) is marked as SKIP because [reason from SKIP.md]"
+     - Ask the user: "Would you like to proceed to the next stage (devops)?"
+     - **If user says yes:**
+       - Exit this skill and inform them to run the next stage skill
+     - **If user says no:**
+       - Ask if they want to proceed with tech specs anyway
+       - If yes, delete SKIP.md and continue with this skill
+       - If no, exit the skill
+
+7. **Check if `07-tech-specs/` folder exists:**
    - If exists: Read all existing files to understand current tech specs state
    - If NOT exists: Will create new structure
 
-6. Proceed to Step 1 with gathered context
+8. Proceed to Step 1 with gathered context
 
-### Step 1: Create/Update Tech Specs Structure
+### Step 1: Refine Design Requirements in README and Get Approval
 
-1. **Create/Update folder structure:**
+**CRITICAL: Create/update README.md first based on previous stage results, get user approval, then create other docs.**
+
+1. **Analyze information from previous stages:**
+   - Read `06-architecture/` to understand system components and deployment
+   - Read `05-ux/mockups/styles.css` to extract theme (CRITICAL for theme-standards.md)
+   - Read `04-prd/` to understand non-functional requirements
+   - Read `03-mvp/` (if exists) to understand what to prioritize
+   - Consider cost-budget constraints for this stage
+
+2. **Create or update 07-tech-specs/README.md with refined requirements:**
+   - **Stage overview and objectives** (based on previous stage context)
+   - **Owners:** Tech Manager (lead), Security Engineer, UI Designer, DevOps Engineer
+   - **What tech specs will include:**
+     - Technology stack selection with rationale
+     - Security posture and authentication approach
+     - Theme standards extracted from UX mockup (CRITICAL)
+     - Coding standards and best practices
+     - Testing standards and coverage requirements
+     - Security standards for secure coding
+   - **Methodology:**
+     - How tech stack will be selected (based on architecture + requirements)
+     - How theme will be extracted from mockup CSS (DO NOT invent values)
+   - **Deliverables planned:**
+     - List of files that will be created (tech-stack.md, theme-standards.md, etc.)
+   - **Budget allocation for this stage** (from cost-budget.md)
+   - **Status:** In Progress (update to "Completed" after implementation)
+
+3. **Present README to user:**
+   - Show the tech specs approach and what will be defined
+   - Show what documentation files will be created
+   - Explain how it aligns with previous stages
+   - Ask: "Does this tech specs plan look good? Should I proceed with defining technology stack and standards?"
+
+4. **Wait for user approval:**
+   - **If user says yes:** Proceed to Step 2
+   - **If user says no:**
+     - Ask what needs to be changed
+     - Update README based on feedback
+     - Ask for approval again
+
+### Step 2: Create/Update Tech Specs Structure
+
+**Only after user approves the README:**
+
+1. **Create files as specified in the approved README.md:**
+
+   **IMPORTANT:** The file structure below is a SAMPLE only. The actual files you create must follow what was approved in the README.md in Step 1.
+
+   **Typical structure (example):**
    ```
    07-tech-specs/
-   ├── README.md
-   ├── tech-stack.md
-   ├── security.md
-   ├── theme-standards.md
-   ├── coding-standards.md
-   ├── testing-standards.md
-   └── security-standards.md
+   ├── README.md (already created and approved in Step 1)
+   ├── tech-stack.md (if specified in README)
+   ├── security.md (if specified in README)
+   ├── theme-standards.md (if specified in README - MUST extract from UX mockup)
+   ├── coding-standards.md (if specified in README)
+   ├── testing-standards.md (if specified in README)
+   └── security-standards.md (if specified in README)
    ```
 
-### Step 2: Create/Update Technical Specifications Documentation
+   **Create only the files listed in the README's "Deliverables planned" section.**
 
-**If files already exist:** Update them based on latest context from architecture and UX. Refine tech choices, update standards, and ensure consistency.
+### Step 3: Create/Update Technical Specifications Documentation
 
-**If files don't exist:** Create new comprehensive tech specs documents.
+**IMPORTANT: Only create tech specs documentation after README is approved in Step 1.**
+
+**NOTE:** The content structure below provides GUIDELINES for typical tech specs documentation. Adapt based on the approved README and project needs.
 
 **07-tech-specs/README.md:**
 - Stage overview and objectives
@@ -575,7 +642,7 @@ Define secure coding rules and practices:
     - [ ] XSS prevention is in place
     - [ ] Error messages don't leak information
 
-### Step 3: Ensure Alignment
+### Step 4: Ensure Alignment
 
 Make sure tech specs align with:
 - Architecture from 06-architecture/
@@ -590,15 +657,21 @@ Verify that:
 - Testing standards ensure quality
 - Coding standards are clear and enforceable
 
-### Step 4: User Review
+### Step 5: Final User Review
 
-1. **Present the tech specs to the user:**
+1. **Inform user that tech specs are complete**
+2. **Update README.md:**
+   - Change **Status** from "In Progress" to "Completed"
+   - Add a **Summary** section with key insights (2-3 paragraphs)
+   - Add a **Created Files** section listing all created files
+
+3. **Present completed work to user:**
    - Review chosen tech stack and rationale
    - Show theme standards extracted from UX mockup
    - Explain security approach
    - Walk through coding and testing standards
 
-2. **Highlight key insights:**
+4. **Highlight key insights:**
    - Frontend framework choice and why
    - Backend framework choice and why
    - Database choice and why
@@ -606,16 +679,16 @@ Verify that:
    - Security compliance level
    - Test coverage requirements
 
-3. **Ask questions:**
+5. **Ask questions:**
    - Comfortable with tech stack choices?
    - Theme standards match their vision?
    - Any security concerns?
    - Testing requirements achievable?
    - Ready to proceed to next stage (DevOps)?
 
-4. Make adjustments based on user feedback
+6. Make adjustments based on user feedback if needed
 
-### Step 5: Commit to Git (if user confirms)
+### Step 6: Commit to Git (if user confirms)
 
 1. **If user confirms tech specs are complete:**
    - Ask if they want to commit to git
