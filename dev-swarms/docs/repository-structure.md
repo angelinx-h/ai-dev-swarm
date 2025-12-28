@@ -10,7 +10,7 @@ project-root/
 │    src/script_name.sh              # The script itself
 │
 ├─ 00-init-ideas/                    # Stage 0: define the problem
-│  ├─ README.md                      # Folder overview and guide
+│  ├─ README.md                      # Project and folder overview and guide
 │  ├─ problem-statement.md           # Clear problem definition and constraints
 │  ├─ target-users.md                # Who has the problem (high-level), primary audience
 │  ├─ value-proposition.md           # Why this solution matters and the core benefits

@@ -187,15 +187,6 @@ When new backlogs are created (by code review or test skills):
    - Otherwise, add to a planned sprint or create a new sprint
    - Update both `README.md` files in folder `09-sprints/` and sprint folder with priority order
 
-### Step 4: Archiving Completed Sprints
-
-When a sprint is completed:
-
-   **Move Sprint to Archive:**
-      - Move entire sprint folder from `09-sprints/` to `99-archive/09-sprints/`
-      - Maintain exact same structure in archive
-      - Update `README.md` to mark sprint as archived
-
 ## Expected Project Structure
 
 ```
@@ -209,13 +200,6 @@ project-root/
 │   │   ├── {BACKLOG_TYPE}-{feature-name-f}.md
 │   └── sprint-name-c/
 │       └── ...
-└── 99-archive/
-    ├── 09-sprints/
-    │   ├── sprint-name-a/ (completed sprints)
-    │   │   ├── README.md
-    │   │   ├── {BACKLOG_TYPE}-{feature-name-a}.md
-    │   │   ├── {BACKLOG_TYPE}-{feature-name-b}.md
-    └── ideas.md  
 ```
 
 ## Available Templates

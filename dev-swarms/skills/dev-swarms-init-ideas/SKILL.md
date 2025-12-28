@@ -125,10 +125,8 @@ Create the following documentation:
    - Ask if they want to commit to git
 2. **If user wants to commit:**
    - Create `99-archive/` folder if it doesn't exist
-   - Move `ideas.md` to `99-archive/ideas.md`
    - Stage all changes in `00-init-ideas/`
    - Stage the updated README.md
-   - Stage the archived ideas.md
    - Commit with message: "Initialize project with ideas documentation"
 
 ## Expected Output Structure
@@ -142,8 +140,6 @@ project-root/
 │   ├── target-users.md
 │   ├── value-proposition.md
 │   └── owner-requirement.md
-└── 99-archive/
-    └── ideas.md (moved here after commit)
 ```
 
 ## Key Principles
