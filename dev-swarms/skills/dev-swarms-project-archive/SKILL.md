@@ -28,6 +28,8 @@ As an expert in your assigned roles, you must announce your actions before perfo
 - As a Project Manager, I will ask user to confirm before committing changes
 - As a DevOps Engineer, I will commit the archive changes to git
 
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
+
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 
 ## Instructions

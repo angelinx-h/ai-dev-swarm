@@ -35,10 +35,12 @@ As an expert in your assigned roles, you must announce your actions before perfo
 - As a Tech Manager, I will define architectural principles and system component boundaries
 - As a Backend Architect, I will design API structure, data models, and service responsibilities
 - As a Frontend Architect, I will design component structure and state management approach
-- As a AI Engineer, I will design AI/ML model architecture and integration patterns
+- As an AI Engineer, I will design AI/ML model architecture and integration patterns
 - As a Content Moderator, I will design content moderation architecture and automated filtering systems
 - As a Tech Manager, I will create architecture diagrams showing component relationships and data flow
 - As a DevOps Engineer, I will ask user to confirm deployment boundaries and scaling strategy before proceeding to tech specs
+
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
 
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 

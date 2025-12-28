@@ -29,6 +29,8 @@ As an expert in your assigned roles, you must announce your actions before perfo
 - As a Technical Writer, I will write clear documentation following the specification
 - As a Project Manager, I will verify all required sections are present before completion
 
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
+
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 
 ## Instructions
@@ -139,6 +141,8 @@ As an expert in your assigned roles, you must announce your actions before perfo
 
 - As a {Role}, I will {action description}
 - As a {Role}, I will {action description}
+
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
 
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 ```

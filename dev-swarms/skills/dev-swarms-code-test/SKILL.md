@@ -54,6 +54,8 @@ As an expert in your assigned roles, you must announce your actions before perfo
 - As a QA Engineer, I will execute manual and automated tests across environments and devices
 - As a QA Engineer, I will analyze test results and create change/bug/improve backlogs for identified issues
 
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
+
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 
 ## Test Types Overview

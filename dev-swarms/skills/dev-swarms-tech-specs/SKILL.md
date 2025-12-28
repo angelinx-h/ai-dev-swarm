@@ -37,6 +37,8 @@ As an expert in your assigned roles, you must announce your actions before perfo
 - As a DevOps Engineer, I will review tech stack for deployment feasibility and infrastructure compatibility
 - As a Tech Manager, I will ask user to confirm tech stack choices and engineering standards before proceeding to DevOps setup
 
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
+
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 
 ## Instructions

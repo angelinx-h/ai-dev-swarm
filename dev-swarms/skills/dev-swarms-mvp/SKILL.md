@@ -35,6 +35,8 @@ As an expert in your assigned roles, you must announce your actions before perfo
 - As a UX Designer, I will simplify user flows to MVP essentials while maintaining usability
 - As a Product Manager, I will ask user to confirm MVP scope and success metrics before proceeding to PRD creation
 
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
+
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 
 ## Instructions

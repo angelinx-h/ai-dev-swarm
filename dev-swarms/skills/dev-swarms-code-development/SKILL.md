@@ -54,6 +54,8 @@ As an expert in your assigned roles, you must announce your actions before perfo
 - As a Tech Manager, I will ask user to confirm feature design approach before implementing code
 - As a Project Manager, I will create implementation documentation and update features knowledge base after completion
 
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
+
 This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 
 ## Instructions
