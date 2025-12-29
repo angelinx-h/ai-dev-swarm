@@ -27,19 +27,9 @@ This skill works with the following folder structure:
 - `08-devops/` - Environment/tooling readiness and constraints
 - `09-sprints/` - Active sprint and backlog management
 
-## Sprint and Backlog Guidelines Reference
+## Sprint and Backlog Guidelines (Read and Follow)
 
-This skill follows the sprint and backlog creation rules defined in `dev-swarms/docs/sprint-backlog-guidelines.md`. When creating or updating sprints and backlogs, ensure they follow these guidelines:
-
-**Key Rules from sprint-backlog-guidelines.md:**
-- **Backlog Size**: Maximum 150 lines of code (or equivalent logical scope)
-- **Testability**: Each backlog must be testable (unit test, UI test, CLI test, or log verification)
-- **Definition of Done**: Must state expected behavior, test method, and success criteria
-- **Sprint Size**: Maximum 7 backlog items per sprint
-- **Sprint Outcome**: Must be testable and reviewable
-- **Sprint Acceptance**: All backlog tests pass, demo/review completed, human approval obtained
-
-These rules ensure AI agents can move fast while humans maintain control and quality.
+This skill follows the rules in `dev-swarms/docs/sprint-backlog-guidelines.md`. Always read that file and apply it directly when creating or updating sprints and backlogs. Do not restate or paraphrase rules in this skill to avoid drift when the guideline changes.
 
 ## Your Roles in This Skill
 
@@ -101,7 +91,7 @@ There are 4 types of backlogs:
 - `BUG-payment-processing-refund.md`
 - `IMPROVE-user-auth-session.md`
 
-**Each step MUST update the backlog.md file to track progress and findings.**
+**Each step MUST update both the backlog.md and sprint README to track progress and findings.**
 
 ## Instructions
 
@@ -139,9 +129,9 @@ Follow these steps in order:
    - If NOT found: Will create new folder structure (requires README approval in Step 1)
    - If found: Read `sprints-index.md` to understand current sprint status
 
-5. **Check if `features/` folder exists:**
-   - If NOT found: no any feature completed, ignore it for now
-   - If found: Read `features-index.md` to understand implemented features
+5. **Do not read the `features/` knowledge base:**
+   - The Project Manager uses `feature-name` only to link backlogs to developer knowledge
+   - Do not open or validate `features/` content during sprint planning
 
 6. **Use templates for consistency:**
    - Templates are located in this skill's `templates/` folder
@@ -176,7 +166,7 @@ Follow these steps in order:
      - Backlog types (FEATURE/CHANGE/BUG/IMPROVE) and workflow
    - **Initial sprint estimate:**
      - Estimated number of sprints for MVP
-     - Estimated sprint duration (following sprint-backlog-guidelines.md: max 7 backlogs per sprint)
+    - Estimated sprint duration (following sprint-backlog-guidelines.md)
    - **Budget allocation for development** (from cost-budget.md)
    - **Status:** In Progress (update to "Completed" when project finishes)
 
@@ -206,47 +196,47 @@ When creating backlogs, each must include:
    - BACKLOG_TYPE: FEATURE, CHANGE, BUG, or IMPROVE (uppercase)
    - Place in sprint folder: `09-sprints/[sprint-name]/[BACKLOG_TYPE]-[feature-name]-<sub-feature>.md`
 
-2. **Size Constraint (from sprint-backlog-guidelines.md):**
-   - **Maximum 150 lines of code** (or equivalent logical scope)
-   - If backlog feels "big," split it into smaller backlogs
-   - Use LOC as a warning signal, judge by complexity and risk
+2. **Feature-Name (CRITICAL):**
+   - Each backlog file MUST include a `Feature Name` field in its metadata section.
+   - `Feature Name` MUST match the `feature-name` segment in the file name.
+   - If they do not match, stop and ask the user to confirm the correct feature name.
 
-3. **Title and Type:**
+3. **Size, Testability, and Definition of Done (from sprint-backlog-guidelines.md):**
+   - Follow the size limits, testability requirements, and definition of done rules exactly as written in the guidelines.
+   - If a backlog is too large, split it into smaller backlogs.
+
+4. **Title and Type:**
    - Clear, descriptive title
    - Type: FEATURE, CHANGE, BUG, or IMPROVE
    - If modifying existing feature, type should be CHANGE, BUG, or IMPROVE
 
-4. **Task Description:**
+5. **Task Description:**
    - What needs to be done from user perspective
    - Why this work is needed
    - Success criteria (Definition of Done)
    - How it relates to the overall feature
 
-5. **Reference Features Documentation:**
+6. **Reference Features:**
    - List related features from `features/features-index.md`
-   - These provide context without reading entire project
+   - The Project Manager does not read feature docs, but must ensure feature names are valid and consistent
 
-6. **Test Plan (MANDATORY per sprint-backlog-guidelines.md):**
-   - **MUST** specify at least one test method:
-     - Unit test
-     - UI testing (manual or automated)
-     - Command-line testing (curl, CLI tools)
-     - Log verification
-   - Define expected behavior
-   - Define test method
-   - Define success criteria
-   - Should be testable by non-technical users when possible
-   - A backlog without a clear test method is not valid
+7. **Test Plan (MANDATORY per sprint-backlog-guidelines.md):**
+   - Include a clear test method and success criteria
+   - Keep it executable by non-technical users when possible
 
-7. **Acceptance Criteria:**
+8. **Acceptance Criteria:**
    - Clear checklist of what must be done
    - Testable and verifiable
    - Defines when backlog is "Done"
 
-8. **Development Notes Section:**
+9. **Development Notes Section:**
    - Add empty sections for: Development, Code Review, Testing
    - Each role will fill in their findings as they work
    - Track progress through the dev -> review -> test workflow
+
+10. **Sprint Log Updates (CRITICAL):**
+   - Ensure the sprint README has a backlog status table and a progress log section.
+   - Each role must add a brief entry for their step (Development, Code Review, Testing).
 
 #### Updating Backlog Status
 
@@ -269,10 +259,7 @@ This creates a complete audit trail of the backlog's journey from creation to co
 
 **IMPORTANT: Get user approval before finalizing sprint plan.**
 
-**Follow sprint-backlog-guidelines.md:**
-- Maximum 7 backlog items per sprint
-- Sprint must be testable and reviewable
-- Sprint acceptance requires: all tests pass, demo/review completed, human approval
+**Follow sprint-backlog-guidelines.md for sprint size, testability, and acceptance rules.**
 
 #### Creating a Sprint
 
@@ -282,11 +269,10 @@ This creates a complete audit trail of the backlog's journey from creation to co
      - Clear objectives for the sprint
      - What will be delivered to end users
 
-   - **Backlog Selection (Maximum 7 backlogs per sprint-backlog-guidelines.md):**
-     - **CRITICAL**: No more than 7 backlog items
+   - **Backlog Selection (Per sprint-backlog-guidelines.md):**
      - Mix of FEATURE, CHANGE, BUG, and IMPROVE types
      - Consider dependencies between backlogs
-     - Ensure backlogs are properly sized (≤150 LOC each)
+     - Ensure backlogs are properly sized
      - Verify each backlog has a clear test method
 
    - **End User Test Plan:**
@@ -371,7 +357,4 @@ This skill provides the following templates in the `templates/` folder:
 3. **backlog.md** - Template for creating backlog file in each sprint folder
 
 Use these templates when creating new sprints and backlogs to ensure consistency across the project.
-
-
-
 

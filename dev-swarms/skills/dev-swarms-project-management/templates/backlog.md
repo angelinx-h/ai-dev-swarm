@@ -3,17 +3,18 @@
 ## Metadata
 
 - **Backlog Type**: [FEATURE | CHANGE | BUG | IMPROVE]
-- **Feature Name**: `[feature-name]` (CRITICAL: This is the index for all documentation and code)
+- **Feature Name**: `[feature-name]` (CRITICAL: Must match file name segment)
+- **Sub-feature**: `[sub-feature or n/a]` (Use only when a feature is too large to split)
 - **Created By**: [Role1, Role2] (If this backlog relates to multiple roles, specify each role name)
 - **Status**: [Not Started | In Development | In Code Review | In Testing | Done]
 - **Sprint**: [sprint-name]
-- **Estimated Size**: [~X lines of code] (MUST be ≤150 LOC per sprint-backlog-guidelines.md)
+- **Estimated Size**: [~X lines of code] (Follow sprint-backlog-guidelines.md)
 
 ## Description
 
 [Clear description of what needs to be done from the user's perspective]
 
-**Size Constraint:** This backlog should be ≤150 lines of code (or equivalent logical scope). If it feels "big," split into smaller backlogs.
+**Size Constraint:** Follow sprint-backlog-guidelines.md. If it feels "big," split into smaller backlogs.
 
 ### Why This Work Is Needed
 
@@ -71,6 +72,7 @@ This backlog is considered **Done** only when its test method(s) pass.
 ## Development Notes (Updated by AI Developer)
 
 **Status:** [Not Started | In Progress | Completed]
+**Sprint Log Entry:** [Add a short entry to the sprint README progress log]
 
 ### Files Created/Modified
 - `src/[feature-name]/[file].ts` - Brief description of changes
@@ -90,6 +92,7 @@ This backlog is considered **Done** only when its test method(s) pass.
 ## Code Review Notes (Updated by AI Code Reviewer)
 
 **Status:** [Not Started | In Progress | Completed]
+**Sprint Log Entry:** [Add a short entry to the sprint README progress log]
 
 ### Review Summary
 [Overall assessment of code quality]
@@ -121,6 +124,7 @@ This backlog is considered **Done** only when its test method(s) pass.
 ## Testing Notes (Updated by AI Tester)
 
 **Status:** [Not Started | In Progress | Completed]
+**Sprint Log Entry:** [Add a short entry to the sprint README progress log]
 
 ### Test Summary
 - Total tests executed: [count]

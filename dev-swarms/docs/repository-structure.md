@@ -2,6 +2,11 @@ project-root/
 ├─ README.md                         # What this repo is, AI agent should update this file from time to time
 ├─ ideas.md                          # The start engine of the AI builder
 │
+├─ dev-swarms/                       # AI builder framework and skills
+│  └─ docs/
+│     ├─ repository-structure.md     # This file
+│     └─ source-code-structure.md    # Guide for defining src/ structure in tech specs
+│
 │  NOTE:
 │  - This is the max doc list for each stage (large-scale projects).
 │  - Smaller scale projects (per dev-swarms/docs/software-dev-classification.md) can skip stages/files.

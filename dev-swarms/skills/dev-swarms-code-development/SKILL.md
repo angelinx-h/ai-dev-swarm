@@ -94,11 +94,14 @@ Follow these steps in order for coding development:
    └── sprint-name/
        └── [BACKLOG_TYPE]-[feature-name]-<sub-feature>.md
    ```
+   - Locate the sprint README at `09-sprints/[sprint-name]/README.md` for required progress log updates
 
 2. **Read the backlog file:**
    - Understand task description and requirements
    - Note backlog type (FEATURE/CHANGE/BUG/IMPROVE)
    - **Extract the `feature-name`** from the file name (CRITICAL)
+   - Verify `Feature Name` in backlog metadata matches the file name
+   - If they do not match, stop and ask the user to confirm the correct feature name
    - Review test plan requirements
    - Identify acceptance criteria
 
@@ -283,7 +286,11 @@ Before marking complete:
    - Note any important decisions or tradeoffs
    - Suggest next step: "Ready for code review"
 
-**This backlog.md update creates an audit trail for code review and testing phases.**
+5. **Update sprint README (README.md) (CRITICAL):**
+   - Update backlog status in the sprint backlog table
+   - Append a log entry in the sprint progress log for the Development step
+
+**These backlog.md and sprint README updates create the audit trail for code review and testing phases.**
 
 ## Expected File Structure
 

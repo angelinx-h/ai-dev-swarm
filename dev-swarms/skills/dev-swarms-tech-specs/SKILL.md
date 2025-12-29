@@ -96,7 +96,11 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current tech specs state
    - If NOT exists: Will create new structure
 
-8. Proceed to Step 1 with gathered context
+8. **Read source code structure guidance (mandatory):**
+   - Read `dev-swarms/docs/source-code-structure.md`
+   - Use it as the baseline when creating `07-tech-specs/source-code-structure.md`
+
+9. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -463,7 +467,7 @@ Define code style rules and conventions:
 
 **source-code-structure.md (CRITICAL - Code Organization in src/):**
 
-Define the organization and structure of source code under the `src/` folder based on the project's needs:
+Define the organization and structure of source code under the `src/` folder based on the project's needs. Follow `dev-swarms/docs/source-code-structure.md` as the baseline:
 
 1. **Overview:**
    - Explain the chosen code organization approach

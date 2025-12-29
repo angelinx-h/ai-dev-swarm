@@ -1,6 +1,8 @@
 # Title
 
-**Status**: [not-started | in-progress | in-review | testing | done ]
+**Status**: [not-started | in-progress | in-review | testing | done]
+**Sprint Window**: [start-date → end-date]
+**Owner**: [Project Manager]
 
 ## Sprint Goals
 
@@ -12,7 +14,7 @@
 - [ ] [BACKLOG_TYPE - feature name b]({BACKLOG_TYPE}-{feature-name-b}.md)
 - [ ] [BACKLOG_TYPE - feature name c]({BACKLOG_TYPE}-{feature-name-c}.md)
 
-> [x] marked as finished
+> Mark a backlog as finished only after Testing is complete.
 
 ## Key Deliverables
 
@@ -23,3 +25,7 @@
 
 
 ## End User Test Result
+
+## Backlog Progress Log (Required)
+
+Each step (Development, Code Review, Testing) MUST append a log entry.

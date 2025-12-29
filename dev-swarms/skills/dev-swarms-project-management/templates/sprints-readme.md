@@ -4,9 +4,10 @@
 
 ## Active Sprints
 
-* [x] [Sprint name](sprint-path)
-  - [x] [BACKLOG_TYPE - feature name a]({BACKLOG_TYPE}-{feature-name-a}.md)
-  - [ ] [BACKLOG_TYPE - feature name b]({BACKLOG_TYPE}-{feature-name-b}.md)
-  - [ ] [BACKLOG_TYPE - feature name c]({BACKLOG_TYPE}-{feature-name-c}.md)
+* [in-progress] [Sprint name](sprint-path)
+  - [In Development] [BACKLOG_TYPE-feature-name-a.md](BACKLOG_TYPE-feature-name-a.md)
+  - [In Code Review] [BACKLOG_TYPE-feature-name-b.md](BACKLOG_TYPE-feature-name-b.md)
+  - [In Testing] [BACKLOG_TYPE-feature-name-c.md](BACKLOG_TYPE-feature-name-c.md)
 
-> [x] marked as finished
+* [done] [Sprint name](sprint-path)
+  - [Done] [BACKLOG_TYPE-feature-name-x.md](BACKLOG_TYPE-feature-name-x.md)
