@@ -117,7 +117,12 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 **What you need:**
 1. A computer (Mac, Windows, or Linux)
-2. Access to Claude Code or OpenAI Codex (AI coding assistants)
+2. One of these AI code agents:
+   - **Claude Code**
+   - **OpenAI Codex**
+   - **GitHub Copilot CLI**
+   - **opencode**
+   - **Gemini CLI** (requires MCP server setup)
 3. Git installed (for saving your work)
 4. Your idea written down
 
@@ -178,13 +183,29 @@ A simple website where homeowners can post repair jobs and local handymen can re
 
 ### Step 3: Start Your AI Journey
 
-Open Claude Code or OpenAI Codex in your project folder and type:
+Open your AI code agent (Claude Code, Codex, Copilot CLI, etc.) in your project folder.
 
+**Optional but recommended - Refine your ideas first:**
 ```
+# For Claude Code / Copilot CLI / opencode:
+/ideas-refine
+
+# For OpenAI Codex:
+/prompts:ideas-refine
+```
+
+This will help AI polish your ideas.md and ask clarifying questions before you begin.
+
+**Then start Stage 0:**
+```
+# For Claude Code / Copilot CLI / opencode:
 /stage 0
+
+# For OpenAI Codex:
+/prompts:stage 0
 ```
 
-or simply:
+or simply type in plain English:
 
 ```
 Let's start! I want to build my project from the ideas.md file
@@ -591,27 +612,72 @@ As a QA Tester, I will verify the authentication flow...
 
 Slash commands are shortcuts to trigger specific actions. Think of them as quick buttons.
 
+### Supported AI Code Agents
+
+**Native Agent Skills Support (use `/command` format):**
+- **Claude Code** ✅ (recommended)
+- **GitHub Copilot CLI** ✅
+- **opencode** ✅
+
+**Via Symlink Setup (use `/prompts:command` format):**
+- **OpenAI Codex** (requires setup - see below)
+
+**Via MCP Server (requires MCP setup):**
+- **Gemini CLI** (see README.md for configuration)
+
+---
+
 ### Available Commands
 
-**OpenAI Codex User**
+**All 7 slash commands:**
 
-> **Note:** OpenAI Codex does not support project-level slash commands natively. The workaround below creates a global symlink to enable these commands.
+| Command | Claude Code / Copilot / opencode | OpenAI Codex | Description |
+|---------|----------------------------------|--------------|-------------|
+| stage | `/stage` | `/prompts:stage` | Start or jump to a development stage |
+| ideas-refine | `/ideas-refine` | `/prompts:ideas-refine` | Refine your ideas.md file |
+| skip | `/skip` | `/prompts:skip` | Skip a stage that's not needed |
+| dev | `/dev` | `/prompts:dev` | Develop a feature (code only) |
+| review | `/review` | `/prompts:review` | Review code quality |
+| test | `/test` | `/prompts:test` | Test a feature |
+| backlog | `/backlog` | `/prompts:backlog` | Complete workflow: dev → review → test |
+
+---
+
+### Setup for OpenAI Codex Users
+
+> **Important:** OpenAI Codex requires a symlink to enable slash commands, and all commands must use the `/prompts:command` format.
 
 ```bash
-# For OpenAI Codex users: create a symlink to enable slash commands
-# Note: All slash commands will use the `/prompts:command` format
-ln -s /this-project-absolute-path/.claude/commands ~/.codex/prompts
+# Create symlink to enable slash commands in Codex
+ln -s /absolute/path/to/your-project/.claude/commands ~/.codex/prompts
+
+# Example:
+ln -s /Users/yourname/projects/ai-dev-swarm/.claude/commands ~/.codex/prompts
 ```
+
+**After setup, use commands like:**
+```
+/prompts:stage 0
+/prompts:ideas-refine
+/prompts:backlog login
+```
+
+---
 
 #### `/stage [number or name]`
 **Purpose:** Start or jump to a specific development stage
 
 **Examples:**
 ```
+# Claude Code / Copilot / opencode:
 /stage 0              → Start with init-ideas
 /stage 1              → Start market research
 /stage mvp            → Jump to MVP definition
 /stage architecture   → Jump to architecture stage
+
+# OpenAI Codex:
+/prompts:stage 0
+/prompts:stage mvp
 ```
 
 **When to use:** Beginning a new stage or jumping to a specific stage
@@ -623,8 +689,13 @@ ln -s /this-project-absolute-path/.claude/commands ~/.codex/prompts
 
 **Examples:**
 ```
+# Claude Code / Copilot / opencode:
 /dev login            → Implement login feature
 /dev user-profile     → Implement user profile feature
+
+# OpenAI Codex:
+/prompts:dev login
+/prompts:dev user-profile
 ```
 
 **When to use:** When you want AI to write code for a specific backlog
@@ -636,8 +707,13 @@ ln -s /this-project-absolute-path/.claude/commands ~/.codex/prompts
 
 **Examples:**
 ```
+# Claude Code / Copilot / opencode:
 /review login         → Review login code
 /review user-profile  → Review profile code
+
+# OpenAI Codex:
+/prompts:review login
+/prompts:review user-profile
 ```
 
 **When to use:** After development, to check code quality
@@ -649,8 +725,13 @@ ln -s /this-project-absolute-path/.claude/commands ~/.codex/prompts
 
 **Examples:**
 ```
+# Claude Code / Copilot / opencode:
 /test login           → Test login functionality
 /test user-profile    → Test profile feature
+
+# OpenAI Codex:
+/prompts:test login
+/prompts:test user-profile
 ```
 
 **When to use:** After development and review, to verify it works
@@ -662,13 +743,69 @@ ln -s /this-project-absolute-path/.claude/commands ~/.codex/prompts
 
 **Examples:**
 ```
+# Claude Code / Copilot / opencode:
 /backlog login        → Full cycle for login
 /backlog user-profile → Full cycle for profile
+
+# OpenAI Codex:
+/prompts:backlog login
+/prompts:backlog user-profile
 ```
 
 **When to use:** When you want complete end-to-end processing of a feature
 
 **This is the most common command during development!**
+
+---
+
+#### `/skip [stage-number-or-name]`
+**Purpose:** Skip a development stage by creating SKIP.md file
+
+**Examples:**
+```
+# Claude Code / Copilot / opencode:
+/skip 1               → Skip market research
+/skip market-research → Skip market research
+/skip ux              → Skip UX design
+/skip 5               → Skip UX design
+
+# OpenAI Codex:
+/prompts:skip 1
+/prompts:skip ux
+```
+
+**When to use:** When a stage is not needed for your project type (e.g., L2 tools might skip market research, UX, architecture, and deployment)
+
+**Note:** Stage 0 (init-ideas) should never be skipped as it classifies your project and determines which stages are necessary.
+
+---
+
+#### `/ideas-refine`
+**Purpose:** Refine ideas.md into a professional draft via collaborative brainstorming
+
+**Examples:**
+```
+# Claude Code / Copilot / opencode:
+/ideas-refine         → Refine your ideas.md file
+
+# OpenAI Codex:
+/prompts:ideas-refine
+```
+
+**When to use:**
+- After writing your initial rough ideas
+- Before starting Stage 0 to polish your ideas
+- When you want AI to help structure your thoughts better
+- To get clarifying questions about your idea
+
+**What it does:**
+- Reads your ideas.md file
+- Tightens wording and improves structure
+- Preserves your original intent and tone
+- Adds helpful prompts where gaps exist
+- Provides clarifying questions to help you think through your idea
+
+**This is especially useful for first-time users who aren't sure how detailed their ideas.md should be!**
 
 ---
 
@@ -678,6 +815,7 @@ ln -s /this-project-absolute-path/.claude/commands ~/.codex/prompts
 
 **Option 1: Step by step**
 ```
+# For Claude Code / Copilot CLI / opencode:
 You: /dev login
 [AI writes the code]
 
@@ -686,19 +824,31 @@ You: /review login
 
 You: /test login
 [AI tests thoroughly, creates more bug/improve backlogs if needed]
+
+# For OpenAI Codex:
+You: /prompts:dev login
+You: /prompts:review login
+You: /prompts:test login
 ```
 
-**Option 2: All at once**
+**Option 2: All at once (recommended)**
 ```
+# For Claude Code / Copilot CLI / opencode:
 You: /backlog login
+[AI does all three steps automatically]
+
+# For OpenAI Codex:
+You: /prompts:backlog login
 [AI does all three steps automatically]
 ```
 
-**Recommendation:** Use `/backlog` for most features. It's faster and ensures nothing is skipped.
+**Recommendation:** Use `/backlog` (or `/prompts:backlog` for Codex) for most features. It's faster and ensures nothing is skipped.
 
 ---
 
 ## Complete Workflow Examples
+
+> **Note:** Examples below use Claude Code format (`/command`). If you're using OpenAI Codex, add `prompts:` prefix (e.g., `/prompts:stage`, `/prompts:backlog`).
 
 ### Example 1: Build a Personal Budget Tracker (Level 2)
 
@@ -729,7 +879,14 @@ Just me (personal tool)
 - Export to CSV
 ```
 
-2. **Start Stage 0:**
+2. **Refine your ideas (optional):**
+```
+You: /ideas-refine
+AI: [Polishes your ideas and asks clarifying questions]
+You: [Answer questions and approve refined version]
+```
+
+3. **Start Stage 0:**
 ```
 You: /stage 0
 ```
@@ -739,13 +896,23 @@ AI will:
 - Create problem statement
 - Create target user doc (you!)
 - Estimate cost (~$2-5)
+- Suggest skipping stages 1, 5, 6, 10 (typical for L2 tools)
 - Ask for approval
 
 ```
 You: Looks good, proceed
 ```
 
-3. **Skip to Stage 4 (PRD):**
+4. **Skip unnecessary stages:**
+```
+You: /skip 1
+You: /skip 5
+You: /skip 6
+```
+
+AI will create SKIP.md files for market research, UX, and architecture.
+
+5. **Skip to Stage 4 (PRD):**
 ```
 You: /stage prd
 ```
@@ -755,7 +922,7 @@ AI creates:
 - Performance expectations
 - You review and approve
 
-4. **Stage 7 (Tech Specs):**
+6. **Stage 7 (Tech Specs):**
 ```
 You: /stage tech-specs
 ```
@@ -770,7 +937,7 @@ AI might propose:
 
 #### Day 2: Development Setup (30 minutes)
 
-5. **Stage 8 (DevOps):**
+7. **Stage 8 (DevOps):**
 ```
 You: /stage devops
 ```
@@ -784,7 +951,7 @@ AI sets up:
 
 #### Day 3-5: Build Features (2-4 hours total)
 
-6. **Stage 9 (Sprints):**
+8. **Stage 9 (Sprints):**
 ```
 You: /stage sprints
 ```
@@ -800,7 +967,7 @@ Sprint 1: Core Functionality
 
 You approve the plan
 
-7. **Build each feature:**
+9. **Build each feature:**
 ```
 You: /backlog add-expense
 [AI develops, reviews, tests the feature]
@@ -815,7 +982,7 @@ You: /backlog csv-export
 [AI develops, reviews, tests the feature]
 ```
 
-8. **Test it yourself:**
+10. **Test it yourself:**
 ```
 You: How do I run this?
 
@@ -825,7 +992,7 @@ $ python budget.py summary
 $ python budget.py export --month 2024-01
 ```
 
-You try it, it works! You're done!
+You try it, it works! Since this is an L2 tool that runs locally, you don't need Stage 10 (deployment). You're done!
 
 ---
 
@@ -840,6 +1007,7 @@ You try it, it works! You're done!
 
 **Day 1: Stages 0-1**
 - Write detailed ideas.md
+- `/ideas-refine` - Polish your ideas and get clarifying questions (optional but helpful)
 - `/stage 0` - Define problem, users, value
 - `/stage 1` - AI researches competitors (TaskRabbit, Nextdoor, etc.)
 
@@ -1225,10 +1393,18 @@ A:
 
 **Q: What AI tools work with this?**
 A:
+
+**Native Agent Skills Support (easiest):**
 - Claude Code (recommended)
-- OpenAI Codex (works great)
-- Gemini CLI (via MCP server configuration)
-- Any AI that supports Agent Skills or MCP
+- GitHub Copilot CLI
+- opencode
+
+**Via Symlink Setup:**
+- OpenAI Codex (requires symlink, use `/prompts:command` format)
+
+**Via MCP Server:**
+- Gemini CLI (requires MCP server configuration)
+- Any AI that supports MCP protocol
 
 **Q: Where does my code run?**
 A:
@@ -1344,6 +1520,7 @@ https://juniorit.ai/virtual-office
 - [ ] Clone it to your computer
 - [ ] Write your idea in ideas.md
 - [ ] Open Claude Code or Codex in the project folder
+- [ ] (Optional) Type `/ideas-refine` to polish your ideas
 - [ ] Type `/stage 0` or "Let's start!"
 - [ ] Answer AI's questions
 - [ ] Review and approve the first documents
