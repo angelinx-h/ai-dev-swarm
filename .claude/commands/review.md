@@ -7,7 +7,7 @@ Review the backlog implementation for quality and compliance.
 
 Backlog file location: @09-sprints/**/*{$ARGUMENTS}*.md
 
-Use agent skill `dev-swarms-code-review` to review the implementation.
+Use agent skill `dev-swarm-code-review` to review the implementation.
 
 Backlog name: $ARGUMENTS
 

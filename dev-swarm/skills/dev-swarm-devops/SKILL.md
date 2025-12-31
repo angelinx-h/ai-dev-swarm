@@ -1,0 +1,358 @@
+---
+name: dev-swarm-devops
+description: Setup development environment, MCP tools, GitHub repository, and Docker configurations. Use when user asks to setup devops, configure development environment, or start Stage 8 after tech specs.
+---
+
+# AI Builder - DevOps Setup
+
+This skill sets up the development environment foundation, including local/cloud environment setup, MCP tools configuration, GitHub repository settings, and Docker/Dev Container configurations.
+
+## When to Use This Skill
+
+- User asks to setup devops or development environment
+- User wants to configure GitHub repository
+- User needs MCP tools setup for AI agent
+- User wants Docker or Dev Container configuration
+- Start Stage 8 after tech specs are defined
+- When `git remote -v` shows no remote repository linked
+
+## Your Roles in This Skill
+
+- **DevOps Engineer**: Setup and configure development environments, CI/CD pipelines, and deployment infrastructure. Identify the best local or cloud development setup based on project requirements and ensure all tools are properly configured for AI agent usage.
+- **Infrastructure Architect**: Design and implement scalable, secure infrastructure solutions. Make decisions on containerization, environment isolation, and development workflow optimization.
+
+## Role Communication
+
+As an expert in your assigned roles, you must announce your actions before performing them using the following format:
+
+- As a DevOps Engineer, I will assess current environment and identify required MCP tools and configurations
+- As a Infrastructure Architect, I will design development container configuration with appropriate tools and dependencies
+- As a DevOps Engineer, I will create setup plan files for GitHub repository, MCP tools, and dev containers
+- As a DevOps Engineer, I will ask user to confirm setup plans before executing any configuration changes
+- As a DevOps Engineer, I will execute setup tasks and fix any errors encountered during configuration
+- As a DevOps Engineer, I will verify all setups are working and update documentation to reflect actual environment
+
+**Note:** Combine multiple roles when performing related tasks. For example: "As a Tech Manager and Backend Architect, I will..." or "As a Frontend Architect and AI Engineer, I will..."
+
+This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
+
+## Instructions
+
+Follow these steps in order:
+
+### Step 0: Verify Prerequisites and Gather Context
+
+1. **Check if `07-tech-specs/` folder exists (mandatory):**
+   - If NOT found: Inform user they need to define tech specs first, then STOP
+   - If found: Read all files to understand:
+     - Technology stack chosen
+     - Development tools needed
+     - Infrastructure requirements
+
+2. **Check if `00-init-ideas/` folder exists (recommended):**
+   - If found: Read to understand all files
+
+3. **Check if this stage should be skipped:**
+   - Check if `08-devops/SKIP.md` exists
+   - **If SKIP.md exists:**
+     - Read SKIP.md to understand why this stage was skipped
+     - Inform the user: "Stage 8 (devops) is marked as SKIP because [reason from SKIP.md]"
+     - Ask the user: "Would you like to proceed to the next stage (sprints)?"
+     - **If user says yes:**
+       - Exit this skill and inform them to run the next stage skill
+     - **If user says no:**
+       - Ask if they want to proceed with devops anyway
+       - If yes, delete SKIP.md and continue with this skill
+       - If no, exit the skill
+
+4. **Check if `08-devops/` folder exists:**
+   - If exists: Read all existing files to understand current state
+   - If NOT exists: Will create new structure
+
+5. **Assess Current Environment:**
+   - Run `git remote -v` to check if remote repository is linked
+   - Check if `.git` directory exists
+   - Look for existing MCP tools configuration
+   - Check for `.devcontainer/` folder
+   - Check for `Dockerfile` or `docker-compose.yml`
+
+6. **Analyze Project Requirements:**
+   - Based on the tech stack (from `07-tech-specs/`), determine if project needs:
+     - Local development only
+     - Cloud development environment
+     - Containerized development
+     - Specific MCP tools (Playwright, GitHub, AWS, etc.)
+   - Identify complexity level:
+     - **Basic**: Simple projects with minimal setup
+     - **Standard**: Projects requiring GitHub + basic MCP tools
+     - **Complex**: Projects requiring full cloud setup, multiple MCP tools, advanced Docker configurations
+
+7. Proceed to Step 1 with gathered context
+
+### Step 1: Refine Design Requirements in README and Get Approval
+
+**CRITICAL: Create/update README.md first based on previous stage results, get user approval, then create setup plan files.**
+
+1. **Analyze information from previous stages:**
+   - Read `07-tech-specs/` to understand technology stack and tools
+   - Consider cost-budget constraints for this stage
+   - Assess current environment status
+
+2. **Create or update 08-devops/README.md with refined requirements:**
+   - List deliverables explicitly in README (typical: github-setup.md, mcp-setup.md, vscode-devcontainer.md)
+   - **Stage overview and objectives** (based on previous stage context)
+   - **Owners:** DevOps Engineer (lead), Infrastructure Architect
+   - **What devops setup will include:**
+     - GitHub repository setup (if needed)
+     - MCP tools configuration (list which tools)
+     - Development container setup (if needed)
+     - CI/CD pipeline configuration (if applicable)
+   - **Methodology:**
+     - How environment will be configured
+     - What tools will be installed
+   - **Deliverables planned:**
+     - List of files that will be created (github-setup.md, mcp-setup.md, etc.)
+   - **Budget allocation for this stage** (from cost-budget.md)
+   - **Status:** In Progress (update to "Completed" after implementation)
+
+3. **Present README to user:**
+   - Show the devops approach and what will be configured
+   - Show what setup files will be created
+   - Explain how it aligns with previous stages and tech stack
+   - Ask: "Does this devops setup plan look good? Should I proceed with creating setup configurations?"
+
+4. **Wait for user approval:**
+   - **If user says yes:** Proceed to Step 2
+   - **If user says no:**
+     - Ask what needs to be changed
+     - Update README based on feedback
+     - Ask for approval again
+
+### Step 2: Create Setup Plan Files
+
+**Only after user approves the README:**
+
+**IMPORTANT:** The file structure below is a SAMPLE only. The actual files you create must follow what was approved in the README.md in Step 1.
+
+**These files serve dual purposes:**
+1. **Initially**: Setup plans/instructions for user approval
+2. **Finally**: Documentation of the actual environment (source of truth for future reset/update)
+
+1. **Create files as specified in the approved README.md:**
+
+   **Typical structure (example):**
+   ```
+   08-devops/
+   ├── README.md (already created and approved in Step 1)
+   ├── github-setup.md (if specified in README)
+   ├── mcp-setup.md (if specified in README)
+   └── vscode-devcontainer.md (if specified in README)
+   ```
+
+   **Create only the files listed in the README's "Deliverables planned" section.**
+
+2. **Create setup plan files with proposed configurations:**
+
+**NOTE:** The content structure below provides GUIDELINES for typical devops setup files. Adapt based on the approved README and project needs.
+
+**github-setup.md (if specified in README - Setup Plan):**
+Write as a setup plan with:
+- Proposed GitHub repository settings
+- Branch protection rules to be configured
+- PR template to be created
+- GitHub Actions workflows (if applicable)
+- Issue templates (if needed)
+- Repository permissions plan
+- Clear step-by-step setup instructions
+
+**mcp-setup.md (Setup Plan):**
+Write as a setup plan with:
+- List of MCP tools to be installed/configured
+- Installation steps for each MCP tool
+- Configuration details (file locations, settings)
+- Required environment variables and credentials
+- Permission requirements
+- Test commands to verify each tool
+- Clear step-by-step setup instructions
+
+**vscode-devcontainer.md (Setup Plan):**
+Write as a setup plan with:
+- Dev Container configuration to be created
+- Dockerfile contents
+- docker-compose.yml contents (if needed)
+- VS Code extensions to install
+- Environment variables to set
+- Port forwarding configuration
+- Volume mounts specification
+- Post-create commands
+- Clear step-by-step setup instructions
+
+### Step 3: Get User Confirmation
+
+1. Present all setup plan files to the user
+2. Explain what will be configured/installed
+3. Ask user to review and confirm before proceeding
+4. Make any adjustments based on user feedback
+5. **DO NOT PROCEED** until user explicitly confirms
+
+### Step 4: Execute Setup Tasks
+
+**ONLY AFTER USER CONFIRMATION**, execute each setup:
+
+1. **Execute GitHub Setup:**
+   - Follow steps in `github-setup.md`
+   - If no remote: Guide/help user create GitHub repository
+   - Link local repository to remote using `git remote add`
+   - Create branch protection rules (via GitHub CLI or web)
+   - Create PR templates in `.github/PULL_REQUEST_TEMPLATE.md`
+   - Create issue templates if specified
+   - **Fix any errors encountered during setup**
+   - Retry failed steps with corrections
+
+2. **Execute MCP Tools Setup:**
+   - Follow steps in `mcp-setup.md`
+   - Install/configure each MCP tool specified
+   - Setup required credentials and environment variables
+   - Create/update MCP configuration files
+   - Test each MCP tool connectivity
+   - **Fix any errors encountered during setup**
+   - Retry failed steps with corrections
+   - Document any manual steps user needs to complete
+
+3. **Execute Dev Container Setup:**
+   - Follow steps in `vscode-devcontainer.md`
+   - Create `.devcontainer/` folder
+   - Create `devcontainer.json` with specified configuration
+   - Create `Dockerfile` with specified contents
+   - Create `docker-compose.yml` if specified
+   - Build container to test
+   - **Fix any errors encountered during setup**
+   - Retry failed steps with corrections
+   - Fix Dockerfile or configuration issues as needed
+
+### Step 5: Verification and Testing
+
+For each completed setup:
+
+1. **Verify GitHub setup:**
+   - Run `git remote -v` to confirm remote is linked
+   - Check branch protection rules are applied
+   - Verify PR templates exist and are formatted correctly
+   - Test creating a test PR (if applicable)
+
+2. **Verify MCP tools:**
+   - Test each configured MCP tool with simple commands
+   - Ensure AI agent can access MCP tools
+   - Verify permissions are correctly set
+   - Check environment variables are loaded
+   - Document any issues or limitations
+
+3. **Verify Dev Container:**
+   - Successfully build container without errors
+   - Start container and verify it runs
+   - Check all specified tools/extensions are available
+   - Test volume mounts work correctly
+   - Verify port forwarding is configured
+   - Test development workflow inside container
+
+### Step 6: Update Documentation Files
+
+**CRITICAL**: Update all setup files to reflect actual environment:
+
+1. **Update github-setup.md:**
+   - Change from "setup plan" to "current configuration"
+   - Document actual repository URL, settings applied
+   - Document actual branch protection rules in place
+   - Note any deviations from original plan
+   - Add verification results
+   - Add troubleshooting notes for any issues encountered
+
+2. **Update mcp-setup.md:**
+   - Change from "setup plan" to "current configuration"
+   - Document actual MCP tools installed and versions
+   - Document actual configuration file locations and contents
+   - Document actual environment variables set
+   - Add verification results
+   - Add troubleshooting notes for any issues encountered
+   - Document how to reset/reinstall each tool
+
+3. **Update vscode-devcontainer.md:**
+   - Change from "setup plan" to "current configuration"
+   - Document actual container configuration
+   - Add notes about successful build settings
+   - Document any modifications made during setup
+   - Add verification results
+   - Add troubleshooting notes for any issues encountered
+   - Document how to rebuild/reset the container
+
+4. **Update 08-devops/README.md:**
+   - Update current environment status to "Configured"
+   - Add summary of what was set up
+   - Add links to verification results
+   - Note date of setup completion
+
+**These updated files now serve as the source of truth for:**
+- Future environment resets
+- Environment updates
+- Onboarding new team members
+- Debugging environment issues
+
+### Step 7: Final User Review
+
+1. **Inform user that devops setup is complete**
+2. **Update README.md:**
+   - Change **Status** from "In Progress" to "Completed"
+   - Add a **Summary** section with key insights (2-3 paragraphs)
+   - Add a **Created Files** section listing all created files
+
+3. **Present completed work to user:**
+   - Show the updated documentation showing actual configuration
+   - Show verification results for all setups
+   - Confirm everything is working as expected
+
+4. Ask if they want to proceed to `09-sprints/` (next stage)
+5. Make any final adjustments based on user feedback if needed
+
+### Step 8: Commit to Git
+
+1. **Ask user if they want to commit the setup:**
+   - Stage all changes in `08-devops/`
+   - Stage `.devcontainer/` files (if created)
+   - Stage `.github/` files (if created)
+   - Stage any configuration files (MCP configs, etc.)
+   - Commit with message: "Setup DevOps environment and configurations"
+
+2. **Optionally push to remote** (if GitHub was set up)
+
+## Expected Output Structure
+
+```
+project-root/
+├── 08-devops/
+│   ├── README.md (with owner and attendances)
+│   ├── github-setup.md
+│   ├── mcp-setup.md
+│   └── vscode-devcontainer.md
+├── .devcontainer/ (if applicable)
+│   ├── devcontainer.json
+│   ├── Dockerfile
+│   └── docker-compose.yml (optional)
+└── .github/ (if GitHub setup)
+    ├── PULL_REQUEST_TEMPLATE.md
+    └── ISSUE_TEMPLATE/ (optional)
+```
+
+## Key Principles
+
+- **Dual-purpose documentation**: Setup files serve as both initial plans and final documentation
+- **Get confirmation first**: Always get user approval before executing setup tasks
+- **Fix errors proactively**: When errors occur during setup, fix them and retry automatically
+- **Update documentation**: After execution, update files to reflect actual environment state
+- **Source of truth**: Final documentation becomes the authoritative reference for environment reset/update
+- Identify the right level of complexity for the project
+- Setup should enable AI agent to work autonomously
+- All configurations should be version-controlled
+- Security and permissions should be properly configured
+- Development environment should be reproducible
+- MCP tools should be tested and verified
+- Documentation should be clear for both humans and AI agents

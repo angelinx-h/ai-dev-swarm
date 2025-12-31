@@ -4,7 +4,7 @@ Implement the backlog using the development workflow.
 
 Backlog file location: @09-sprints/**/*{{args}}*.md
 
-Use agent skill `dev-swarms-code-development` to implement the backlog.
+Use agent skill `dev-swarm-code-development` to implement the backlog.
 
 Backlog name: {{args}}
 

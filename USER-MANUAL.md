@@ -535,20 +535,20 @@ Think of them as specialized AI assistants. Each skill is like hiring an expert 
 
 | Skill Name | What They Do | When to Use |
 |------------|--------------|-------------|
-| `dev-swarms-init-ideas` | Business analyst who organizes your ideas | Starting a new project |
-| `dev-swarms-market-research` | Market researcher who analyzes competitors | Validating your market |
-| `dev-swarms-personas` | UX researcher who defines users | Understanding your audience |
-| `dev-swarms-mvp` | Product manager who scopes MVP | Deciding what to build first |
-| `dev-swarms-prd` | Product manager who writes requirements | Documenting all features |
-| `dev-swarms-ux` | UX designer who creates user flows | Designing the experience |
-| `dev-swarms-architecture` | Software architect who designs system | Planning technical structure |
-| `dev-swarms-tech-specs` | Technical lead who chooses technology | Selecting tools and standards |
-| `dev-swarms-devops` | DevOps engineer who sets up tools | Preparing development |
-| `dev-swarms-project-management` | Project manager who plans sprints | Organizing development work |
-| `dev-swarms-code-development` | Software engineer who writes code | Building features |
-| `dev-swarms-code-review` | Code reviewer who checks quality | Ensuring code quality |
-| `dev-swarms-code-test` | QA tester who tests everything | Verifying it works |
-| `dev-swarms-deployment` | DevOps engineer who deploys | Launching to production |
+| `dev-swarm-init-ideas` | Business analyst who organizes your ideas | Starting a new project |
+| `dev-swarm-market-research` | Market researcher who analyzes competitors | Validating your market |
+| `dev-swarm-personas` | UX researcher who defines users | Understanding your audience |
+| `dev-swarm-mvp` | Product manager who scopes MVP | Deciding what to build first |
+| `dev-swarm-prd` | Product manager who writes requirements | Documenting all features |
+| `dev-swarm-ux` | UX designer who creates user flows | Designing the experience |
+| `dev-swarm-architecture` | Software architect who designs system | Planning technical structure |
+| `dev-swarm-tech-specs` | Technical lead who chooses technology | Selecting tools and standards |
+| `dev-swarm-devops` | DevOps engineer who sets up tools | Preparing development |
+| `dev-swarm-project-management` | Project manager who plans sprints | Organizing development work |
+| `dev-swarm-code-development` | Software engineer who writes code | Building features |
+| `dev-swarm-code-review` | Code reviewer who checks quality | Ensuring code quality |
+| `dev-swarm-code-test` | QA tester who tests everything | Verifying it works |
+| `dev-swarm-deployment` | DevOps engineer who deploys | Launching to production |
 
 ---
 
@@ -1491,10 +1491,10 @@ Best use: Validate ideas before hiring a team
 ### Documentation
 
 **Read these files in the project:**
-- `dev-swarms/docs/ai-agile-development.md` - Understand the methodology
-- `dev-swarms/docs/ai-feature-driven-development.md` - Feature approach
-- `dev-swarms/docs/repository-structure.md` - Folder organization
-- `dev-swarms/docs/software-dev-classification.md` - Project sizing
+- `dev-swarm/docs/ai-agile-development.md` - Understand the methodology
+- `dev-swarm/docs/ai-feature-driven-development.md` - Feature approach
+- `dev-swarm/docs/repository-structure.md` - Folder organization
+- `dev-swarm/docs/software-dev-classification.md` - Project sizing
 
 ---
 

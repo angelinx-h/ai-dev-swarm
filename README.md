@@ -37,7 +37,7 @@ For `Gemini CLI` or other AI Agents that do not support Agent skills natively, y
       "command": "uvx",
       "args": [
         "skillz@latest",
-        "/project-root-absolute-path/dev-swarms/skills",
+        "/project-root-absolute-path/dev-swarm/skills",
         "--verbose"
       ]
     }
@@ -71,7 +71,7 @@ Start with your ideas in `ideas.md`, then progress through structured stages:
 ## Key Features (Planned)
 
 - **MCP Protocol Integration**: Standard stdio transport for maximum compatibility
-- **Automatic Skill Discovery**: Dynamically discovers and registers all dev-swarms skills
+- **Automatic Skill Discovery**: Dynamically discovers and registers all dev-swarm skills
 - **Context Injection**: Injects skill instructions into AI agent sessions
 - **Smart Path Resolution**: Handles file paths relative to project root
 - **Python + FastMCP**: Modern, reliable implementation with uv for dependency management
@@ -85,12 +85,12 @@ Start with your ideas in `ideas.md`, then progress through structured stages:
 
 **For Experienced Users:**
 1. Review the initial project documentation in `00-init-ideas/`
-2. Follow the dev-swarms methodology through each stage
+2. Follow the dev-swarm methodology through each stage
 3. Use AI agents to accelerate development and maintain quality
 
 ## Skills Available
 
-This project uses the dev-swarms framework skills:
+This project uses the dev-swarm framework skills:
 - **init-ideas** - Project kickoff and idea formalization
 - **market-research** - Market validation and competitive analysis
 - **personas** - User personas and story creation
@@ -110,7 +110,7 @@ This project uses the dev-swarms framework skills:
 ## Documentation
 
 - **[User Manual](USER-MANUAL.md)** - Complete beginner-friendly guide covering all stages, workflows, and examples
-- **Repository Structure** - See `dev-swarms/docs/repository-structure.md` for folder organization
+- **Repository Structure** - See `dev-swarm/docs/repository-structure.md` for folder organization
 - **Stage Documentation** - Organized in numbered folders (00-10) representing each development stage
 - **Knowledge Base** - Feature documentation in `features/` for AI reference
 - **Archive** - Completed work in `99-archive/`
