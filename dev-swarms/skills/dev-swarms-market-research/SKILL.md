@@ -47,7 +47,9 @@ Follow these steps in order:
    - If NOT found: Inform user they need to init ideas first, then STOP
    - If found: Read all files to understand.
 
-2. **Check if this stage should be skipped:**
+2. Read and apply rules: `dev-swarms/docs/research-specs-rules.md`
+
+3. **Check if this stage should be skipped:**
    - Check if `01-market-research/SKIP.md` exists
    - **If SKIP.md exists:**
      - Read SKIP.md to understand why this stage was skipped

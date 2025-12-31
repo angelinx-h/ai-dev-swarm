@@ -47,6 +47,8 @@ Follow these steps in order:
 
 ### Step 0: Verify Prerequisites and Gather Context
 
+First read and understand rules: `dev-swarms/docs/research-specs-rules.md` then:
+
 1. **Check if `06-architecture/` folder exists (mandatory):**
    - If NOT found: Inform user they need to create architecture first, then STOP
    - If found: Read all files to understand:
@@ -465,7 +467,7 @@ Define code style rules and conventions:
    - bugfix/[bug-description]
    - hotfix/[issue-number]
 
-**source-code-structure.md (CRITICAL - Code Organization in src/):**
+**source-code-structure.md**
 
 Define the organization and structure of source code under the `src/` folder based on the project's needs. Follow `dev-swarms/docs/source-code-structure.md` as the baseline:
 

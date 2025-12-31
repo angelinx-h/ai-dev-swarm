@@ -66,8 +66,9 @@ Follow these steps in order:
 
 ### Step 2: Classify Project Complexity and Scale
 
-1. **Read the classification standard:**
+1. **Read the classification standard and scaling rules:**
    - Read `dev-swarms/docs/software-dev-classification.md`
+   - Read `dev-swarms/docs/research-specs-rules.md`
 
 2. **Analyze ideas.md to determine:**
    - **Project Purpose (P1-P4):**
