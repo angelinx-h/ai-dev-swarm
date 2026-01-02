@@ -34,16 +34,11 @@ Follow these steps to create or update an agent skill:
 
 ### Step 1: Understand the Requirements
 
-1. **Ask the user for clarification if needed:**
+  **Ask the user for clarification if needed:**
    - What is the skill name? (must start with `dev-swarm-`, lowercase, hyphens only)
    - What does the skill do?
    - When should this skill be used?
    - What roles are involved in this skill?
-
-2. **Review reference materials:**
-   - See [references/agent-skill-specification.md](references/agent-skill-specification.md) for the complete skill specification
-   - See [references/dev-swarm-roles.md](references/dev-swarm-roles.md) for available roles and their responsibilities
-   - See [references/sample-skill.md](references/sample-skill.md) for a complete example
 
 ### Step 2: Create or Locate the Skill Directory
 
@@ -107,26 +102,7 @@ Brief introduction describing what this skill does.
 - **Role Name**: Description of what this role does in this skill
 ```
 
-Choose roles from [references/dev-swarm-roles.md](references/dev-swarm-roles.md):
-- Product Manager
-- Tech Manager (Architect)
-- Project Manager
-- UX Designer
-- Backend Developer
-- Frontend Developer
-- DevOps Engineer
-- SysOps Engineer
-- QA Engineer
-- AI Engineer
-- Database Administrator
-- Security Engineer
-- Data Analyst
-- Marketing Manager
-- Business Owner
-- Legal Advisor
-- Customer Support
-- Content Moderator
-- End User
+Choose roles from file `dev-swarm/docs/dev-swarm-roles.md`:
 
 **4. Role Communication** (REQUIRED)
 ```markdown
@@ -245,9 +221,9 @@ Ask: "The skill has been created/updated. Would you like me to make any changes?
 
 ## Key Principles
 
-- **Follow the specification**: Always adhere to [agent-skill-specification.md](references/agent-skill-specification.md)
+- **Follow the specification**: Always adhere to file `dev-swarm/docs/agent-skill-specification.md`
 - **Clear instructions**: Write step-by-step instructions that are easy to follow
-- **Appropriate roles**: Choose roles that match the task from [dev-swarm-roles.md](references/dev-swarm-roles.md)
+- **Appropriate roles**: Choose roles that match the task from file `dev-swarm/docs/dev-swarm-roles.md`
 - **Progressive disclosure**: Keep SKILL.md concise, move detailed content to reference files
 - **Self-contained**: Don't reference files outside the skill folder unless required
 - **Role communication**: Always include the role communication pattern
