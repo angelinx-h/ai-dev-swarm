@@ -7,18 +7,17 @@ description: "Searches pub.dev for packages relevant to a given search query. Th
 Server: dart
 
 ## Usage
-Ensure the MCP Skill Bridge is running, then POST tool arguments:
+Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/invoke \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"dart","tool_name":"pub_dev_search","arguments":{}}'
+```json
+{"server_id":"dart","tool_name":"pub_dev_search","arguments":{}}
 ```
 
 ## Tool Description
 Searches pub.dev for packages relevant to a given search query. The response will describe each result with its download count, package description, topics, license, and publisher.
 
-## Input Schema
+## Arguments Schema
+The schema below describes the `arguments` object in the request payload.
 ```json
 {
   "type": "object",
@@ -36,10 +35,8 @@ Searches pub.dev for packages relevant to a given search query. The response wil
 ```
 
 ## Background Tasks
-If the tool returns a task id, poll the task status via the raw MCP endpoint:
+If the tool returns a task id, poll the task status via the MCP request tool:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/mcp \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"dart","method":"tasks/status","params":{"task_id":"<task_id>"}}'
+```json
+{"server_id":"dart","method":"tasks/status","params":{"task_id":"<task_id>"}}
 ```

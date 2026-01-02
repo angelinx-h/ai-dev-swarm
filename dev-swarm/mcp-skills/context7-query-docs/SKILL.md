@@ -7,18 +7,17 @@ description: "Retrieves and queries up-to-date documentation and code examples f
 Server: context7
 
 ## Usage
-Ensure the MCP Skill Bridge is running, then POST tool arguments:
+Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/invoke \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"context7","tool_name":"query-docs","arguments":{}}'
+```json
+{"server_id":"context7","tool_name":"query-docs","arguments":{}}
 ```
 
 ## Tool Description
 Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.  You must call 'resolve-library-id' first to obtain the exact Context7-compatible library ID required to use this tool, UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.  IMPORTANT: Do not call this tool more than 3 times per question. If you cannot find what you need after 3 calls, use the best information you have.
 
-## Input Schema
+## Arguments Schema
+The schema below describes the `arguments` object in the request payload.
 ```json
 {
   "type": "object",
@@ -42,10 +41,8 @@ Retrieves and queries up-to-date documentation and code examples from Context7 f
 ```
 
 ## Background Tasks
-If the tool returns a task id, poll the task status via the raw MCP endpoint:
+If the tool returns a task id, poll the task status via the MCP request tool:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/mcp \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"context7","method":"tasks/status","params":{"task_id":"<task_id>"}}'
+```json
+{"server_id":"context7","method":"tasks/status","params":{"task_id":"<task_id>"}}
 ```

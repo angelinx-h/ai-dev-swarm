@@ -7,18 +7,17 @@ description: "Look up a symbol or symbols in all workspaces by name. Can be used
 Server: dart
 
 ## Usage
-Ensure the MCP Skill Bridge is running, then POST tool arguments:
+Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/invoke \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"dart","tool_name":"resolve_workspace_symbol","arguments":{}}'
+```json
+{"server_id":"dart","tool_name":"resolve_workspace_symbol","arguments":{}}
 ```
 
 ## Tool Description
 Look up a symbol or symbols in all workspaces by name. Can be used to validate that a symbol exists or discover small spelling mistakes, since the search is fuzzy.
 
-## Input Schema
+## Arguments Schema
+The schema below describes the `arguments` object in the request payload.
 ```json
 {
   "type": "object",
@@ -36,10 +35,8 @@ Look up a symbol or symbols in all workspaces by name. Can be used to validate t
 ```
 
 ## Background Tasks
-If the tool returns a task id, poll the task status via the raw MCP endpoint:
+If the tool returns a task id, poll the task status via the MCP request tool:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/mcp \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"dart","method":"tasks/status","params":{"task_id":"<task_id>"}}'
+```json
+{"server_id":"dart","method":"tasks/status","params":{"task_id":"<task_id>"}}
 ```

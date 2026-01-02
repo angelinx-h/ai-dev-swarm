@@ -7,18 +7,17 @@ description: "Upload one or multiple files"
 Server: playwright
 
 ## Usage
-Ensure the MCP Skill Bridge is running, then POST tool arguments:
+Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/invoke \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"playwright","tool_name":"browser_file_upload","arguments":{}}'
+```json
+{"server_id":"playwright","tool_name":"browser_file_upload","arguments":{}}
 ```
 
 ## Tool Description
 Upload one or multiple files
 
-## Input Schema
+## Arguments Schema
+The schema below describes the `arguments` object in the request payload.
 ```json
 {
   "type": "object",
@@ -37,10 +36,8 @@ Upload one or multiple files
 ```
 
 ## Background Tasks
-If the tool returns a task id, poll the task status via the raw MCP endpoint:
+If the tool returns a task id, poll the task status via the MCP request tool:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/mcp \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"playwright","method":"tasks/status","params":{"task_id":"<task_id>"}}'
+```json
+{"server_id":"playwright","method":"tasks/status","params":{"task_id":"<task_id>"}}
 ```

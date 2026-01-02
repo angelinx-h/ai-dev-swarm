@@ -15,8 +15,7 @@ when `dev-swarm` MCP is missing or not running. Use the `dev-swarm-mcp-server` s
         "dev-swarm/py_scripts",
         "run",
         "dev-swarm/py_scripts/dev-swarm-mcp.py",
-        "--mcp-settings=dev-swarm/mcp_settings.json",
-        "--port=28080"
+        "--mcp-settings=dev-swarm/mcp_settings.json"
       ]
     }
   }

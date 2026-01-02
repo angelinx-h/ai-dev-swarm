@@ -12,30 +12,14 @@ import urllib.error
 import urllib.request
 from dataclasses import dataclass
 import hashlib
-import socket
 from pathlib import Path
 from typing import Any, Iterable
 
-from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-import uvicorn
 
 
 LOGGER = logging.getLogger("mcp-to-skills")
-DEFAULT_PORT = 28080
 LOCK_FILENAME = "mcp_settings.lock"
-
-
-class InvokeRequest(BaseModel):
-    server_id: str = Field(..., min_length=1)
-    tool_name: str = Field(..., min_length=1)
-    arguments: dict[str, Any] | None = None
-
-
-class RawRequest(BaseModel):
-    server_id: str = Field(..., min_length=1)
-    method: str = Field(..., min_length=1)
-    params: dict[str, Any] | None = None
 
 
 class ServerConfig(BaseModel):
@@ -404,7 +388,7 @@ def skill_dir(base_dir: Path, server_id: str, tool_name: str) -> Path:
     return base_dir / skill_name
 
 
-def render_skill(tool: ToolDef, server_id: str, port: int) -> str:
+def render_skill(tool: ToolDef, server_id: str) -> str:
     description = tool.description or f"Invoke MCP tool {tool.name} on server {server_id}."
     description = " ".join(description.splitlines()).strip()
     description = description.replace("\"", "\\\"")
@@ -420,29 +404,26 @@ description: "{description}"
 Server: {server_id}
 
 ## Usage
-Ensure the MCP Skill Bridge is running, then POST tool arguments:
+Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 
-```bash
-curl -s -X POST http://127.0.0.1:{port}/invoke \\
-  -H "Content-Type: application/json" \\
-  -d '{{"server_id":"{server_id}","tool_name":"{tool.name}","arguments":{{}}}}'
+```json
+{{"server_id":"{server_id}","tool_name":"{tool.name}","arguments":{{}}}}
 ```
 
 ## Tool Description
 {description}
 
-## Input Schema
+## Arguments Schema
+The schema below describes the `arguments` object in the request payload.
 ```json
 {input_schema}
 ```
 
 ## Background Tasks
-If the tool returns a task id, poll the task status via the raw MCP endpoint:
+If the tool returns a task id, poll the task status via the MCP request tool:
 
-```bash
-curl -s -X POST http://127.0.0.1:{port}/mcp \\
-  -H "Content-Type: application/json" \\
-  -d '{{"server_id":"{server_id}","method":"tasks/status","params":{{"task_id":"<task_id>"}}}}'
+```json
+{{"server_id":"{server_id}","method":"tasks/status","params":{{"task_id":"<task_id>"}}}}
 ```
 """
     return template
@@ -453,25 +434,6 @@ class SkillEntry:
     name: str
     path: Path
     content: str
-
-
-def is_port_available(port: int) -> bool:
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
-        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        try:
-            sock.bind(("127.0.0.1", port))
-        except OSError:
-            return False
-    return True
-
-
-def find_available_port(start_port: int) -> int:
-    port = start_port
-    while port <= 65535 and not is_port_available(port):
-        port += 1
-    if port > 65535:
-        raise MCPError("No available port found")
-    return port
 
 
 def load_lock(path: Path) -> dict[str, Any] | None:
@@ -487,8 +449,8 @@ def load_lock(path: Path) -> dict[str, Any] | None:
     return data
 
 
-def write_lock(path: Path, hash_value: str, port: int) -> None:
-    payload = {"hash": hash_value, "port": port}
+def write_lock(path: Path, hash_value: str) -> None:
+    payload = {"hash": hash_value}
     path.write_text(json.dumps(payload, indent=2, ensure_ascii=True))
 
 
@@ -505,7 +467,6 @@ def gather_tools(manager: MCPManager, server_ids: Iterable[str]) -> dict[str, li
 def build_skill_entries(
     output_dir: Path,
     tools_by_server: dict[str, list[ToolDef]],
-    port: int,
 ) -> list[SkillEntry]:
     entries: list[SkillEntry] = []
     for server_id in sorted(tools_by_server.keys()):
@@ -517,7 +478,7 @@ def build_skill_entries(
                 SkillEntry(
                     name=tool.name,
                     path=skill_path,
-                    content=render_skill(tool, server_id, port),
+                    content=render_skill(tool, server_id),
                 )
             )
     return entries
@@ -603,26 +564,46 @@ def manage_symlinks(
                 LOGGER.debug(f"Removed symlink: {symlink_path}")
 
 
-def create_app(manager: MCPManager) -> FastAPI:
-    app = FastAPI()
+@dataclass
+class Bridge:
+    manager: MCPManager
 
-    @app.post("/invoke")
-    def invoke(request: InvokeRequest) -> dict[str, Any]:
+    def handle_request(self, payload: dict[str, Any]) -> dict[str, Any]:
+        server_id = payload.get("server_id")
+        if not isinstance(server_id, str) or not server_id:
+            raise MCPError("request missing server_id")
+        if "tool_name" in payload:
+            tool_name = payload.get("tool_name")
+            if not isinstance(tool_name, str) or not tool_name:
+                raise MCPError("request missing tool_name")
+            arguments = payload.get("arguments")
+            if arguments is not None and not isinstance(arguments, dict):
+                raise MCPError("arguments must be an object")
+            result = self.manager.call_tool(server_id, tool_name, arguments)
+            return {"status": "ok", "result": result}
+        if "method" in payload:
+            method = payload.get("method")
+            if not isinstance(method, str) or not method:
+                raise MCPError("request missing method")
+            params = payload.get("params")
+            if params is not None and not isinstance(params, dict):
+                raise MCPError("params must be an object")
+            result = self.manager.request(server_id, method, params)
+            return {"status": "ok", "result": result}
+        raise MCPError("request must include tool_name or method")
+
+    def handle_request_json(self, json_str: str) -> str:
         try:
-            result = manager.call_tool(request.server_id, request.tool_name, request.arguments)
-        except Exception as exc:
-            raise HTTPException(status_code=500, detail=str(exc))
-        return {"status": "ok", "result": result}
-
-    @app.post("/mcp")
-    def raw_mcp(request: RawRequest) -> dict[str, Any]:
+            payload = json.loads(json_str)
+        except json.JSONDecodeError:
+            return json.dumps({"status": "error", "detail": "invalid_json"}, ensure_ascii=True)
+        if not isinstance(payload, dict):
+            return json.dumps({"status": "error", "detail": "payload must be object"}, ensure_ascii=True)
         try:
-            result = manager.request(request.server_id, request.method, request.params)
+            response = self.handle_request(payload)
         except Exception as exc:
-            raise HTTPException(status_code=500, detail=str(exc))
-        return {"status": "ok", "result": result}
-
-    return app
+            return json.dumps({"status": "error", "detail": str(exc)}, ensure_ascii=True)
+        return json.dumps(response, ensure_ascii=True)
 
 
 def parse_args() -> argparse.Namespace:
@@ -634,18 +615,12 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Path to MCP settings JSON",
     )
-    parser.add_argument("--port", type=int, default=DEFAULT_PORT)
     parser.add_argument("--force-refresh", action="store_true")
     parser.add_argument(
         "--output-dir",
         type=str,
         default=None,
         help="Directory to write skills (default: dev-swarm/mcp-skills)",
-    )
-    parser.add_argument(
-        "--skills-only",
-        action="store_true",
-        help="Generate skills and exit without starting the HTTP server",
     )
     parser.add_argument("--log-level", type=str, default="INFO")
     return parser.parse_args()
@@ -654,12 +629,10 @@ def parse_args() -> argparse.Namespace:
 def build_bridge(
     *,
     mcp_settings_path: Path,
-    port: int,
     force_refresh: bool,
     output_dir: Path | None,
-    skills_only: bool,
     log_level: str,
-) -> tuple[FastAPI | None, int, bool]:
+) -> tuple[Bridge, bool]:
     logging.basicConfig(level=log_level.upper(), format="%(levelname)s %(message)s")
     base_dir = Path(__file__).resolve().parents[1]
     output_root = output_dir or base_dir / "mcp-skills"
@@ -667,14 +640,9 @@ def build_bridge(
     lock_path = base_dir / LOCK_FILENAME
 
     lock_data = load_lock(lock_path)
-    lock_port = None
     lock_hash = None
     if lock_data:
-        lock_port = lock_data.get("port")
         lock_hash = lock_data.get("hash")
-
-    requested_port = int(lock_port) if isinstance(lock_port, int) else port
-    resolved_port = find_available_port(requested_port)
 
     all_configs = load_mcp_settings(mcp_settings_path)
     enabled_configs = [c for c in all_configs if not c.disabled]
@@ -687,66 +655,32 @@ def build_bridge(
     server_ids = [config.id for config in enabled_configs]
 
     tools_by_server = gather_tools(manager, server_ids)
-    entries = build_skill_entries(output_root, tools_by_server, resolved_port)
+    entries = build_skill_entries(output_root, tools_by_server)
     skills_hash = compute_skills_hash(entries, base_dir)
 
-    lock_changed = skills_hash != lock_hash or resolved_port != lock_port
+    lock_changed = skills_hash != lock_hash
     should_refresh = force_refresh or lock_changed
 
     write_skills(entries, should_refresh)
     manage_symlinks(output_root, skills_dir, enabled_server_ids, disabled_server_ids)
 
     if lock_changed:
-        write_lock(lock_path, skills_hash, resolved_port)
+        write_lock(lock_path, skills_hash)
 
-    if skills_only:
-        return None, resolved_port, lock_changed
-    return create_app(manager), resolved_port, lock_changed
-
-
-def start_bridge_server(
-    *,
-    mcp_settings_path: Path,
-    port: int,
-    log_level: str = "INFO",
-) -> tuple[int, bool]:
-    app, resolved_port, lock_changed = build_bridge(
-        mcp_settings_path=mcp_settings_path,
-        port=port,
-        force_refresh=False,
-        output_dir=None,
-        skills_only=False,
-        log_level=log_level,
-    )
-    if app is None:
-        raise MCPError("bridge_app_unavailable")
-    config = uvicorn.Config(app, host="127.0.0.1", port=resolved_port, log_level=log_level.lower())
-    server = uvicorn.Server(config)
-    thread = threading.Thread(target=server.run, daemon=True)
-    thread.start()
-    return resolved_port, lock_changed
+    return Bridge(manager=manager), lock_changed
 
 
 def main() -> None:
     args = parse_args()
     settings_path = Path(args.mcp_settings).expanduser().resolve()
     output_dir = Path(args.output_dir).expanduser().resolve() if args.output_dir else None
-    app, resolved_port, _lock_changed = build_bridge(
+    _bridge, _lock_changed = build_bridge(
         mcp_settings_path=settings_path,
-        port=args.port,
         force_refresh=args.force_refresh,
         output_dir=output_dir,
-        skills_only=args.skills_only,
         log_level=args.log_level,
     )
-
-    if args.skills_only:
-        return
-    if app is None:
-        raise MCPError("bridge_app_unavailable")
-
-    LOGGER.info("mcp_skill_bridge_started", extra={"port": resolved_port, "output_dir": str(output_dir)})
-    uvicorn.run(app, host="127.0.0.1", port=resolved_port)
+    LOGGER.info("mcp_skill_bridge_ready", extra={"output_dir": str(output_dir)})
 
 
 if __name__ == "__main__":

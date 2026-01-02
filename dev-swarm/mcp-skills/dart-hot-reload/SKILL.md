@@ -7,18 +7,17 @@ description: "Performs a hot reload of the active Flutter application. This is t
 Server: dart
 
 ## Usage
-Ensure the MCP Skill Bridge is running, then POST tool arguments:
+Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/invoke \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"dart","tool_name":"hot_reload","arguments":{}}'
+```json
+{"server_id":"dart","tool_name":"hot_reload","arguments":{}}
 ```
 
 ## Tool Description
 Performs a hot reload of the active Flutter application. This is to apply the latest code changes to the running application. Requires \"connect_dart_tooling_daemon\" to be successfully called first.
 
-## Input Schema
+## Arguments Schema
+The schema below describes the `arguments` object in the request payload.
 ```json
 {
   "type": "object",
@@ -34,10 +33,8 @@ Performs a hot reload of the active Flutter application. This is to apply the la
 ```
 
 ## Background Tasks
-If the tool returns a task id, poll the task status via the raw MCP endpoint:
+If the tool returns a task id, poll the task status via the MCP request tool:
 
-```bash
-curl -s -X POST http://127.0.0.1:28080/mcp \
-  -H "Content-Type: application/json" \
-  -d '{"server_id":"dart","method":"tasks/status","params":{"task_id":"<task_id>"}}'
+```json
+{"server_id":"dart","method":"tasks/status","params":{"task_id":"<task_id>"}}
 ```

@@ -5,7 +5,7 @@ import argparse
 from pathlib import Path
 
 from fastmcp import FastMCP
-from mcp_to_skills import start_bridge_server
+from mcp_to_skills import build_bridge
 
 
 def parse_args() -> argparse.Namespace:
@@ -17,7 +17,6 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Path to MCP settings JSON",
     )
-    parser.add_argument("--port", type=int, default=28080)
     return parser.parse_args()
 
 
@@ -25,9 +24,11 @@ def main() -> None:
     args = parse_args()
     settings_path = Path(args.mcp_settings).expanduser().resolve()
 
-    port, lock_changed = start_bridge_server(
+    bridge, lock_changed = build_bridge(
         mcp_settings_path=settings_path,
-        port=args.port,
+        force_refresh=False,
+        output_dir=None,
+        log_level="INFO",
     )
 
     if lock_changed:
@@ -43,6 +44,11 @@ def main() -> None:
     def get_message_for_user() -> str:
         """Call this tool when the AI code agent starts."""
         return message
+
+    @mcp.tool()
+    def request(json_str: str) -> str:
+        """Forward a JSON request payload from a agent skill."""
+        return bridge.handle_request_json(json_str)
 
     mcp.run()
 
