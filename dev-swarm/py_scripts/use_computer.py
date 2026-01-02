@@ -56,7 +56,11 @@ def get_screenshot(params: Dict[str, Any]) -> Dict[str, Any]:
         mouse_x, mouse_y = pyautogui.position()
         # pyautogui.screenshot() returns a PIL Image
         img = pyautogui.screenshot(region=region)
-        
+
+        # Save original dimensions before scaling
+        original_width = img.width
+        original_height = img.height
+
         if scale != 1.0 and scale > 0:
             new_width = int(img.width * scale)
             new_height = int(img.height * scale)
@@ -65,10 +69,10 @@ def get_screenshot(params: Dict[str, Any]) -> Dict[str, Any]:
         if draw_pointer:
             if pointer_style == "alert":
                 pointer_border_color = "#ff3b30"
-                pointer_fill_color = "#ffd60a"
+                pointer_fill_color = (255, 214, 10, 128)  # Semi-transparent yellow (RGBA)
             else:
                 pointer_border_color = "#ffffff"
-                pointer_fill_color = "#000000"
+                pointer_fill_color = (0, 0, 0, 128)  # Semi-transparent black (RGBA)
 
             # Calculate pointer position relative to the screenshot region.
             rel_x, rel_y = mouse_x, mouse_y
@@ -76,18 +80,26 @@ def get_screenshot(params: Dict[str, Any]) -> Dict[str, Any]:
                 rel_x = mouse_x - region[0]
                 rel_y = mouse_y - region[1]
 
-            # Only draw if the pointer is within the captured region bounds.
-            if 0 <= rel_x < (region[2] if region else img.width) and 0 <= rel_y < (region[3] if region else img.height):
-                draw = ImageDraw.Draw(img)
+            # Only draw if the pointer is within the captured region bounds (use original dimensions).
+            bounds_width = region[2] if region else original_width
+            bounds_height = region[3] if region else original_height
+            if 0 <= rel_x < bounds_width and 0 <= rel_y < bounds_height:
+                # Convert to RGBA to support transparency
+                img = img.convert("RGBA")
+                draw = ImageDraw.Draw(img, "RGBA")
+
                 scaled_x = rel_x * scale
                 scaled_y = rel_y * scale
                 scaled_radius = max(1, int(pointer_radius * scale))
+                border_width = max(1, int(scaled_radius / 5))
+
                 left = scaled_x - scaled_radius
                 top = scaled_y - scaled_radius
                 right = scaled_x + scaled_radius
                 bottom = scaled_y + scaled_radius
-                draw.ellipse([left, top, right, bottom], outline=pointer_border_color, width=max(1, int(2 * scale)))
-                draw.ellipse([left, top, right, bottom], fill=pointer_fill_color)
+
+                # Draw semi-transparent filled circle with border
+                draw.ellipse([left, top, right, bottom], fill=pointer_fill_color, outline=pointer_border_color, width=border_width)
         
         # Save to temp file
         tmp_dir = tempfile.gettempdir()

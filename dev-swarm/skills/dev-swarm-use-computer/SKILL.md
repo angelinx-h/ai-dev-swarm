@@ -56,7 +56,7 @@ Capture a region of the screen with optional scaling and optional pointer marker
   "scale": 1.0,
   "draw_pointer": true,
   "pointer_style": "contrast",
-  "pointer_radius": 8
+  "pointer_radius": 64
 }
 ```
 - `bbox`: (Optional) [left, top, width, height]. If omitted, captures the entire primary screen.
