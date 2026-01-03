@@ -16,6 +16,9 @@ codex mcp add <server-name> --env VAR1=VALUE1 --env VAR2=VALUE2 -- <stdio-server
 
 # Example
 codex mcp add context7 -- npx -y @upstash/context7-mcp
+
+# Remove a server
+codex mcp remove <server-name>
 ```
 
 ## Configuration File

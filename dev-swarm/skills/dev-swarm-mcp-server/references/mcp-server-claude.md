@@ -21,6 +21,9 @@ claude mcp add --transport sse <name> <URL> --scope user
 # Add stdio server example
 claude mcp add airtable --env AIRTABLE_API_KEY=YOUR_KEY -- pnpm dlx airtable-mcp-server
 
+# Add HTTP transport server with Authorization header
+claude mcp add --transport http github https://api.githubcopilot.com/mcp -H "Authorization: Bearer YOUR_GITHUB_PAT"
+
 # Remove a server
 claude mcp remove <server-name>
 
@@ -30,7 +33,7 @@ claude mcp add-json
 
 ## Configuration Scopes
 
-1. **Local Scope** (default): Current project only, not shared
+1. **Local Scope** (default): Available across projects, stored in `~/.claude.json`
 2. **Project Scope** (`--scope project`): Team-wide, stored in `.mcp.json` at project root
 3. **User/Global Scope** (`--scope user`): Available across projects, stored in `~/.claude.json`
 

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 
 from fastmcp import FastMCP
@@ -20,9 +21,39 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def load_env_file(path: Path) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    env: dict[str, str] = {}
+    for line in path.read_text().splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+        if stripped.startswith("export "):
+            stripped = stripped[len("export ") :].lstrip()
+        if "=" not in stripped:
+            continue
+        key, value = stripped.split("=", 1)
+        key = key.strip()
+        value = value.strip()
+        if not key:
+            continue
+        if (value.startswith("'") and value.endswith("'")) or (
+            value.startswith('"') and value.endswith('"')
+        ):
+            value = value[1:-1]
+        env[key] = value
+    return env
+
+
 def main() -> None:
     args = parse_args()
     settings_path = Path(args.mcp_settings).expanduser().resolve()
+    base_dir = Path(__file__).resolve().parents[1]
+    env_path = base_dir / ".env"
+    env_vars = load_env_file(env_path)
+    for key, value in env_vars.items():
+        os.environ.setdefault(key, value)
 
     bridge, lock_changed = build_bridge(
         mcp_settings_path=settings_path,

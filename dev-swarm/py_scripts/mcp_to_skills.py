@@ -348,6 +348,11 @@ def load_mcp_settings(path: Path) -> list[ServerConfig]:
             continue
         merged = {"id": server_id, **config}
 
+        if isinstance(merged.get("headers"), dict):
+            merged["headers"] = expand_env_placeholders(merged["headers"], os.environ)
+        if isinstance(merged.get("env"), dict):
+            merged["env"] = expand_env_placeholders(merged["env"], os.environ)
+
         # Handle command as array: split into command (first element) and args (rest)
         if isinstance(merged.get("command"), list):
             cmd_list = merged["command"]
@@ -361,6 +366,22 @@ def load_mcp_settings(path: Path) -> list[ServerConfig]:
 
         configs.append(ServerConfig(**merged))
     return configs
+
+
+def expand_env_placeholders(values: dict[str, str], env: dict[str, str]) -> dict[str, str]:
+    expanded: dict[str, str] = {}
+    pattern = re.compile(r"\$\{([A-Za-z0-9_]+)\}")
+    for key, value in values.items():
+        if not isinstance(value, str):
+            expanded[key] = value
+            continue
+
+        def replace(match: re.Match[str]) -> str:
+            var = match.group(1)
+            return env.get(var, match.group(0))
+
+        expanded[key] = pattern.sub(replace, value)
+    return expanded
 
 
 def camel_to_kebab(value: str) -> str:

@@ -14,6 +14,9 @@ gemini mcp add [options] <name> <commandOrUrl> [args...]
 # Add with scope
 gemini mcp add <name> <command> --scope user     # User level
 gemini mcp add <name> <command> --scope project  # Project level
+
+# Remove a server
+gemini mcp remove <server-name>
 ```
 
 ## Transport Configuration
