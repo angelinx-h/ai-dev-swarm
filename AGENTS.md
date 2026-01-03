@@ -32,12 +32,15 @@ Examples of preferences to save:
 - Python tooling (e.g., use `uv` instead of `pip`)
 - Flutter platform and device (e.g., iOS-first, preferred device ID)
 
-## Agent Skill/MCP Tool Name Matching
+## Agent Skill/MCP Tool
 
-**IMPORTANT**: Skill/tool names mentioned by users may be partial matches. Always:
-1. Search available agent skills first (partial matching allowed)
-2. If no agent skill found, check MCP tools
-3. Agent skills have priority over MCP tools
+When a user requests something beyond your current abilities, search in this order/priority:
+1. Available agent skills (partial name matching allowed)
+2. Available MCP tools
+3. Available system/shell commands
+4. Write a temporary helper script as last resort
+
+**IMPORTANT**: User-mentioned names may be partial matches.
 
 ## Development Process
 
