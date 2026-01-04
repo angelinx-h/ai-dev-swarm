@@ -43,7 +43,7 @@
       "type": "http",
       "url": "https://api.githubcopilot.com/mcp/",
       "headers": {
-        "Authorization": "Bearer ${input:github_mcp_pat}"
+        "Authorization": "Bearer ${github_mcp_pat}"
       },
       "disabled": true
     }

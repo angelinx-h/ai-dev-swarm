@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
 import json
 import logging
 import os
-import re
 import subprocess
 import threading
 import urllib.error
@@ -14,6 +12,9 @@ from dataclasses import dataclass
 import hashlib
 from pathlib import Path
 from typing import Any, Iterable
+import queue
+import re
+import time
 
 from pydantic import BaseModel, Field
 
@@ -59,9 +60,13 @@ class MCPClient:
 
 
 class StdioClient(MCPClient):
+    _response_timeout_seconds = 30
+
     def __init__(self, command: str, args: list[str], env: dict[str, str]) -> None:
         self._next_id = 1
         self._lock = threading.Lock()
+        self._stdout_queue: queue.Queue[str] = queue.Queue()
+        self._stdout_closed = threading.Event()
         merged_env = os.environ.copy()
         merged_env.update(env)
         self._process = subprocess.Popen(
@@ -75,6 +80,8 @@ class StdioClient(MCPClient):
         )
         self._stderr_thread = threading.Thread(target=self._drain_stderr, daemon=True)
         self._stderr_thread.start()
+        self._stdout_thread = threading.Thread(target=self._drain_stdout, daemon=True)
+        self._stdout_thread.start()
         self._initialize()
 
     def _drain_stderr(self) -> None:
@@ -82,6 +89,14 @@ class StdioClient(MCPClient):
             return
         for line in self._process.stderr:
             LOGGER.debug("mcp-stderr", extra={"line": line.rstrip()})
+
+    def _drain_stdout(self) -> None:
+        if self._process.stdout is None:
+            self._stdout_closed.set()
+            return
+        for line in self._process.stdout:
+            self._stdout_queue.put(line)
+        self._stdout_closed.set()
 
     def _initialize(self) -> None:
         try:
@@ -109,10 +124,17 @@ class StdioClient(MCPClient):
     def _read_response(self, request_id: int) -> Any:
         if self._process.stdout is None:
             raise MCPError("stdio process stdout unavailable")
+        deadline = time.monotonic() + self._response_timeout_seconds
         while True:
-            line = self._process.stdout.readline()
-            if not line:
-                raise MCPError("stdio process closed while awaiting response")
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                raise MCPError("stdio response timed out")
+            try:
+                line = self._stdout_queue.get(timeout=remaining)
+            except queue.Empty:
+                if self._stdout_closed.is_set():
+                    raise MCPError("stdio process closed while awaiting response")
+                raise MCPError("stdio response timed out")
             line = line.strip()
             if not line:
                 continue
@@ -335,10 +357,11 @@ def _parse_sse(response: Any) -> dict[str, Any]:
     raise MCPError("No JSON response received from SSE stream")
 
 
-def load_mcp_settings(path: Path) -> list[ServerConfig]:
-    if not path.exists():
-        raise MCPError(f"MCP settings file not found: {path}")
-    raw = json.loads(path.read_text())
+def load_mcp_settings_data(raw: dict[str, Any]) -> list[ServerConfig]:
+    """Load MCP settings from already-expanded configuration dict.
+
+    Note: Placeholders should already be expanded before calling this function.
+    """
     server_map = raw.get("mcpServers")
     if not isinstance(server_map, dict):
         raise MCPError("mcpServers missing or invalid in settings file")
@@ -347,11 +370,6 @@ def load_mcp_settings(path: Path) -> list[ServerConfig]:
         if not isinstance(config, dict):
             continue
         merged = {"id": server_id, **config}
-
-        if isinstance(merged.get("headers"), dict):
-            merged["headers"] = expand_env_placeholders(merged["headers"], os.environ)
-        if isinstance(merged.get("env"), dict):
-            merged["env"] = expand_env_placeholders(merged["env"], os.environ)
 
         # Handle command as array: split into command (first element) and args (rest)
         if isinstance(merged.get("command"), list):
@@ -366,23 +384,6 @@ def load_mcp_settings(path: Path) -> list[ServerConfig]:
 
         configs.append(ServerConfig(**merged))
     return configs
-
-
-def expand_env_placeholders(values: dict[str, str], env: dict[str, str]) -> dict[str, str]:
-    expanded: dict[str, str] = {}
-    pattern = re.compile(r"\$\{([A-Za-z0-9_]+)\}")
-    for key, value in values.items():
-        if not isinstance(value, str):
-            expanded[key] = value
-            continue
-
-        def replace(match: re.Match[str]) -> str:
-            var = match.group(1)
-            return env.get(var, match.group(0))
-
-        expanded[key] = pattern.sub(replace, value)
-    return expanded
-
 
 def camel_to_kebab(value: str) -> str:
     """Convert camelCase or PascalCase to kebab-case."""
@@ -567,8 +568,15 @@ def manage_symlinks(
                 # Check if it's already the correct symlink
                 if symlink_path.is_symlink() and symlink_path.readlink() == relative_target:
                     continue
-                # Remove old symlink or file
-                symlink_path.unlink()
+                # Remove old symlink or file; avoid unlinking directories.
+                if symlink_path.is_symlink() or symlink_path.is_file():
+                    symlink_path.unlink()
+                else:
+                    LOGGER.warning(
+                        "symlink_path_exists_not_removed",
+                        extra={"path": str(symlink_path)},
+                    )
+                    continue
 
             symlink_path.symlink_to(relative_target)
             LOGGER.debug(f"Created symlink: {symlink_path} -> {relative_target}")
@@ -627,29 +635,9 @@ class Bridge:
         return json.dumps(response, ensure_ascii=True)
 
 
-def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="MCP Skill Bridge (script)")
-    parser.add_argument(
-        "--mcp-settings",
-        "--mcp_settings",
-        dest="mcp_settings",
-        required=True,
-        help="Path to MCP settings JSON",
-    )
-    parser.add_argument("--force-refresh", action="store_true")
-    parser.add_argument(
-        "--output-dir",
-        type=str,
-        default=None,
-        help="Directory to write skills (default: dev-swarm/mcp-skills)",
-    )
-    parser.add_argument("--log-level", type=str, default="INFO")
-    return parser.parse_args()
-
-
 def build_bridge(
     *,
-    mcp_settings_path: Path,
+    mcp_settings_data: dict[str, Any] | None,
     force_refresh: bool,
     output_dir: Path | None,
     log_level: str,
@@ -665,7 +653,9 @@ def build_bridge(
     if lock_data:
         lock_hash = lock_data.get("hash")
 
-    all_configs = load_mcp_settings(mcp_settings_path)
+    if mcp_settings_data is None:
+        raise MCPError("mcp_settings_data is required for build_bridge")
+    all_configs = load_mcp_settings_data(mcp_settings_data)
     enabled_configs = [c for c in all_configs if not c.disabled]
     disabled_configs = [c for c in all_configs if c.disabled]
 
@@ -689,20 +679,3 @@ def build_bridge(
         write_lock(lock_path, skills_hash)
 
     return Bridge(manager=manager), lock_changed
-
-
-def main() -> None:
-    args = parse_args()
-    settings_path = Path(args.mcp_settings).expanduser().resolve()
-    output_dir = Path(args.output_dir).expanduser().resolve() if args.output_dir else None
-    _bridge, _lock_changed = build_bridge(
-        mcp_settings_path=settings_path,
-        force_refresh=args.force_refresh,
-        output_dir=output_dir,
-        log_level=args.log_level,
-    )
-    LOGGER.info("mcp_skill_bridge_ready", extra={"output_dir": str(output_dir)})
-
-
-if __name__ == "__main__":
-    main()

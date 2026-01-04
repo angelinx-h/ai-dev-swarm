@@ -1034,6 +1034,7 @@ dependencies = [
     { name = "pillow" },
     { name = "pyautogui" },
     { name = "pyqt6" },
+    { name = "python-dotenv" },
     { name = "screeninfo" },
     { name = "uvicorn" },
 ]
@@ -1047,6 +1048,7 @@ requires-dist = [
     { name = "pillow", specifier = ">=12.0.0" },
     { name = "pyautogui", specifier = ">=0.9.54" },
     { name = "pyqt6", specifier = ">=6.10.1" },
+    { name = "python-dotenv", specifier = ">=1.0.0" },
     { name = "screeninfo", specifier = ">=0.8.1" },
     { name = "uvicorn", specifier = ">=0.40.0" },
 ]
