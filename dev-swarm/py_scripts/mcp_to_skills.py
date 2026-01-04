@@ -11,7 +11,7 @@ import urllib.request
 from dataclasses import dataclass
 import hashlib
 from pathlib import Path
-from typing import Any, Iterable
+from typing import Any, Iterable, Mapping
 import queue
 import re
 import time
@@ -422,8 +422,8 @@ def skill_dir(base_dir: Path, server_id: str, tool_name: str) -> Path:
     return base_dir / skill_name
 
 
-def render_skill(tool: ToolDef, server_id: str) -> str:
-    description = tool.description or f"Invoke MCP tool {tool.name} on server {server_id}."
+def render_skill(tool: ToolDef, server_id: str, description_override: str | None = None) -> str:
+    description = description_override or tool.description or f"Invoke MCP tool {tool.name} on server {server_id}."
     description = " ".join(description.splitlines()).strip()
     description = description.replace("\"", "\\\"")
     input_schema = json.dumps(tool.input_schema or {}, indent=2, ensure_ascii=True)
@@ -461,6 +461,33 @@ If the tool returns a task id, poll the task status via the MCP request tool:
 ```
 """
     return template
+
+
+def parse_description_value(raw: str) -> str:
+    value = raw.strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
+        quote = value[0]
+        value = value[1:-1]
+        if quote == '"':
+            value = value.replace('\\"', '"')
+        else:
+            value = value.replace("\\'", "'")
+    return " ".join(value.split()).strip()
+
+
+def read_frontmatter_description(skill_path: Path) -> str | None:
+    if not skill_path.exists():
+        return None
+    content = skill_path.read_text()
+    match = re.match(r"(?s)^---\n(.*?)\n---\n", content)
+    if not match:
+        return None
+    for line in match.group(1).splitlines():
+        if line.lstrip().startswith("description:"):
+            raw_value = line.split(":", 1)[1]
+            parsed = parse_description_value(raw_value)
+            return parsed or None
+    return None
 
 
 @dataclass(frozen=True)
@@ -501,18 +528,24 @@ def gather_tools(manager: MCPManager, server_ids: Iterable[str]) -> dict[str, li
 def build_skill_entries(
     output_dir: Path,
     tools_by_server: dict[str, list[ToolDef]],
+    description_overrides: Mapping[str, str] | None = None,
 ) -> list[SkillEntry]:
     entries: list[SkillEntry] = []
+    overrides = description_overrides or {}
     for server_id in sorted(tools_by_server.keys()):
         tools = sorted(tools_by_server[server_id], key=lambda tool: tool.name)
         for tool in tools:
             tool_path = skill_dir(output_dir, server_id, tool.name)
             skill_path = tool_path / "SKILL.md"
+            skill_name = tool_path.name
+            existing_description = read_frontmatter_description(skill_path)
+            override_description = overrides.get(skill_name)
+            description = override_description or existing_description or None
             entries.append(
                 SkillEntry(
                     name=tool.name,
                     path=skill_path,
-                    content=render_skill(tool, server_id),
+                    content=render_skill(tool, server_id, description),
                 )
             )
     return entries
@@ -653,6 +686,7 @@ def build_bridge(
     force_refresh: bool,
     output_dir: Path | None,
     log_level: str,
+    description_overrides: Mapping[str, str] | None = None,
 ) -> tuple[Bridge, bool]:
     logging.basicConfig(level=log_level.upper(), format="%(levelname)s %(message)s")
     base_dir = Path(__file__).resolve().parents[1]
@@ -678,11 +712,11 @@ def build_bridge(
     server_ids = [config.id for config in enabled_configs]
 
     tools_by_server = gather_tools(manager, server_ids)
-    entries = build_skill_entries(output_root, tools_by_server)
+    entries = build_skill_entries(output_root, tools_by_server, description_overrides)
     skills_hash = compute_skills_hash(entries, base_dir)
 
     lock_changed = skills_hash != lock_hash
-    should_refresh = force_refresh or lock_changed
+    should_refresh = force_refresh
 
     write_skills(entries, should_refresh)
     manage_symlinks(output_root, skills_dir, enabled_server_ids, disabled_server_ids)

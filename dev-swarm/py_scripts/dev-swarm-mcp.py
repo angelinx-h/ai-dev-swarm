@@ -62,6 +62,25 @@ def prepare_mcp_settings(settings_path: Path, env: Mapping[str, str]) -> dict[st
     return expanded
 
 
+def load_mcp_descriptions(base_dir: Path) -> dict[str, str]:
+    descriptions_path = base_dir / "mcp_descriptions.json"
+    if not descriptions_path.exists():
+        return {}
+    try:
+        raw = json.loads(descriptions_path.read_text())
+    except json.JSONDecodeError:
+        return {}
+    if not isinstance(raw, dict):
+        return {}
+    overrides: dict[str, str] = {}
+    for key, value in raw.items():
+        if isinstance(key, str) and isinstance(value, str):
+            cleaned = " ".join(value.split()).strip()
+            if cleaned:
+                overrides[key] = cleaned
+    return overrides
+
+
 def main() -> None:
     args = parse_args()
     settings_path = Path(args.mcp_settings).expanduser().resolve()
@@ -70,11 +89,13 @@ def main() -> None:
     load_dotenv(dotenv_path=env_path, override=True)
 
     settings_data = prepare_mcp_settings(settings_path, os.environ)
+    overrides = load_mcp_descriptions(base_dir)
     bridge, lock_changed = build_bridge(
         mcp_settings_data=settings_data,
         force_refresh=False,
         output_dir=None,
         log_level="INFO",
+        description_overrides=overrides,
     )
 
     if lock_changed:
