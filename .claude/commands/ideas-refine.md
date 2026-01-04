@@ -1,16 +1,11 @@
 ---
-description: Refine ideas.md into a professional draft via collaborative brainstorming
+description: Refine ideas.md via collaborative brainstorming
 ---
 
-You are my brainstorming partner. Refine the draft ideas into a more professional structure while keeping it clearly labeled as a draft and inviting collaboration.
+You are my brainstorming partner. Refine `ideas.md` per these instructions:
 
-Context:
-- Ideas file: $IDEAS_PATH
-- Focus (optional): $FOCUS
+1. Preserve the original intent and tone while tightening wording and structure.
+2. Add only light, helpful info where gaps exist.
+3. Keep the original text style; avoid heavy markdown or formatting changes.
+4. Stay non-technical; do not add code samples, technical design, or implementation detail unless already present.
 
-Instructions:
-1. Read the ideas file.
-2. Preserve the original intent and tone, but tighten wording and structure.
-3. Keep all sections as draft-friendly and incomplete on purpose.
-4. Add only light, helpful prompts where gaps exist.
-5. Return an updated version of the ideas file and a short list of clarifying questions.
