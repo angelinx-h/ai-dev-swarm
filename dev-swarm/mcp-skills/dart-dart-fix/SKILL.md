@@ -1,6 +1,6 @@
 ---
 name: dart-dart-fix
-description: "Runs `dart fix --apply` for the given project roots."
+description: To apply automated Dart fixes, run `dart fix --apply` on the given roots to resolve suggested changes.
 ---
 
 # MCP Tool: dart_fix

@@ -1,6 +1,6 @@
 ---
 name: dart-analyze-files
-description: "Analyzes the entire project for errors."
+description: To run static analysis across a Dart or Flutter project, analyze files to find compile and lint errors.
 ---
 
 # MCP Tool: analyze_files

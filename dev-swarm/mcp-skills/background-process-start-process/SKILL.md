@@ -1,6 +1,6 @@
 ---
 name: background-process-start-process
-description: "Starts a new background process (servers, watchers, etc.)."
+description: To start a long-running background task, launch a managed process such as a server or watcher and keep it tracked.
 ---
 
 # MCP Tool: start_process

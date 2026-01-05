@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-evaluate
-description: "Evaluate JavaScript expression on page or element"
+description: To run JavaScript in the page context, evaluate an expression on the page or a specific element for inspection or manipulation.
 ---
 
 # MCP Tool: browser_evaluate

@@ -1,6 +1,6 @@
 ---
 name: dart-create-project
-description: "Creates a new Dart or Flutter project."
+description: To scaffold a new Dart or Flutter project, create a fresh project structure and starter files.
 ---
 
 # MCP Tool: create_project

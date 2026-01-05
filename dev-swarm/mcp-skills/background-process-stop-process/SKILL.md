@@ -1,6 +1,6 @@
 ---
 name: background-process-stop-process
-description: "Stops a running background process."
+description: To stop a managed background task, terminate a running process by ID to shut it down cleanly.
 ---
 
 # MCP Tool: stop_process

@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-install
-description: "Install the browser specified in the config. Call this if you get an error about the browser not being installed."
+description: To install the Playwright browser defined in config, run this when the browser is missing or not installed.
 ---
 
 # MCP Tool: browser_install

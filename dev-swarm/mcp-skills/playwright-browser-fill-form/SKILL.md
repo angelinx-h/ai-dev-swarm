@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-fill-form
-description: "Fill multiple form fields"
+description: To fill multiple form fields at once, set values for inputs, checkboxes, and selects in a single call.
 ---
 
 # MCP Tool: browser_fill_form

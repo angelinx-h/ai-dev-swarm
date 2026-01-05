@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-select-option
-description: "Select an option in a dropdown"
+description: To choose an option in a dropdown, select one or more values in a select element.
 ---
 
 # MCP Tool: browser_select_option

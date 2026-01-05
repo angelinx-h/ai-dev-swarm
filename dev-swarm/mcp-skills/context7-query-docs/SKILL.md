@@ -1,6 +1,6 @@
 ---
 name: context7-query-docs
-description: "Retrieves and queries up-to-date documentation and code examples from Context7 for any programming library or framework.  You must call 'resolve-library-id' first to obtain the exact Context7-compatible library ID required to use this tool, UNLESS the user explicitly provides a library ID in the format '/org/project' or '/org/project/version' in their query.  IMPORTANT: Do not call this tool more than 3 times per question. If you cannot find what you need after 3 calls, use the best information you have."
+description: To fetch up-to-date docs and code examples from Context7 for a known library, query by a resolved library ID after running resolve-library-id (max 3 calls).
 ---
 
 # MCP Tool: query-docs

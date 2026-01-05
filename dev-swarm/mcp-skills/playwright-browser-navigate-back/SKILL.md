@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-navigate-back
-description: "Go back to the previous page"
+description: To go back in browser history, navigate to the previous page from the current page.
 ---
 
 # MCP Tool: browser_navigate_back

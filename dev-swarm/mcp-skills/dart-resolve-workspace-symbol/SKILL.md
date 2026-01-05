@@ -1,6 +1,6 @@
 ---
 name: dart-resolve-workspace-symbol
-description: "Look up a symbol or symbols in all workspaces by name. Can be used to validate that a symbol exists or discover small spelling mistakes, since the search is fuzzy."
+description: To search for symbols across Dart workspaces, resolve a symbol name to find definitions or catch spelling errors.
 ---
 
 # MCP Tool: resolve_workspace_symbol

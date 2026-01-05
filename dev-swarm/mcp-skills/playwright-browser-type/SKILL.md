@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-type
-description: "Type text into editable element"
+description: To type text into an editable field, enter text into inputs or textareas.
 ---
 
 # MCP Tool: browser_type

@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-navigate
-description: "Navigate to a URL"
+description: To open a URL, open a web page, open web browser, or navigate the current page in the web browser to a new URL.
 ---
 
 # MCP Tool: browser_navigate

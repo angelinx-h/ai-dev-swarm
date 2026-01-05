@@ -1,6 +1,6 @@
 ---
 name: dart-signature-help
-description: "Get signature help for an API being used at a given cursor position in a file."
+description: To see function or method signatures at a cursor position, get signature help for the API being called.
 ---
 
 # MCP Tool: signature_help

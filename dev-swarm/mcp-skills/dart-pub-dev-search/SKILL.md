@@ -1,6 +1,6 @@
 ---
 name: dart-pub-dev-search
-description: "Searches pub.dev for packages relevant to a given search query. The response will describe each result with its download count, package description, topics, license, and publisher."
+description: To search pub.dev for relevant Dart packages, query by keywords and return download counts, topics, license, and publisher.
 ---
 
 # MCP Tool: pub_dev_search

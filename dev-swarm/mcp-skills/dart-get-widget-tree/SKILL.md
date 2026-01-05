@@ -1,6 +1,6 @@
 ---
 name: dart-get-widget-tree
-description: "Retrieves the widget tree from the active Flutter application. Requires \"connect_dart_tooling_daemon\" to be successfully called first."
+description: To inspect the Flutter widget tree of the running app, retrieve the widget hierarchy after connecting to the Dart Tooling Daemon.
 ---
 
 # MCP Tool: get_widget_tree

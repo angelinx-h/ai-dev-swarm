@@ -1,6 +1,6 @@
 ---
 name: dart-get-selected-widget
-description: "Retrieves the selected widget from the active Flutter application. Requires \"connect_dart_tooling_daemon\" to be successfully called first."
+description: To find the currently selected Flutter widget in the running app, get the selected widget after connecting to the Dart Tooling Daemon.
 ---
 
 # MCP Tool: get_selected_widget

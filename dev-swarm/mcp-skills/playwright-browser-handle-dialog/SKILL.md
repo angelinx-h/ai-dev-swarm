@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-handle-dialog
-description: "Handle a dialog"
+description: To accept or dismiss browser dialogs like alert/confirm/prompt, handle the dialog so automation can continue.
 ---
 
 # MCP Tool: browser_handle_dialog

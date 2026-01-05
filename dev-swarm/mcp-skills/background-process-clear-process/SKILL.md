@@ -1,6 +1,6 @@
 ---
 name: background-process-clear-process
-description: "Clears a stopped background process from the list."
+description: To remove a finished background process from the manager list, clear a stopped process after it exits so it no longer appears in listings.
 ---
 
 # MCP Tool: clear_process

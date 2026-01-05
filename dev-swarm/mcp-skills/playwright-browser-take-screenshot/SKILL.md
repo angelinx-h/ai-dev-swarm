@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-take-screenshot
-description: "Take a screenshot of the current page. You can't perform actions based on the screenshot, use browser_snapshot for actions."
+description: To take a screenshot of a page or element, capture an image for visual verification.
 ---
 
 # MCP Tool: browser_take_screenshot

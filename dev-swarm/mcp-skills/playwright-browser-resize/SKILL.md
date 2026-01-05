@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-resize
-description: "Resize the browser window"
+description: To resize the browser window, change viewport size to test responsive layouts.
 ---
 
 # MCP Tool: browser_resize

@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-tabs
-description: "List, create, close, or select a browser tab."
+description: To manage browser tabs, list, create, select, or close Playwright tabs.
 ---
 
 # MCP Tool: browser_tabs

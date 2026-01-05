@@ -1,6 +1,6 @@
 ---
 name: background-process-run-command-sync
-description: "Runs a short-lived shell command synchronously and returns full output."
+description: To run a short command and wait for the result, execute a synchronous shell command via the manager and return full output.
 ---
 
 # MCP Tool: run_command_sync

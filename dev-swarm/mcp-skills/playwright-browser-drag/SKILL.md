@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-drag
-description: "Perform drag and drop between two elements"
+description: To drag and drop between elements on a web page, perform a drag interaction from a source to a target.
 ---
 
 # MCP Tool: browser_drag

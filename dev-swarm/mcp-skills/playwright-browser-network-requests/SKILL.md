@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-network-requests
-description: "Returns all network requests since loading the page"
+description: To inspect network activity since page load, list network requests to review API calls and resources.
 ---
 
 # MCP Tool: browser_network_requests

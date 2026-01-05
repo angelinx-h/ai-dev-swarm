@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-click
-description: "Perform click on a web page"
+description: To click a page element in the browser, perform a click on buttons, links, or controls during Playwright automation.
 ---
 
 # MCP Tool: browser_click

@@ -1,6 +1,6 @@
 ---
 name: dart-remove-roots
-description: "Removes one or more project roots previously added via the add_roots tool."
+description: To remove previously registered Dart project roots, revoke tool access by removing those roots.
 ---
 
 # MCP Tool: remove_roots

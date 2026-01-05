@@ -1,6 +1,6 @@
 ---
 name: dart-add-roots
-description: "Adds one or more project roots. Tools are only allowed to run under these roots, so you must call this function before passing any roots to any other tools."
+description: To register project roots for Dart tooling access, add one or more root paths before using other Dart tools on those projects.
 ---
 
 # MCP Tool: add_roots

@@ -1,6 +1,6 @@
 ---
 name: dart-hot-reload
-description: "Performs a hot reload of the active Flutter application. This is to apply the latest code changes to the running application. Requires \"connect_dart_tooling_daemon\" to be successfully called first."
+description: To apply latest code changes to a running Flutter app, trigger hot reload after connecting to the Dart Tooling Daemon.
 ---
 
 # MCP Tool: hot_reload

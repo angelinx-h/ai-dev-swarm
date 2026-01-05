@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-close
-description: "Close the page"
+description: To close the current Playwright page, close the page to end the session or free resources.
 ---
 
 # MCP Tool: browser_close

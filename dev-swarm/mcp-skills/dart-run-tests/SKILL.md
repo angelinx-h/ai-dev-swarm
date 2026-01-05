@@ -1,6 +1,6 @@
 ---
 name: dart-run-tests
-description: "Run Dart or Flutter tests with an agent centric UX. ALWAYS use instead of `dart test` or `flutter test` shell commands."
+description: To run Dart or Flutter tests with the agent-centric test runner, execute tests using this tool instead of shell `dart test` or `flutter test`.
 ---
 
 # MCP Tool: run_tests

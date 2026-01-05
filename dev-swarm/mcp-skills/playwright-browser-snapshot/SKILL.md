@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-snapshot
-description: "Capture accessibility snapshot of the current page, this is better than screenshot"
+description: To capture an accessibility snapshot of the current page, take a structured snapshot for UI inspection.
 ---
 
 # MCP Tool: browser_snapshot

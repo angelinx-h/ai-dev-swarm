@@ -1,6 +1,6 @@
 ---
 name: dart-pub
-description: "Runs a pub command for the given project roots, like `dart pub get` or `flutter pub add`."
+description: To run Dart or Flutter pub commands like `pub get` or `pub add`, execute a pub command for the given roots.
 ---
 
 # MCP Tool: pub

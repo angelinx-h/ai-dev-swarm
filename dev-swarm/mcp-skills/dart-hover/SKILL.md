@@ -1,6 +1,6 @@
 ---
 name: dart-hover
-description: "Get hover information at a given cursor position in a file. This can include documentation, type information, etc for the text at that position."
+description: To view hover details such as docs and types at a cursor position, get hover information for a file location.
 ---
 
 # MCP Tool: hover

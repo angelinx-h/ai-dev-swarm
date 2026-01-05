@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-file-upload
-description: "Upload one or multiple files"
+description: To upload files through a file input, provide one or more file paths for a page file chooser.
 ---
 
 # MCP Tool: browser_file_upload

@@ -1,6 +1,6 @@
 ---
 name: background-process-get-server-status
-description: "Gets the current status of the Background Process Manager server."
+description: To check if the Background Process Manager is running, get the server status and confirm it is available.
 ---
 
 # MCP Tool: get_server_status

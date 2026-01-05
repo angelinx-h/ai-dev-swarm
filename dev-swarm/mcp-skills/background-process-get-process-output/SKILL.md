@@ -1,6 +1,6 @@
 ---
 name: background-process-get-process-output
-description: "Gets the recent output for a background process. Can specify `head` or `tail`."
+description: To read logs from a managed background process, fetch recent output (head or tail) for a process so you can inspect its stdout/stderr.
 ---
 
 # MCP Tool: get_process_output

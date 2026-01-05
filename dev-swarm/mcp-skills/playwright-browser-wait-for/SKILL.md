@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-wait-for
-description: "Wait for text to appear or disappear or a specified time to pass"
+description: To wait for page state changes, wait for text to appear or disappear or for a timeout.
 ---
 
 # MCP Tool: browser_wait_for

@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-press-key
-description: "Press a key on the keyboard"
+description: To press a keyboard key in the page, send a key press for shortcuts or input behavior.
 ---
 
 # MCP Tool: browser_press_key

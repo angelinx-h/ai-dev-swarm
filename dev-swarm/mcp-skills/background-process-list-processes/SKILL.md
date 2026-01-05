@@ -1,6 +1,6 @@
 ---
 name: background-process-list-processes
-description: "Gets a list of all processes being managed by the Background Process Manager."
+description: To see all managed background jobs, list processes so you can find their IDs, states, and names.
 ---
 
 # MCP Tool: list_processes

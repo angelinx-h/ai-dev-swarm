@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-run-code
-description: "Run Playwright code snippet"
+description: To run a custom Playwright script on the page, execute a code snippet for advanced interactions.
 ---
 
 # MCP Tool: browser_run_code

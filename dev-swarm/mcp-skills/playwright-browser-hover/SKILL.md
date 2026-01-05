@@ -1,6 +1,6 @@
 ---
 name: playwright-browser-hover
-description: "Hover over element on page"
+description: To hover over a page element, trigger hover states such as menus or tooltips.
 ---
 
 # MCP Tool: browser_hover

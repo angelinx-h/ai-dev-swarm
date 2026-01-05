@@ -50,14 +50,15 @@ For each target `dev-swarm/mcp-skills/**/SKILL.md`:
 
 ### Step 3: Refine Descriptions
 
-If the description is too long, too short, or missing context for AI agent to pick up it:
+If the description is too long, too short, or missing context for AI agent to pick it up:
 - Rewrite it to be concise and precise
 - Preserve any critical constraints (e.g., required prerequisites)
 - Avoid multi-line or overly verbose wording
 If the description already meets the specification, do not modify the skill or add an override entry.
 
-e.g. 
-"Navigate to a URL" -> "To open a http url, open a web page, open web browser, or navigate the current page in the web browser to a new URL"
+Example:
+
+The orignal description for `playwright-browser-navigate` is "Navigate to a URL", which is hard for AI Agent to pick up based on the context, We need to refine it as "To open a http url, open a web page, open web browser, or navigate the current page in the web browser to a new URL".
 
 ### Step 4: Record Overrides
 

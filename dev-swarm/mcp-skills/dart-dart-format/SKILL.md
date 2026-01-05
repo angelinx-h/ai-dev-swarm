@@ -1,6 +1,6 @@
 ---
 name: dart-dart-format
-description: "Runs `dart format .` for the given project roots."
+description: To format Dart code consistently, run `dart format .` on the given roots to apply standard formatting.
 ---
 
 # MCP Tool: dart_format
