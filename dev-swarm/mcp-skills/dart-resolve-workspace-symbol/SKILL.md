@@ -1,10 +1,7 @@
 ---
 name: dart-resolve-workspace-symbol
-description: To search for symbols across Dart workspaces, resolve a symbol name to find definitions or catch spelling errors.
+description: "To search for symbols across Dart workspaces, resolve a symbol name to find definitions or catch spelling errors."
 ---
-
-# MCP Tool: resolve_workspace_symbol
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

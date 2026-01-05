@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-wait-for
-description: To wait for page state changes, wait for text to appear or disappear or for a timeout.
+description: "To wait for page state changes, wait for text to appear or disappear or for a timeout."
 ---
-
-# MCP Tool: browser_wait_for
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

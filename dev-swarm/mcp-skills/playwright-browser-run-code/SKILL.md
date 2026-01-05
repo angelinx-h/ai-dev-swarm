@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-run-code
-description: To run a custom Playwright script on the page, execute a code snippet for advanced interactions.
+description: "To run a custom Playwright script on the page, execute a code snippet for advanced interactions."
 ---
-
-# MCP Tool: browser_run_code
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

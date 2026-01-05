@@ -119,7 +119,7 @@ playwright-browser-install: >
   To install the Playwright browser defined in config, run this when the browser is missing or not installed.
 
 playwright-browser-navigate: >
-  To open a URL, open a web page, open web browser, or navigate the current page in the web browser to a new URL.
+  open a URL, open a web page, open web browser, or navigate the current page in the web browser to a new URL.
 
 playwright-browser-navigate-back: >
   To go back in browser history, navigate to the previous page from the current page.

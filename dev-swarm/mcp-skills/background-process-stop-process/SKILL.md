@@ -1,10 +1,7 @@
 ---
 name: background-process-stop-process
-description: To stop a managed background task, terminate a running process by ID to shut it down cleanly.
+description: "To stop a managed background task, terminate a running process by ID to shut it down cleanly."
 ---
-
-# MCP Tool: stop_process
-Server: backgroundProcess
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

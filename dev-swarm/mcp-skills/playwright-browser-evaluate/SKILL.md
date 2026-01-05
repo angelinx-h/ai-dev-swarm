@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-evaluate
-description: To run JavaScript in the page context, evaluate an expression on the page or a specific element for inspection or manipulation.
+description: "To run JavaScript in the page context, evaluate an expression on the page or a specific element for inspection or manipulation."
 ---
-
-# MCP Tool: browser_evaluate
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

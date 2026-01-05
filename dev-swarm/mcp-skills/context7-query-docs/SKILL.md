@@ -1,10 +1,7 @@
 ---
 name: context7-query-docs
-description: To fetch up-to-date docs and code examples from Context7 for a known library, query by a resolved library ID after running resolve-library-id (max 3 calls).
+description: "To fetch up-to-date docs and code examples from Context7 for a known library, query by a resolved library ID after running resolve-library-id (max 3 calls)."
 ---
-
-# MCP Tool: query-docs
-Server: context7
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

@@ -1,10 +1,7 @@
 ---
 name: dart-analyze-files
-description: To run static analysis across a Dart or Flutter project, analyze files to find compile and lint errors.
+description: "To run static analysis across a Dart or Flutter project, analyze files to find compile and lint errors."
 ---
-
-# MCP Tool: analyze_files
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

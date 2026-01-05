@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-close
-description: To close the current Playwright page, close the page to end the session or free resources.
+description: "To close the current Playwright page, close the page to end the session or free resources."
 ---
-
-# MCP Tool: browser_close
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

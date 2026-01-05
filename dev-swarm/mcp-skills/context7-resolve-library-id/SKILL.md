@@ -1,10 +1,7 @@
 ---
 name: context7-resolve-library-id
-description: To find the Context7-compatible library ID for a package or product name, resolve the library ID before querying docs unless the user already provided an /org/project ID (max 3 calls).
+description: "To find the Context7-compatible library ID for a package or product name, resolve the library ID before querying docs unless the user already provided an /org/project ID (max 3 calls)."
 ---
-
-# MCP Tool: resolve-library-id
-Server: context7
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

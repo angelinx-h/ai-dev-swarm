@@ -22,6 +22,13 @@ def parse_args() -> argparse.Namespace:
         required=True,
         help="Path to MCP settings JSON",
     )
+    parser.add_argument(
+        "--force-refresh",
+        "--force_refresh",
+        dest="force_refresh",
+        action="store_true",
+        help="Force regeneration of all skill files even if they exist",
+    )
     return parser.parse_args()
 
 def expand_env_placeholders(value: Any, env: dict[str, str], missing: set[str]) -> Any:
@@ -101,7 +108,7 @@ def main() -> None:
     overrides = load_mcp_descriptions(base_dir)
     bridge, lock_changed = build_bridge(
         mcp_settings_data=settings_data,
-        force_refresh=False,
+        force_refresh=args.force_refresh,
         output_dir=None,
         log_level="INFO",
         description_overrides=overrides,

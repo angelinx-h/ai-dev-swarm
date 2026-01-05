@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-type
-description: To type text into an editable field, enter text into inputs or textareas.
+description: "To type text into an editable field, enter text into inputs or textareas."
 ---
-
-# MCP Tool: browser_type
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

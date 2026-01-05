@@ -431,19 +431,22 @@ def skill_dir(base_dir: Path, server_id: str, tool_name: str) -> Path:
 
 
 def render_skill(tool: ToolDef, server_id: str, description_override: str | None = None) -> str:
-    description = description_override or tool.description or f"Invoke MCP tool {tool.name} on server {server_id}."
-    description = " ".join(description.splitlines()).strip()
-    description = description.replace("\"", "\\\"")
+    # Frontmatter description: use override if available, otherwise use tool description
+    frontmatter_description = description_override or tool.description or f"Invoke MCP tool {tool.name} on server {server_id}."
+    frontmatter_description = " ".join(frontmatter_description.splitlines()).strip()
+    frontmatter_description = frontmatter_description.replace("\"", "\\\"")
+
+    # Tool description (body): always use the original MCP tool description
+    tool_description = tool.description or f"Invoke MCP tool {tool.name} on server {server_id}."
+    tool_description = " ".join(tool_description.splitlines()).strip()
+
     input_schema = json.dumps(tool.input_schema or {}, indent=2, ensure_ascii=True)
     # Convert server_id to kebab-case for skill name (e.g., backgroundProcess -> background-process)
     kebab_server_id = camel_to_kebab(server_id)
     template = f"""---
 name: {slugify(f"{kebab_server_id}-{tool.name}")}
-description: "{description}"
+description: "{frontmatter_description}"
 ---
-
-# MCP Tool: {tool.name}
-Server: {server_id}
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -453,7 +456,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-{description}
+{tool_description}
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.
@@ -781,7 +784,7 @@ def build_bridge(
     skills_hash = compute_skills_hash(entries, base_dir)
 
     lock_changed = skills_hash != lock_hash
-    should_refresh = force_refresh
+    should_refresh = force_refresh or lock_changed
 
     write_skills(entries, should_refresh)
     prune_mcp_skills(output_root, expected_skill_names, disabled_server_ids)

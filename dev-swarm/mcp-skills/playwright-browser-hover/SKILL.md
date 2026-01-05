@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-hover
-description: To hover over a page element, trigger hover states such as menus or tooltips.
+description: "To hover over a page element, trigger hover states such as menus or tooltips."
 ---
-
-# MCP Tool: browser_hover
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

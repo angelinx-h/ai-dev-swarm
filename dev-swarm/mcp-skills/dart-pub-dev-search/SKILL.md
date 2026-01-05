@@ -1,10 +1,7 @@
 ---
 name: dart-pub-dev-search
-description: To search pub.dev for relevant Dart packages, query by keywords and return download counts, topics, license, and publisher.
+description: "To search pub.dev for relevant Dart packages, query by keywords and return download counts, topics, license, and publisher."
 ---
-
-# MCP Tool: pub_dev_search
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

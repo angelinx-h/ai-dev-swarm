@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-select-option
-description: To choose an option in a dropdown, select one or more values in a select element.
+description: "To choose an option in a dropdown, select one or more values in a select element."
 ---
-
-# MCP Tool: browser_select_option
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

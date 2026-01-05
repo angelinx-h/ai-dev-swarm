@@ -1,10 +1,7 @@
 ---
 name: dart-signature-help
-description: To see function or method signatures at a cursor position, get signature help for the API being called.
+description: "To see function or method signatures at a cursor position, get signature help for the API being called."
 ---
-
-# MCP Tool: signature_help
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

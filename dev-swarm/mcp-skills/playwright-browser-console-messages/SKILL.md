@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-console-messages
-description: To read console logs from the current page, retrieve console messages for debugging JavaScript output.
+description: "To read console logs from the current page, retrieve console messages for debugging JavaScript output."
 ---
-
-# MCP Tool: browser_console_messages
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

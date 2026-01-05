@@ -1,10 +1,7 @@
 ---
 name: dart-get-runtime-errors
-description: To read recent runtime errors from a running Dart or Flutter app, fetch runtime errors after connecting to the Dart Tooling Daemon.
+description: "To read recent runtime errors from a running Dart or Flutter app, fetch runtime errors after connecting to the Dart Tooling Daemon."
 ---
-
-# MCP Tool: get_runtime_errors
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -14,7 +11,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-Retrieves the most recent runtime errors that have occurred in the active Dart or Flutter application. Requires \"connect_dart_tooling_daemon\" to be successfully called first.
+Retrieves the most recent runtime errors that have occurred in the active Dart or Flutter application. Requires "connect_dart_tooling_daemon" to be successfully called first.
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.

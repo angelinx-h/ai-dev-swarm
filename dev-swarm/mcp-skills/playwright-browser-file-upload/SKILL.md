@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-file-upload
-description: To upload files through a file input, provide one or more file paths for a page file chooser.
+description: "To upload files through a file input, provide one or more file paths for a page file chooser."
 ---
-
-# MCP Tool: browser_file_upload
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

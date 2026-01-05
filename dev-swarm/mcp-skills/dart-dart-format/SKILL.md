@@ -1,10 +1,7 @@
 ---
 name: dart-dart-format
-description: To format Dart code consistently, run `dart format .` on the given roots to apply standard formatting.
+description: "To format Dart code consistently, run `dart format .` on the given roots to apply standard formatting."
 ---
-
-# MCP Tool: dart_format
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

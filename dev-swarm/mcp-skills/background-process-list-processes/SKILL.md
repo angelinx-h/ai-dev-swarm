@@ -1,10 +1,7 @@
 ---
 name: background-process-list-processes
-description: To see all managed background jobs, list processes so you can find their IDs, states, and names.
+description: "To see all managed background jobs, list processes so you can find their IDs, states, and names."
 ---
-
-# MCP Tool: list_processes
-Server: backgroundProcess
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

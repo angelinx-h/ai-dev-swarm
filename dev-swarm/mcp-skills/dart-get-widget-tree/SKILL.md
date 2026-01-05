@@ -1,10 +1,7 @@
 ---
 name: dart-get-widget-tree
-description: To inspect the Flutter widget tree of the running app, retrieve the widget hierarchy after connecting to the Dart Tooling Daemon.
+description: "To inspect the Flutter widget tree of the running app, retrieve the widget hierarchy after connecting to the Dart Tooling Daemon."
 ---
-
-# MCP Tool: get_widget_tree
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -14,7 +11,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-Retrieves the widget tree from the active Flutter application. Requires \"connect_dart_tooling_daemon\" to be successfully called first.
+Retrieves the widget tree from the active Flutter application. Requires "connect_dart_tooling_daemon" to be successfully called first.
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.

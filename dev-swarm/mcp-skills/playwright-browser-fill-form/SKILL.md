@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-fill-form
-description: To fill multiple form fields at once, set values for inputs, checkboxes, and selects in a single call.
+description: "To fill multiple form fields at once, set values for inputs, checkboxes, and selects in a single call."
 ---
-
-# MCP Tool: browser_fill_form
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

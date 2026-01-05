@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-navigate
-description: To open a URL, open a web page, open web browser, or navigate the current page in the web browser to a new URL.
+description: "open a URL, open a web page, open web browser, or navigate the current page in the web browser to a new URL."
 ---
-
-# MCP Tool: browser_navigate
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

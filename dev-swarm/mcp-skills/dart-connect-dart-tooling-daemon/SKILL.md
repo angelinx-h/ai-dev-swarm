@@ -1,10 +1,7 @@
 ---
 name: dart-connect-dart-tooling-daemon
-description: To connect to the Dart Tooling Daemon for editor/runtime data, connect using a user-provided DTD URI before using related Dart tools.
+description: "To connect to the Dart Tooling Daemon for editor/runtime data, connect using a user-provided DTD URI before using related Dart tools."
 ---
-
-# MCP Tool: connect_dart_tooling_daemon
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -14,7 +11,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-Connects to the Dart Tooling Daemon. You should get the uri either from available tools or the user, do not just make up a random URI to pass. When asking the user for the uri, you should suggest the \"Copy DTD Uri to clipboard\" action. When reconnecting after losing a connection, always request a new uri first.
+Connects to the Dart Tooling Daemon. You should get the uri either from available tools or the user, do not just make up a random URI to pass. When asking the user for the uri, you should suggest the "Copy DTD Uri to clipboard" action. When reconnecting after losing a connection, always request a new uri first.
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.

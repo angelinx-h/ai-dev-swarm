@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-snapshot
-description: To capture an accessibility snapshot of the current page, take a structured snapshot for UI inspection.
+description: "To capture an accessibility snapshot of the current page, take a structured snapshot for UI inspection."
 ---
-
-# MCP Tool: browser_snapshot
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

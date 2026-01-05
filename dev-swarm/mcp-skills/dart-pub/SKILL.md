@@ -1,10 +1,7 @@
 ---
 name: dart-pub
-description: To run Dart or Flutter pub commands like `pub get` or `pub add`, execute a pub command for the given roots.
+description: "To run Dart or Flutter pub commands like `pub get` or `pub add`, execute a pub command for the given roots."
 ---
-
-# MCP Tool: pub
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

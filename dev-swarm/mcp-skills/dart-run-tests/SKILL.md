@@ -1,10 +1,7 @@
 ---
 name: dart-run-tests
-description: To run Dart or Flutter tests with the agent-centric test runner, execute tests using this tool instead of shell `dart test` or `flutter test`.
+description: "To run Dart or Flutter tests with the agent-centric test runner, execute tests using this tool instead of shell `dart test` or `flutter test`."
 ---
-
-# MCP Tool: run_tests
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-navigate-back
-description: To go back in browser history, navigate to the previous page from the current page.
+description: "To go back in browser history, navigate to the previous page from the current page."
 ---
-
-# MCP Tool: browser_navigate_back
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

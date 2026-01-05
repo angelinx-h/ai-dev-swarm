@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-install
-description: To install the Playwright browser defined in config, run this when the browser is missing or not installed.
+description: "To install the Playwright browser defined in config, run this when the browser is missing or not installed."
 ---
-
-# MCP Tool: browser_install
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

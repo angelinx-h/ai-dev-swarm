@@ -1,10 +1,7 @@
 ---
 name: dart-create-project
-description: To scaffold a new Dart or Flutter project, create a fresh project structure and starter files.
+description: "To scaffold a new Dart or Flutter project, create a fresh project structure and starter files."
 ---
-
-# MCP Tool: create_project
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

@@ -1,10 +1,7 @@
 ---
 name: dart-get-active-location
-description: To get the current cursor location from the connected editor, retrieve the active location after connecting to the Dart Tooling Daemon.
+description: "To get the current cursor location from the connected editor, retrieve the active location after connecting to the Dart Tooling Daemon."
 ---
-
-# MCP Tool: get_active_location
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -14,7 +11,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-Retrieves the current active location (e.g., cursor position) in the connected editor. Requires \"connect_dart_tooling_daemon\" to be successfully called first.
+Retrieves the current active location (e.g., cursor position) in the connected editor. Requires "connect_dart_tooling_daemon" to be successfully called first.
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.

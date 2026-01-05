@@ -1,10 +1,7 @@
 ---
 name: background-process-run-command-sync
-description: To run a short command and wait for the result, execute a synchronous shell command via the manager and return full output.
+description: "To run a short command and wait for the result, execute a synchronous shell command via the manager and return full output."
 ---
-
-# MCP Tool: run_command_sync
-Server: backgroundProcess
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

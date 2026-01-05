@@ -1,10 +1,7 @@
 ---
 name: background-process-start-process
-description: To start a long-running background task, launch a managed process such as a server or watcher and keep it tracked.
+description: "To start a long-running background task, launch a managed process such as a server or watcher and keep it tracked."
 ---
-
-# MCP Tool: start_process
-Server: backgroundProcess
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

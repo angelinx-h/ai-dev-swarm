@@ -1,10 +1,7 @@
 ---
 name: background-process-clear-process
-description: To remove a finished background process from the manager list, clear a stopped process after it exits so it no longer appears in listings.
+description: "To remove a finished background process from the manager list, clear a stopped process after it exits so it no longer appears in listings."
 ---
-
-# MCP Tool: clear_process
-Server: backgroundProcess
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

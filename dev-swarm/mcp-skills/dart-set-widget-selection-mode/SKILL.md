@@ -1,10 +1,7 @@
 ---
 name: dart-set-widget-selection-mode
-description: To enable or disable widget selection mode in a running Flutter app, set selection mode after connecting to the Dart Tooling Daemon.
+description: "To enable or disable widget selection mode in a running Flutter app, set selection mode after connecting to the Dart Tooling Daemon."
 ---
-
-# MCP Tool: set_widget_selection_mode
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -14,7 +11,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-Enables or disables widget selection mode in the active Flutter application. Requires \"connect_dart_tooling_daemon\" to be successfully called first.
+Enables or disables widget selection mode in the active Flutter application. Requires "connect_dart_tooling_daemon" to be successfully called first.
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.

@@ -1,10 +1,7 @@
 ---
 name: dart-hot-reload
-description: To apply latest code changes to a running Flutter app, trigger hot reload after connecting to the Dart Tooling Daemon.
+description: "To apply latest code changes to a running Flutter app, trigger hot reload after connecting to the Dart Tooling Daemon."
 ---
-
-# MCP Tool: hot_reload
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -14,7 +11,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-Performs a hot reload of the active Flutter application. This is to apply the latest code changes to the running application. Requires \"connect_dart_tooling_daemon\" to be successfully called first.
+Performs a hot reload of the active Flutter application. This is to apply the latest code changes to the running application. Requires "connect_dart_tooling_daemon" to be successfully called first.
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.

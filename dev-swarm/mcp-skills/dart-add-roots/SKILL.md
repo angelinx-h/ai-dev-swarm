@@ -1,10 +1,7 @@
 ---
 name: dart-add-roots
-description: To register project roots for Dart tooling access, add one or more root paths before using other Dart tools on those projects.
+description: "To register project roots for Dart tooling access, add one or more root paths before using other Dart tools on those projects."
 ---
-
-# MCP Tool: add_roots
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

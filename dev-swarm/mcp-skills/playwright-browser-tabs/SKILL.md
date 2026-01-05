@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-tabs
-description: To manage browser tabs, list, create, select, or close Playwright tabs.
+description: "To manage browser tabs, list, create, select, or close Playwright tabs."
 ---
-
-# MCP Tool: browser_tabs
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

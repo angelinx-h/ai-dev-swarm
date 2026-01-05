@@ -1,10 +1,7 @@
 ---
 name: background-process-get-server-status
-description: To check if the Background Process Manager is running, get the server status and confirm it is available.
+description: "To check if the Background Process Manager is running, get the server status and confirm it is available."
 ---
-
-# MCP Tool: get_server_status
-Server: backgroundProcess
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

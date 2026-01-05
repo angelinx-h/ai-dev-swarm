@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-resize
-description: To resize the browser window, change viewport size to test responsive layouts.
+description: "To resize the browser window, change viewport size to test responsive layouts."
 ---
-
-# MCP Tool: browser_resize
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

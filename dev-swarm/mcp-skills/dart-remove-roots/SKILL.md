@@ -1,10 +1,7 @@
 ---
 name: dart-remove-roots
-description: To remove previously registered Dart project roots, revoke tool access by removing those roots.
+description: "To remove previously registered Dart project roots, revoke tool access by removing those roots."
 ---
-
-# MCP Tool: remove_roots
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

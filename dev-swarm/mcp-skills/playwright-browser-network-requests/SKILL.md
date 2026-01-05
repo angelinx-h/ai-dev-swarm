@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-network-requests
-description: To inspect network activity since page load, list network requests to review API calls and resources.
+description: "To inspect network activity since page load, list network requests to review API calls and resources."
 ---
-
-# MCP Tool: browser_network_requests
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

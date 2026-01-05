@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-take-screenshot
-description: To take a screenshot of a page or element, capture an image for visual verification.
+description: "To take a screenshot of a page or element, capture an image for visual verification."
 ---
-
-# MCP Tool: browser_take_screenshot
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

@@ -1,10 +1,7 @@
 ---
 name: dart-get-selected-widget
-description: To find the currently selected Flutter widget in the running app, get the selected widget after connecting to the Dart Tooling Daemon.
+description: "To find the currently selected Flutter widget in the running app, get the selected widget after connecting to the Dart Tooling Daemon."
 ---
-
-# MCP Tool: get_selected_widget
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
@@ -14,7 +11,7 @@ Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
 ```
 
 ## Tool Description
-Retrieves the selected widget from the active Flutter application. Requires \"connect_dart_tooling_daemon\" to be successfully called first.
+Retrieves the selected widget from the active Flutter application. Requires "connect_dart_tooling_daemon" to be successfully called first.
 
 ## Arguments Schema
 The schema below describes the `arguments` object in the request payload.

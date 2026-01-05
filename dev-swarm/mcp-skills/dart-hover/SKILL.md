@@ -1,10 +1,7 @@
 ---
 name: dart-hover
-description: To view hover details such as docs and types at a cursor position, get hover information for a file location.
+description: "To view hover details such as docs and types at a cursor position, get hover information for a file location."
 ---
-
-# MCP Tool: hover
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-drag
-description: To drag and drop between elements on a web page, perform a drag interaction from a source to a target.
+description: "To drag and drop between elements on a web page, perform a drag interaction from a source to a target."
 ---
-
-# MCP Tool: browser_drag
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

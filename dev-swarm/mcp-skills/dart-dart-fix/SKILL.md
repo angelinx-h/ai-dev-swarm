@@ -1,10 +1,7 @@
 ---
 name: dart-dart-fix
-description: To apply automated Dart fixes, run `dart fix --apply` on the given roots to resolve suggested changes.
+description: "To apply automated Dart fixes, run `dart fix --apply` on the given roots to resolve suggested changes."
 ---
-
-# MCP Tool: dart_fix
-Server: dart
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

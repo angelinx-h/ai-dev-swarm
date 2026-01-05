@@ -1,10 +1,7 @@
 ---
 name: background-process-get-process-output
-description: To read logs from a managed background process, fetch recent output (head or tail) for a process so you can inspect its stdout/stderr.
+description: "To read logs from a managed background process, fetch recent output (head or tail) for a process so you can inspect its stdout/stderr."
 ---
-
-# MCP Tool: get_process_output
-Server: backgroundProcess
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-press-key
-description: To press a keyboard key in the page, send a key press for shortcuts or input behavior.
+description: "To press a keyboard key in the page, send a key press for shortcuts or input behavior."
 ---
-
-# MCP Tool: browser_press_key
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

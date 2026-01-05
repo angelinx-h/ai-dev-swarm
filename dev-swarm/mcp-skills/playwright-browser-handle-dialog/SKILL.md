@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-handle-dialog
-description: To accept or dismiss browser dialogs like alert/confirm/prompt, handle the dialog so automation can continue.
+description: "To accept or dismiss browser dialogs like alert/confirm/prompt, handle the dialog so automation can continue."
 ---
-
-# MCP Tool: browser_handle_dialog
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:

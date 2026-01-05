@@ -1,10 +1,7 @@
 ---
 name: playwright-browser-click
-description: To click a page element in the browser, perform a click on buttons, links, or controls during Playwright automation.
+description: "To click a page element in the browser, perform a click on buttons, links, or controls during Playwright automation."
 ---
-
-# MCP Tool: browser_click
-Server: playwright
 
 ## Usage
 Use the MCP tool `dev-swarm.request` to send the payload as a JSON string:
