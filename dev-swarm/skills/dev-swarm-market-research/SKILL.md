@@ -71,6 +71,10 @@ Follow these steps in order:
    - **If folder doesn't exist or only has .gitkeep (create mode):**
      - Proceed to Step 1 in CREATE MODE (create new docs)
 
+   - **If README.md exists:** Check whether it requires diagrams. If it does,
+     follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+     `dev-swarm-mermaid` skill to render outputs.
+
 4. Proceed to Step 1 with gathered context
 
 ### Step 1: Create/Update README.md Based on init-ideas
@@ -92,6 +96,9 @@ Follow these steps in order:
    - List deliverables explicitly in README (typical: market-overview.md, competitor-analysis.md, gap-analysis.md, pricing-research.md, validation-findings.md)
    - **Stage overview and objectives** (based on init-ideas context)
    - **Owners:** Product Manager, Data Analyst, Marketing Manager
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **Research goal:**
      - What problem domain will be researched (NOT technology)
      - Why this research matters for the project

@@ -83,7 +83,11 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current PRD state
    - If NOT exists: Will create new structure
 
-7. Proceed to Step 1 with gathered context
+7. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+8. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -100,6 +104,9 @@ Follow these steps in order:
    - List deliverables explicitly in README (typical: prd.md, functional-requirements.md, non-functional-requirements.md, out-of-scope.md)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** Product Manager (lead), UX Designer, Tech Manager
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What PRD will include:**
      - Product overview, goals, and user journeys
      - Functional requirements (based on user stories)

@@ -61,14 +61,18 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current state
    - If NOT exists: Will create new structure
 
-5. **Assess Current Environment:**
+5. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+6. **Assess Current Environment:**
    - Run `git remote -v` to check if remote repository is linked
    - Check if `.git` directory exists
    - Look for existing MCP tools configuration
    - Check for `.devcontainer/` folder
    - Check for `Dockerfile` or `docker-compose.yml`
 
-6. **Analyze Project Requirements:**
+7. **Analyze Project Requirements:**
    - Based on the tech stack (from `07-tech-specs/`), determine if project needs:
      - Local development only
      - Cloud development environment
@@ -79,7 +83,7 @@ Follow these steps in order:
      - **Standard**: Projects requiring GitHub + basic MCP tools
      - **Complex**: Projects requiring full cloud setup, multiple MCP tools, advanced Docker configurations
 
-7. Proceed to Step 1 with gathered context
+8. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -95,6 +99,9 @@ Follow these steps in order:
    - **For L3+ projects:** List deliverables explicitly in README (typical: github-setup.md, mcp-setup.md, vscode-devcontainer.md, ci-pipeline.md if CI selected)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** DevOps Engineer (lead), Infrastructure Architect
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What devops setup will include:**
     - **GitHub repository setup options (with checkboxes):**
       - [ ] No Git repo (do not commit code)

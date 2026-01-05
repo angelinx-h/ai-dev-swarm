@@ -76,7 +76,11 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current MVP definition
    - If NOT exists: Will create new structure
 
-6. Proceed to Step 1 with gathered context
+6. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+7. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -92,6 +96,9 @@ Follow these steps in order:
    - List deliverables explicitly in README (typical: mvp-scope.md, out-of-scope.md, success-metrics.md)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** Product Manager, Tech Manager, UX Designer
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What MVP will be defined:**
      - How P0 features from personas will be scoped into MVP
      - What success metrics will be defined

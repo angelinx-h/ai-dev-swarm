@@ -69,7 +69,11 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current deployment state
    - If NOT exists: Will create new structure
 
-6. **Assess Current State:**
+6. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+7. **Assess Current State:**
    - Verify build process works (`npm run build`, `docker build`, etc.)
    - Check if tests pass
    - Review tech specs from `07-tech-specs/` for deployment requirements
@@ -80,7 +84,7 @@ Follow these steps in order:
    - Look for `src/.github/workflows/` (GitHub Actions)
    - Check for other CI/CD configurations (Jenkins, GitLab CI, CircleCI, etc.)
 
-7. **Analyze Deployment Requirements:**
+8. **Analyze Deployment Requirements:**
 
    Based on the tech stack (from `07-tech-specs/`) and project requirements:
 
@@ -110,7 +114,7 @@ Follow these steps in order:
      - Alerting channels (email, Slack, PagerDuty)
      - Analytics and metrics
 
-8. Proceed to Step 1 with gathered context
+9. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -126,6 +130,9 @@ Follow these steps in order:
    - **For L3+ projects:** List deliverables explicitly in README (typical: infrastructure-plan.md, cd-pipeline.md, deployment-strategy.md, monitoring-logging.md, environment-config.md)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** Deployment Engineer (lead), DevOps Engineer, SysOps Engineer, Site Reliability Engineer
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What deployment will include:**
      - For L2: Deployment to local script/skill directories (`deployment.md`)
      - Infrastructure setup (hosting, database, storage)

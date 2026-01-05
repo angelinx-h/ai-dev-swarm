@@ -80,7 +80,11 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current architecture state
    - If NOT exists: Will create new structure
 
-7. Proceed to Step 1 with gathered context
+7. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+8. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -96,6 +100,9 @@ Follow these steps in order:
    - List deliverables explicitly in README (typical: system-overview.md, architecture-diagram.md, data-flow.md, deployment-boundaries.md)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** Tech Manager (lead), Backend Architect, Frontend Architect, AI Engineer, Content Moderator, DevOps Engineer
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What architecture will include:**
      - System components and their responsibilities
      - Architecture diagrams (high-level + detail)

@@ -80,7 +80,11 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current UX design state
    - If NOT exists: Will create new structure
 
-7. Proceed to Step 1 with gathered context
+7. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+8. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -96,6 +100,9 @@ Follow these steps in order:
    - List deliverables explicitly in README (typical: user-flows.md, interaction-specs.md, edge-cases.md, accessibility.md, mockups/)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** UX Designer (lead), UI Designer, Product Manager, Content Moderator
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What UX will include:**
      - User flows for critical journeys (list key flows from PRD)
      - Interaction specifications for components

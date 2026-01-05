@@ -97,6 +97,10 @@ Follow these steps in order:
 
 4. **Use Templates:** Always use templates from `templates/`.
 
+5. **If `09-sprints/README.md` exists:** Check whether it requires diagrams.
+   If it does, follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
 ### Step 1: Initialize Sprint Management (First Time Only)
 
 **CRITICAL: Joint Planning by PM and TM.**
@@ -108,6 +112,9 @@ Follow these steps in order:
     *   **Strategy:** Define how the product evolves through **Cumulative Demo-able Milestones** (Sprints).
     *   **Timeline:** Estimated number of sprints to reach MVP.
     *   **Budget:** Allocation from `cost-budget.md`.
+    *   **Diagrams (if required by project init):**
+        *   Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+        *   Include `diagram/` deliverables when needed
 3.  **Create `09-sprints/sprint-feature-proposal.md`:**
     *   Propose the sequence of Sprints.
     *   **Crucial:** Each Sprint must be a cumulative update to the demo-able product.

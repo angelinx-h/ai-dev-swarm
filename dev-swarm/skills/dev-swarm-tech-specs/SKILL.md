@@ -92,11 +92,15 @@ First read and understand rules: `dev-swarm/docs/research-specs-rules.md` then:
    - If exists: Read all existing files to understand current tech specs state
    - If NOT exists: Will create new structure
 
-8. **Read source code structure guidance (mandatory):**
+8. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+9. **Read source code structure guidance (mandatory):**
    - Read `dev-swarm/docs/source-code-structure.md`
    - Use it as the baseline when creating `07-tech-specs/source-code-structure.md`
 
-9. Proceed to Step 1 with gathered context
+10. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -114,6 +118,9 @@ First read and understand rules: `dev-swarm/docs/research-specs-rules.md` then:
    - **For L3+ projects:** List deliverables explicitly in README (typical: tech-stack.md, security.md, theme-standards.md, coding-standards.md, source-code-structure.md, testing-standards.md, security-standards.md)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** Tech Manager (lead), Security Engineer, UI Designer, DevOps Engineer
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What tech specs will include:**
      - Technology stack selection with rationale
      - Security posture and authentication approach

@@ -70,7 +70,11 @@ Follow these steps in order:
    - If exists: Read all existing files to understand current state
    - If NOT exists: Will create new structure
 
-5. Proceed to Step 1 with gathered context
+5. **If README.md exists:** Check whether it requires diagrams. If it does,
+   follow `dev-swarm/docs/mermaid-diagram-guide.md` and use the
+   `dev-swarm-mermaid` skill to render outputs.
+
+6. Proceed to Step 1 with gathered context
 
 ### Step 1: Refine Design Requirements in README and Get Approval
 
@@ -85,6 +89,9 @@ Follow these steps in order:
    - List deliverables explicitly in README (typical: persona-primary.md, persona-secondary.md, user-stories.md)
    - **Stage overview and objectives** (based on previous stage context)
    - **Owners:** Product Manager, UX Designer
+   - **Diagrams (if required by project init):**
+     - Reference `dev-swarm/docs/mermaid-diagram-guide.md`
+     - Include `diagram/` deliverables when needed
    - **What personas will be created:**
      - How many personas (1-2 typically)
      - What market research insights will inform personas

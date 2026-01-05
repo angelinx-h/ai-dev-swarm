@@ -68,6 +68,7 @@ Follow these steps in order:
 1. **Read the classification standard and scaling rules:**
    - Read `dev-swarm/docs/software-dev-classification.md`
    - Read `dev-swarm/docs/research-specs-rules.md`
+   - Read `dev-swarm/docs/mermaid-diagram-guide.md`
 
 2. **Analyze ideas.md to determine:**
    - **Project Purpose (P1-P4):**
@@ -126,6 +127,11 @@ Based on the determined scale level, decide which stages are needed:
 - Note: The files listed in repository-structure.md are samples; adapt based on project needs
  - Read `dev-swarm/docs/dev-swarm-roles.md` to map stage owners/attendances for README requirements (role-appropriate ownership)
 
+Also decide which stages require Mermaid diagrams. Use
+`dev-swarm/docs/mermaid-diagram-guide.md` for structure and
+`dev-swarm/docs/software-dev-classification.md` to avoid over-engineering
+for small scopes. Record the decision in each stage README.
+
 ### Step 5: Project Root README.md
    - **IMPORTANT: DO NOT create or modify the root README.md file**
    - The project readme file we are developing should be maintained in `src/README.md` by developers
@@ -158,6 +164,8 @@ Create folders from `00-init-ideas` through `10-deployment`. For each folder:
      - Use `dev-swarm/docs/repository-structure.md` as reference but adapt to project needs
      - Include Owner/Attendances based on `dev-swarm/docs/dev-swarm-roles.md` (role-appropriate ownership)
      - Include comments explaining why each doc is needed
+     - If diagrams are required for the stage, add a note to create them and
+       reference `dev-swarm/docs/mermaid-diagram-guide.md`
      - **DO NOT create the actual documentation files yet** - only README
 
 3. **Create basic folder structure if needed:**
