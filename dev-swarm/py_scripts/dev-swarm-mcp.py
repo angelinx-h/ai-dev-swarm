@@ -45,17 +45,19 @@ def expand_env_placeholders(value: Any, env: dict[str, str], missing: set[str]) 
 
 def prepare_mcp_settings(settings_path: Path, env: Mapping[str, str]) -> dict[str, Any]:
     raw = json.loads(settings_path.read_text())
-
-    # Filter out disabled servers before checking environment variables
-    if "mcpServers" in raw and isinstance(raw["mcpServers"], dict):
-        enabled_servers = {}
-        for server_name, server_config in raw["mcpServers"].items():
-            if isinstance(server_config, dict) and not server_config.get("disabled", False):
-                enabled_servers[server_name] = server_config
-        raw["mcpServers"] = enabled_servers
-
     missing: set[str] = set()
-    expanded = expand_env_placeholders(raw, env, missing)
+    expanded: dict[str, Any] = {}
+    for key, value in raw.items():
+        if key == "mcpServers" and isinstance(value, dict):
+            expanded_servers: dict[str, Any] = {}
+            for server_name, server_config in value.items():
+                if isinstance(server_config, dict) and server_config.get("disabled", False):
+                    expanded_servers[server_name] = server_config
+                    continue
+                expanded_servers[server_name] = expand_env_placeholders(server_config, env, missing)
+            expanded[key] = expanded_servers
+            continue
+        expanded[key] = expand_env_placeholders(value, env, missing)
     if missing:
         missing_list = ", ".join(sorted(missing))
         raise ValueError(f"Missing environment variables for MCP settings: {missing_list}")

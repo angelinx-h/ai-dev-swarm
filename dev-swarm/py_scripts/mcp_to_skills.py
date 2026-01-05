@@ -576,14 +576,25 @@ def write_skills(
         entry.path.write_text(entry.content)
 
 
-def get_all_skill_dirs(mcp_skills_dir: Path, server_id: str) -> list[Path]:
-    """Get all skill directories for a given server."""
+def get_all_skill_dirs(
+    mcp_skills_dir: Path,
+    server_id: str,
+    include_symlinks: bool = False,
+) -> list[Path]:
+    """Get all skill directories (or symlinks) for a given server."""
     if not mcp_skills_dir.exists():
         return []
     # Convert server_id to kebab-case first (e.g., backgroundProcess -> background-process)
     kebab_server_id = camel_to_kebab(server_id)
     pattern = f"{slugify(kebab_server_id)}-*"
-    return sorted([d for d in mcp_skills_dir.glob(pattern) if d.is_dir()])
+    matches: list[Path] = []
+    for path in mcp_skills_dir.glob(pattern):
+        if path.is_dir():
+            matches.append(path)
+            continue
+        if include_symlinks and path.is_symlink():
+            matches.append(path)
+    return sorted(matches)
 
 
 def build_expected_skill_names(
@@ -664,7 +675,7 @@ def manage_symlinks(
 
     # Remove symlinks for tools removed from enabled servers
     for server_id, skill_names in expected_skill_names.items():
-        skill_dirs = get_all_skill_dirs(skills_dir, server_id)
+        skill_dirs = get_all_skill_dirs(skills_dir, server_id, include_symlinks=True)
         for skill_path in skill_dirs:
             if skill_path.name in skill_names:
                 continue
@@ -674,7 +685,7 @@ def manage_symlinks(
 
     # Remove symlinks for disabled servers
     for server_id in disabled_servers:
-        skill_dirs = get_all_skill_dirs(skills_dir, server_id)
+        skill_dirs = get_all_skill_dirs(skills_dir, server_id, include_symlinks=True)
         for skill_path in skill_dirs:
             skill_name = skill_path.name
             symlink_path = skills_dir / skill_name
