@@ -38,3 +38,4 @@ Notes:
   - `images/*.png` for the html file for review
   - `.html` for human-in-the-loop feedback
 - If Mermaid code fails to render, fix the code before re-running.
+- Manually verify every generated image (use vision). If it doesn’t match the intended concept, update the Mermaid source and render again.

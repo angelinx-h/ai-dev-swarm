@@ -1,64 +1,81 @@
-# AI-Driven Development Sprint & Backlog Guidelines
+# AI-Driven Development Sprint and Backlog Guidelines
 
 ## Purpose
 
-This guideline defines a workflow specifically designed for **AI-Driven Development**.
-Unlike traditional human-centric agile methods where work is broken down into minute technical tasks for human developers, this approach leverages the AI's ability to handle larger scopes and context.
+This guideline defines a workflow designed for AI-driven development.
+Unlike traditional agile methods that split work into small technical tasks for human developers, this approach leverages AI’s ability to handle larger scopes and more context.
 
-The goal is to:
-*   Treat **AI as the primary builder**
-*   Focus on **delivering complete user value** rather than incremental code changes
-*   Ensure every iteration results in a **tangible, demo-able product**
+Goals:
+- Treat AI as the primary builder.
+- Focus on delivering complete user value rather than incremental code changes.
+- Ensure every iteration results in a tangible, demoable product.
 
-## Core Principles
+## Core principles
 
-1.  **Backlogs are Features**
-    *   We do not split work into "backend task," "frontend task," or "database task."
-    *   Each backlog item corresponds directly to a **Feature** as defined in `dev-swarm/docs/what-is-a-feature.md`.
-    *   The AI implements the *entire* feature across the stack in one go.
+### 1) Backlogs are features
+- Do not split work into “backend tasks,” “frontend tasks,” or “database tasks.”
+- Each backlog item is a feature (see: dev-swarm/docs/what-is-a-feature.md).
+- The AI implements the entire feature end-to-end across the stack.
 
-2.  **Sprints are Cumulative Demo-able Milestones**
-    *   A sprint is not just a timebox; it is a scoped **Cumulative Demo-able Milestone**.
-    *   The first sprint delivers a minimum demo-able product. Each subsequent sprint adds new features, progressively evolving the product. At the end of every sprint, the result must be a cohesive, demo-able update to the software.
+### 2) Sprints are cumulative, demoable milestones
+- A sprint is a scoped, cumulative milestone, not just a timebox.
+- The first sprint delivers a minimum demoable product.
+- Each subsequent sprint adds features while keeping the product cohesive and demoable.
 
-3.  **Managerial Collaboration**
-    *   **Project Manager (PM)** defines the *Value* and *Scope* (What & Why).
-    *   **Tech Manager (TM)** assesses *Feasibility* and *Architecture* (How).
-    *   These two roles must work closely to define a sprint that is both valuable and technically achievable by the AI.
+### 3) Managerial collaboration
+- Project Manager (PM): defines value and scope (what and why).
+- Tech Manager (TM): assesses feasibility and architecture (how).
+- PM and TM work together to define a sprint that is both valuable and technically achievable by the AI.
 
-## Backlog Guidelines
+## Backlog guidelines
 
-Each backlog item is a **Feature**.
+Each backlog item is a feature.
 
-### 1. Definition
+### Definition
+- A backlog item is not a technical task (example: “Create an API endpoint”).
+- A backlog item is a user-facing capability (example: “Allow users to log in with Google”).
+- Use the “What is a Feature?” definition (./what-is-a-feature.md).
 
-*   A backlog item is **NOT** a technical task (e.g., "Create API endpoint").
-*   A backlog item **IS** a user-facing capability (e.g., "Allow users to log in with Google").
-*   Refer strictly to **[What is a Feature?](./what-is-a-feature.md)** for the definition.
+### Scope and completeness
+- Self-contained: includes all necessary changes (DB, backend, frontend, tests) to make the feature work.
+- Testable: verifiable from the user’s perspective (visible and operable).
 
-### 2. Scope & Completeness
+### Backlog types
+Each backlog item should be one of the following:
+- A small slice of the sprint feature, or
+- A step in the sprint feature that a user can take, or
+- A small, user-visible and user-testable feature.
 
-*   **Self-Contained**: A backlog item must include all necessary changes (DB, Backend, Frontend, Tests) to make the feature work.
-*   **Testable**: It must be verified by the "User Perspective" criteria (Visible & Operable).
+### How to split a sprint into backlogs
+Start with the user story.
 
-## Sprint Guidelines
+Ask: “If I’m a user, what are the steps I take?”
+
+Example journey for “Register a DNS domain”:
+- Check domain availability.
+- Register the domain.
+- See it in my domain list.
+
+Convert each step into a backlog item.
+
+## Sprint guidelines
 
 A sprint is a committed scope of work that results in a verifiable milestone.
 
-### 1. Sprint Definition
+### Sprint definition
+- PM and TM jointly define the sprint.
+- Selected backlogs should form a cohesive narrative (example: “User Authentication Sprint”).
+- A sprint can be defined as a user story.
+- The first sprint must produce a working mini product (a “Hello World” experience).
+- Every sprint after that adds value without breaking what already works.
 
-*   The **Project Manager** and **Tech Manager** jointly define the sprint.
-*   The selection of backlogs should form a cohesive narrative (e.g., "The User Authentication Sprint" or "The Reporting Dashboard Sprint").
-
-### 2. Sprint Outcome: The Cumulative Increment
-
-*   **Demo-able**: The output is not just merged code, but an updated version of the application.
-*   **End-User Ready**: The focus is on the *product* evolution, not just passing unit tests.
-*   **Review**: The review process involves walking through the updated product to verify the new features in context.
+### Sprint outcome: the cumulative increment
+- Demoable: the output is not just merged code; it is an updated version of the application.
+- End-user ready: focus on product evolution, not only unit tests.
+- Review: walk through the updated product to verify new features in context.
 
 ## Summary
-
-*   **Backlog = Feature** (End-to-end implementation)
-*   **Sprint = Cumulative Milestone** (Progressive product evolution)
-*   **PM + TM = Sprint Architects** (Joint definition of scope and feasibility)
-*   **AI = Builder** (Executes the full stack implementation)
+- Backlog = feature (end-to-end implementation).
+- Sprint = cumulative milestone (progressive product evolution).
+- PM + TM = sprint architects (joint definition of scope and feasibility).
+- AI = builder (executes the full-stack implementation).
