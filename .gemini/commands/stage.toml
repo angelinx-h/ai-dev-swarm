@@ -7,6 +7,8 @@ The argument can be:
 - A two-digit number: 00, 01, 02, etc.
 - A folder name contains: init-ideas, market-research, archive, etc.
 - "restore {archive-folder-name}" to restore a project from 99-archive
+- "restore git {repo-url} [ref]" to restore a project from a remote git repo
+- "restore local {path}" to restore a project from a non-archived local codebase
 
 Stage mapping:
 - 0 or 00 or init-ideas → Use agent skill `dev-swarm-init-ideas`
@@ -22,6 +24,8 @@ Stage mapping:
 - 10 or deployment → Use agent skill `dev-swarm-deployment`
 - 99 or archive → Use agent skill `dev-swarm-project-archive`
 - restore {archive-folder-name} → Use agent skill `dev-swarm-project-restore` (match {archive-folder-name} under `99-archive/`)
+- restore git {repo-url} [ref] → Use agent skill `dev-swarm-project-restore`
+- restore local {path} → Use agent skill `dev-swarm-project-restore`
 
 Requested stage: {{args}}
 
