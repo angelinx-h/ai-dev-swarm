@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import shutil
 import subprocess
 import threading
 import urllib.error
@@ -585,25 +586,60 @@ def get_all_skill_dirs(mcp_skills_dir: Path, server_id: str) -> list[Path]:
     return sorted([d for d in mcp_skills_dir.glob(pattern) if d.is_dir()])
 
 
+def build_expected_skill_names(
+    output_dir: Path,
+    tools_by_server: dict[str, list[ToolDef]],
+) -> dict[str, set[str]]:
+    expected: dict[str, set[str]] = {}
+    for server_id, tools in tools_by_server.items():
+        expected[server_id] = {skill_dir(output_dir, server_id, tool.name).name for tool in tools}
+    return expected
+
+
+def remove_skill_path(path: Path) -> None:
+    if not path.exists():
+        return
+    if path.is_symlink() or path.is_file():
+        path.unlink()
+        return
+    if path.is_dir():
+        shutil.rmtree(path)
+
+
+def prune_mcp_skills(
+    mcp_skills_dir: Path,
+    expected_skill_names: dict[str, set[str]],
+    disabled_servers: set[str],
+) -> None:
+    for server_id in disabled_servers:
+        for skill_path in get_all_skill_dirs(mcp_skills_dir, server_id):
+            remove_skill_path(skill_path)
+
+    for server_id, expected_names in expected_skill_names.items():
+        existing_paths = get_all_skill_dirs(mcp_skills_dir, server_id)
+        for skill_path in existing_paths:
+            if skill_path.name not in expected_names:
+                remove_skill_path(skill_path)
+
+
 def manage_symlinks(
     mcp_skills_dir: Path,
     skills_dir: Path,
-    enabled_servers: set[str],
+    expected_skill_names: dict[str, set[str]],
     disabled_servers: set[str],
 ) -> None:
     """
     Manage symlinks from skills_dir to mcp_skills_dir.
     - Create symlinks for enabled servers
     - Remove symlinks for disabled servers
+    - Remove symlinks for removed tools on enabled servers
     - Symlinks are relative paths
     """
     skills_dir.mkdir(parents=True, exist_ok=True)
 
     # Create symlinks for enabled servers
-    for server_id in enabled_servers:
-        skill_dirs = get_all_skill_dirs(mcp_skills_dir, server_id)
-        for skill_path in skill_dirs:
-            skill_name = skill_path.name
+    for server_id, skill_names in expected_skill_names.items():
+        for skill_name in sorted(skill_names):
             symlink_path = skills_dir / skill_name
 
             # Create relative symlink: ../mcp-skills/<skill-name>
@@ -626,9 +662,19 @@ def manage_symlinks(
             symlink_path.symlink_to(relative_target)
             LOGGER.debug(f"Created symlink: {symlink_path} -> {relative_target}")
 
+    # Remove symlinks for tools removed from enabled servers
+    for server_id, skill_names in expected_skill_names.items():
+        skill_dirs = get_all_skill_dirs(skills_dir, server_id)
+        for skill_path in skill_dirs:
+            if skill_path.name in skill_names:
+                continue
+            if skill_path.is_symlink() or skill_path.is_file():
+                skill_path.unlink()
+                LOGGER.debug(f"Removed stale symlink: {skill_path}")
+
     # Remove symlinks for disabled servers
     for server_id in disabled_servers:
-        skill_dirs = get_all_skill_dirs(mcp_skills_dir, server_id)
+        skill_dirs = get_all_skill_dirs(skills_dir, server_id)
         for skill_path in skill_dirs:
             skill_name = skill_path.name
             symlink_path = skills_dir / skill_name
@@ -713,13 +759,15 @@ def build_bridge(
 
     tools_by_server = gather_tools(manager, server_ids)
     entries = build_skill_entries(output_root, tools_by_server, description_overrides)
+    expected_skill_names = build_expected_skill_names(output_root, tools_by_server)
     skills_hash = compute_skills_hash(entries, base_dir)
 
     lock_changed = skills_hash != lock_hash
     should_refresh = force_refresh
 
     write_skills(entries, should_refresh)
-    manage_symlinks(output_root, skills_dir, enabled_server_ids, disabled_server_ids)
+    prune_mcp_skills(output_root, expected_skill_names, disabled_server_ids)
+    manage_symlinks(output_root, skills_dir, expected_skill_names, disabled_server_ids)
 
     if lock_changed:
         write_lock(lock_path, skills_hash)

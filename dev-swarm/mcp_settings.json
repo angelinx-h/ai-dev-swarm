@@ -48,7 +48,7 @@
         "Authorization": "Bearer ${GITHUB_MCP_PAT}",
         "X-MCP-Toolsets": "actions"
       },
-      "disabled": false
+      "disabled": true
     }
   }
 }
