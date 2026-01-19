@@ -79,7 +79,7 @@ Follow these steps in order for coding development:
    - Identify acceptance criteria
 
 3. **Read source code structure standards:**
-   - Read `07-tech-specs/source-code-structure.md`
+   - Read `dev-swarm/docs/source-code-structure.md` for general guidelines
    - Note file naming conventions and directory structure
 
 4. **Read feature documentation (using feature-name as index):**
@@ -96,7 +96,6 @@ Follow these steps in order for coding development:
    - Identify files to modify (CHANGE/BUG/IMPROVE) or create (FEATURE)
 
 6. **Understand codebase patterns:**
-   - Read `07-tech-specs/coding-standards.md` for coding conventions
    - Review existing code in `src/` using locations from `features/impl/[feature-name].md`
    - Note architectural patterns and integration points
 
@@ -126,13 +125,13 @@ Before writing code, create the feature design document:
 Once user approves the design:
 
 1. **Organize code in src/:**
-   - Follow `07-tech-specs/source-code-structure.md` for file organization
-   - Place code in appropriate locations within `src/` as defined by source-code-structure.md
+   - Follow `dev-swarm/docs/source-code-structure.md` for file organization guidelines
+   - Place code in appropriate locations within `src/`
    - Use file naming conventions defined in source-code-structure.md
 
 2. **Write the code:**
    - Implement according to the approved design
-   - Follow coding standards from `07-tech-specs/coding-standards.md`
+   - Follow coding standards
    - Write clean, modular, maintainable code
    - Include appropriate error handling
    - Avoid over-engineering (keep it simple)
@@ -280,10 +279,6 @@ Before marking complete:
 
 ```
 project-root/
-├── 07-tech-specs/
-│   ├── source-code-structure.md            # Code organization guide
-│   └── coding-standards.md                 # Coding conventions
-│
 ├── 09-sprints/
 │   └── SPRINT-XX-descriptive-name/
 │       └── [BACKLOG_TYPE]-XX-[feature-name]-<sub-feature>.md # Backlog entry point
@@ -300,7 +295,7 @@ project-root/
 │
 └── src/                                     # Source code
     ├── README.md                            # Project documentation (maintained by developers)
-    └── [organized as defined in 07-tech-specs/source-code-structure.md]
+    └── [organized per dev-swarm/docs/source-code-structure.md guidelines]
 ```
 
 ## File Templates

@@ -97,7 +97,6 @@ Follow these steps in order:
    - Identify success criteria
 
 3. **Read testing standards:**
-   - Read `07-tech-specs/testing-standards.md`
    - Understand test coverage requirements
    - Note test frameworks and conventions
 

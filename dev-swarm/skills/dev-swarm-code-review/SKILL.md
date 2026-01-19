@@ -94,9 +94,8 @@ Follow these steps in order:
    - Identify backlog type (FEATURE/CHANGE/BUG/IMPROVE)
 
 3. **Read coding standards:**
-   - Read `07-tech-specs/coding-standards.md`
    - Understand code style requirements and conventions
-   - Read `07-tech-specs/source-code-structure.md`
+   - Read `dev-swarm/docs/source-code-structure.md` for general guidelines
    - Understand expected code organization
 
 4. **Read feature documentation (using feature-name as index):**
