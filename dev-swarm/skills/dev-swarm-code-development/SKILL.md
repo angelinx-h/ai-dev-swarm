@@ -18,6 +18,7 @@ This skill implements backlogs through a structured feature-driven approach. As 
 ## Prerequisites
 
 This skill requires:
+- `04-prd/` - Product Requirements Document (business requirements and acceptance criteria)
 - `07-tech-specs/` - Engineering standards and constraints
 - `09-sprints/` folder with active sprint and backlogs
 - `features/` folder with features-index.md (existing features knowledge base)
@@ -82,20 +83,25 @@ Follow these steps in order for coding development:
    - Read `dev-swarm/docs/source-code-structure.md` for general guidelines
    - Note file naming conventions and directory structure
 
-4. **Read feature documentation (using feature-name as index):**
+4. **Read PRD and tech specs:**
+   - Read `04-prd/` (all markdown files) - Product requirements and acceptance criteria for the feature
+   - Read `07-tech-specs/` (all markdown files) - Technical specifications and engineering standards
+   - Understand the business context and technical constraints
+
+5. **Read feature documentation (using feature-name as index):**
    - Read `features/features-index.md` to confirm feature exists
    - Read `features/[feature-name].md` - Feature definition (WHAT/WHY/SCOPE)
    - Read `features/flows/[feature-name].md` - User flows (if exists)
    - Read `features/contracts/[feature-name].md` - API contracts (if exists)
    - Read `features/impl/[feature-name].md` - Implementation notes (if exists)
 
-5. **Locate existing source code:**
+6. **Locate existing source code:**
    - Use `features/impl/[feature-name].md` to find code locations
    - Navigate to `src/` directory
    - Review existing code structure and patterns
    - Identify files to modify (CHANGE/BUG/IMPROVE) or create (FEATURE)
 
-6. **Understand codebase patterns:**
+7. **Understand codebase patterns:**
    - Review existing code in `src/` using locations from `features/impl/[feature-name].md`
    - Note architectural patterns and integration points
 
