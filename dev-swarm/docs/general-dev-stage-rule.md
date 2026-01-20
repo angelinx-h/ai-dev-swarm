@@ -1,5 +1,17 @@
 # General Development Stage Rules
 
+## Pre-Execution
+
+**CRITICAL - MUST BE FIRST STEP**: Before executing any stage work:
+
+Check if `00-init-ideas/` has either `SKIP.md` or `README.md`. If neither exists, then:
+
+1. **Read `ideas.md`**
+2. **Identify all excluded/disabled stages** from the Development Stages section
+3. **Create `SKIP.md`** in each excluded stage folder (if not already exists), with reason: "Stage excluded as per ideas.md configuration"
+
+**Exception**: Stages 04-prd, 07-tech-specs, and 09-sprints are non-skippable and must always execute regardless of ideas.md settings.
+
 ## Role Selection
 
 Based on the stage context and project details, pick the best roles from `dev-swarm/docs/dev-swarm-roles.md`.
@@ -25,12 +37,6 @@ Every stage folder must contain at least one of the following:
 
 1. **`README.md`** - The stage proposal and summary document (required for active stages)
 2. **`SKIP.md`** - Skip reason document (only if stage is intentionally skipped)
-
-### Documentation Scaling
-
-- **Not Required**: `SKIP.md` - stage not needed for this project
-- **Simple**: `README.md` only - all information in one file (simple projects only have 3 stages: 04-prd, 07-tech-specs, and 09-sprints)
-- **Complex**: `README.md` + multiple files and diagrams
 
 **04-prd, 07-tech-specs, and 09-sprints are non-skippable stages**
 
