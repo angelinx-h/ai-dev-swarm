@@ -26,16 +26,11 @@ Every stage folder must contain at least one of the following:
 1. **`README.md`** - The stage proposal and summary document (required for active stages)
 2. **`SKIP.md`** - Skip reason document (only if stage is intentionally skipped)
 
-### Documentation Scaling
-
-- **Not Required**: `SKIP.md` - stage not needed for this project
-- **Simple**: `README.md` only - all information in one file (simple projects only have 3 stages: 04-prd, 07-tech-specs, and 09-sprints)
-- **Complex**: `README.md` + multiple files and diagrams
-
-**04-prd, 07-tech-specs, and 09-sprints are non-skippable stages**
+**00-init-ideas, 04-prd, 07-tech-specs, and 09-sprints are non-skippable stages**
 
 ### Writing Guidelines
 
+- Avoid using Markdown tables in any files
 - Keep docs small and simple
 - Avoid over-documentation
 - Write for experts, not beginners
