@@ -1054,7 +1054,7 @@ export default function Home() {
 
   const openStaticSite = (relativePath: string) => {
     if (!stageConfig) return;
-    const fullPath = `${stageConfig.folder}/${relativePath}/index.html`;
+    const fullPath = `${stageConfig.folder}/${relativePath}`;
     const url = `/api/static/${fullPath
       .split("/")
       .map((seg) => encodeURIComponent(seg))
@@ -1083,10 +1083,12 @@ export default function Home() {
               if (item.isFolder) {
                 const indexPath = `${item.relativePath}/index.html`;
                 if (stageFiles.includes(indexPath)) {
-                  openStaticSite(item.relativePath);
+                  openStaticSite(`${item.relativePath}/index.html`);
                 } else {
                   setFolderStack((prev) => [...prev, item.name]);
                 }
+              } else if (item.name.toLowerCase().endsWith(".html")) {
+                openStaticSite(item.relativePath);
               } else {
                 void loadDocument(item.fullPath);
               }
@@ -1118,7 +1120,7 @@ export default function Home() {
     const prefix = `${stageConfig.folder}/${subfolder}/`;
     const items = selectedStage.files
       .filter((f) => f.startsWith(prefix) && (f.endsWith(".md") || f.endsWith(".html")))
-      .map((f) => ({ name: f.slice(prefix.length), fullPath: f }));
+      .map((f) => ({ name: f.slice(prefix.length), fullPath: f, relativePath: `${subfolder}/${f.slice(prefix.length)}` }));
 
     return (
       <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg p-3">
@@ -1131,7 +1133,13 @@ export default function Home() {
             <button
                 key={item.fullPath}
                 type="button"
-                onClick={() => void loadDocument(item.fullPath)}
+                onClick={() => {
+                  if (item.name.toLowerCase().endsWith(".html")) {
+                    openStaticSite(item.relativePath);
+                  } else {
+                    void loadDocument(item.fullPath);
+                  }
+                }}
                 className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm border transition ${
                 currentPath === item.fullPath
                     ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-md"
@@ -1254,10 +1262,12 @@ export default function Home() {
                 if (item.isFolder) {
                   const indexPath = `${item.relativePath}/index.html`;
                   if (stageFiles.includes(indexPath)) {
-                    openStaticSite(item.relativePath);
+                    openStaticSite(`${item.relativePath}/index.html`);
                   } else {
                     setFolderStack((prev) => [...prev, item.name]);
                   }
+                } else if (item.name.toLowerCase().endsWith(".html")) {
+                  openStaticSite(item.relativePath);
                 } else {
                   void loadDocument(item.fullPath);
                 }
