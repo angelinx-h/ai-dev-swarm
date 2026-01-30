@@ -23,23 +23,67 @@ import {
   fetchAgents,
 } from "@/lib/api";
 import * as prompts from "@/lib/prompts";
+import {
+  RefreshCw,
+  Play,
+  Square,
+  Trash2,
+  Save,
+  Folder,
+  FileText,
+  FileCode,
+  Terminal,
+  CheckCircle2,
+  AlertCircle,
+  Archive,
+  Layers,
+  Layout,
+  Settings,
+  Database,
+  Globe,
+  Code2,
+  Box,
+  ChevronLeft,
+  Search,
+  PenTool,
+  Rocket,
+  Cpu,
+  Eraser,
+  ExternalLink,
+  Eye,
+  Edit3,
+  Clock,
+  SkipForward,
+  File,
+  XCircle,
+  Menu,
+  ChevronRight
+} from "lucide-react";
+
+const STATUS_ICONS: Record<Stage["status"], React.ElementType> = {
+  "not-started": Clock,
+  "in-progress": Play,
+  completed: CheckCircle2,
+  skipped: SkipForward,
+  error: XCircle,
+};
 
 const STATUS_STYLES: Record<Stage["status"], string> = {
-  "not-started": "bg-[var(--color-surface-alt)] text-[var(--color-text-secondary)]",
-  "in-progress": "bg-[var(--color-accent-cyan)] text-slate-900",
-  completed: "bg-[var(--color-success)] text-slate-900",
-  skipped: "bg-[var(--color-warning)] text-slate-900",
-  error: "bg-[var(--color-error)] text-white",
+  "not-started": "text-[var(--color-text-secondary)]",
+  "in-progress": "text-[var(--color-accent-cyan)]",
+  completed: "text-[var(--color-success)]",
+  skipped: "text-[var(--color-warning)]",
+  error: "text-[var(--color-error)]",
 };
 
 const STAGE_GROUPS = [
-  { title: "Discovery & Planning", stageIds: ["00", "01", "02"] },
-  { title: "Product Definition", stageIds: ["03", "04", "05"] },
-  { title: "Design", stageIds: ["06"] },
-  { title: "Technical Planning", stageIds: ["07", "08"] },
-  { title: "Implementation", stageIds: ["09", "10"] },
-  { title: "Deployment", stageIds: ["11"] },
-  { title: "Archive", stageIds: ["99"] },
+  { title: "Discovery & Planning", stageIds: ["00", "01", "02"], icon: Search },
+  { title: "Product Definition", stageIds: ["03", "04", "05"], icon: Box },
+  { title: "Design", stageIds: ["06"], icon: PenTool },
+  { title: "Technical Planning", stageIds: ["07", "08"], icon: Database },
+  { title: "Implementation", stageIds: ["09", "10"], icon: Code2 },
+  { title: "Deployment", stageIds: ["11"], icon: Rocket },
+  { title: "Archive", stageIds: ["99"], icon: Archive },
 ];
 
 export default function Home() {
@@ -511,24 +555,27 @@ export default function Home() {
   const renderActionButton = (
     label: string,
     prompt: string,
-    variant: "primary" | "secondary" | "danger" | "success" = "primary"
+    variant: "primary" | "secondary" | "danger" | "success" = "primary",
+    icon: React.ElementType = Play
   ) => {
+    const Icon = icon;
     const baseClass =
       variant === "primary"
-        ? "bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white"
+        ? "bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white shadow-md shadow-[var(--color-accent)]/20"
         : variant === "danger"
-          ? "bg-[var(--color-error)] hover:brightness-110 text-white"
+          ? "bg-[var(--color-error)] hover:brightness-110 text-white shadow-md shadow-[var(--color-error)]/20"
           : variant === "success"
-            ? "bg-[var(--color-success)] hover:brightness-110 text-slate-900"
-          : "border border-[var(--color-border)] text-[var(--color-text-primary)] hover:border-[var(--color-accent)]";
+            ? "bg-[var(--color-success)] hover:brightness-110 text-slate-900 shadow-md shadow-[var(--color-success)]/20"
+          : "border border-[var(--color-border)] text-[var(--color-text-primary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] bg-[var(--color-surface-alt)]";
     return (
         <button
           type="button"
           onClick={() => void runAgent(prompt)}
           disabled={agentRunning || !hasAgent}
-          className={`rounded-lg px-4 py-2 text-sm font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed ${baseClass}`}
+          className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed ${baseClass}`}
         >
-          {label}
+          <Icon className="h-4 w-4" />
+          <span>{label}</span>
         </button>
     );
   };
@@ -543,16 +590,23 @@ export default function Home() {
     // --- Skip state ---
     if (isSkipped) {
       return (
-        <div className="flex flex-col items-center justify-center py-20 gap-4">
-          <p className="text-[var(--color-text-secondary)] text-lg">This stage is skipped.</p>
+        <div className="flex flex-col items-center justify-center py-20 gap-6">
+          <div className="rounded-full bg-[var(--color-surface-alt)] p-4">
+             <SkipForward className="h-10 w-10 text-[var(--color-text-secondary)]" />
+          </div>
+          <div className="text-center">
+             <p className="text-[var(--color-text-secondary)] text-lg font-medium">This stage is skipped</p>
+             <p className="text-[var(--color-text-secondary)] text-sm opacity-60">You can unskip it to resume work</p>
+          </div>
           <button
             type="button"
             onClick={async () => {
               await toggleSkip(selectedStage.stageId, false);
               await doSync();
             }}
-            className="rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition"
+            className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-6 py-3 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition shadow-lg shadow-[var(--color-accent)]/20"
           >
+            <Play className="h-4 w-4" />
             Unskip Stage
           </button>
         </div>
@@ -562,9 +616,14 @@ export default function Home() {
     // --- Archive ---
     if (stageConfig.type === "archive") {
       return (
-        <div className="flex flex-col items-center justify-center py-20 gap-4">
-          <p className="text-[var(--color-text-secondary)]">Archive the current project and start fresh.</p>
-          {renderActionButton("Archive", prompts.archivePrompt())}
+        <div className="flex flex-col items-center justify-center py-20 gap-6">
+          <div className="rounded-full bg-[var(--color-surface-alt)] p-4">
+             <Archive className="h-10 w-10 text-[var(--color-text-secondary)]" />
+          </div>
+          <p className="text-[var(--color-text-secondary)] text-center max-w-md">
+            Archive the current project to save its state and start fresh. This action cannot be easily undone via the UI.
+          </p>
+          {renderActionButton("Archive Project", prompts.archivePrompt(), "primary", Archive)}
         </div>
       );
     }
@@ -576,9 +635,9 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
-                {renderActionButton("Refine Ideas", prompts.refineIdeasPrompt())}
-                {renderActionButton("Create Proposal", prompts.createProposalPrompt_InitIdeas())}
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+                {renderActionButton("Refine Ideas", prompts.refineIdeasPrompt(), "secondary", Edit3)}
+                {renderActionButton("Create Proposal", prompts.createProposalPrompt_InitIdeas(), "primary", FileText)}
               </div>
             )}
           </div>
@@ -589,16 +648,17 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 <button
                   type="button"
                   onClick={() => void handleSave()}
                   disabled={saving || !documentPayload}
-                  className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+                  className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
                 >
+                  <Save className="h-4 w-4" />
                   {saving ? "Saving..." : "Update"}
                 </button>
-                {renderActionButton("Create Files", prompts.createFilesPrompt_InitIdeas())}
+                {renderActionButton("Create Files", prompts.createFilesPrompt_InitIdeas(), "primary", Folder)}
               </div>
             )}
           </div>
@@ -610,9 +670,9 @@ export default function Home() {
           {renderFileBrowser()}
           {renderEditor()}
           {showActions && (
-            <div className="mt-auto flex items-center justify-between gap-3">
+            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
               <div className="flex gap-3">{renderSaveDeleteButtons()}</div>
-              {renderActionButton("Finalize", prompts.finalizePrompt_InitIdeas(), "success")}
+              {renderActionButton("Finalize Stage", prompts.finalizePrompt_InitIdeas(), "success", CheckCircle2)}
             </div>
           )}
         </div>
@@ -627,21 +687,22 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 {hasReadme && (
                   <button
                     type="button"
                     onClick={() => void handleSave()}
                     disabled={saving || !documentPayload}
-                    className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
                   >
+                    <Save className="h-4 w-4" />
                     {saving ? "Saving..." : "Update"}
                   </button>
                 )}
                 {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig))}
+                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
                 {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig))}
+                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
               </div>
             )}
           </div>
@@ -653,9 +714,9 @@ export default function Home() {
           {renderFileBrowser()}
           {renderEditor()}
           {showActions && (
-            <div className="mt-auto flex items-center justify-between gap-3">
+            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
               <div className="flex gap-3">{renderSaveDeleteButtons()}</div>
-              {renderActionButton("Finalize", prompts.finalizePrompt(stageConfig), "success")}
+              {renderActionButton("Finalize Stage", prompts.finalizePrompt(stageConfig), "success", CheckCircle2)}
             </div>
           )}
         </div>
@@ -670,21 +731,22 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 {hasReadme && (
                   <button
                     type="button"
                     onClick={() => void handleSave()}
                     disabled={saving || !documentPayload}
-                    className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
                   >
+                    <Save className="h-4 w-4" />
                     {saving ? "Saving..." : "Update"}
                   </button>
                 )}
                 {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig))}
+                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
                 {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig))}
+                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
               </div>
             )}
           </div>
@@ -696,7 +758,7 @@ export default function Home() {
             {renderFileBrowser()}
             {renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 {renderSaveDeleteButtons()}
               </div>
             )}
@@ -711,12 +773,12 @@ export default function Home() {
             {renderSubfolderBrowser(researchName)}
             {renderEditor()}
             {showActions && (
-              <div className="mt-auto flex items-center justify-between gap-3">
+              <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
                 <div className="flex gap-3">
                   {renderSaveDeleteButtons()}
-                  {renderActionButton("Research", prompts.researchPrompt(researchName))}
+                  {renderActionButton("Run Research", prompts.researchPrompt(researchName), "primary", Search)}
                 </div>
-                {isLast && renderActionButton("Finalize", prompts.finalizeResearchPrompt(), "success")}
+                {isLast && renderActionButton("Finalize Stage", prompts.finalizeResearchPrompt(), "success", CheckCircle2)}
               </div>
             )}
           </div>
@@ -732,21 +794,22 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 {hasReadme && (
                   <button
                     type="button"
                     onClick={() => void handleSave()}
                     disabled={saving || !documentPayload}
-                    className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
                   >
+                    <Save className="h-4 w-4" />
                     {saving ? "Saving..." : "Update"}
                   </button>
                 )}
                 {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig))}
+                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
                 {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig))}
+                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
               </div>
             )}
           </div>
@@ -758,7 +821,7 @@ export default function Home() {
             {renderFileBrowser()}
             {renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 {renderSaveDeleteButtons()}
               </div>
             )}
@@ -771,12 +834,12 @@ export default function Home() {
             {uxMockupFolder && renderSubfolderBrowser(uxMockupFolder)}
             {renderEditor()}
             {showActions && (
-              <div className="mt-auto flex items-center justify-between gap-3">
+              <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
                 <div className="flex gap-3">
                   {renderSaveDeleteButtons()}
-                  {renderActionButton("Create Mockup", prompts.createMockupPrompt())}
+                  {renderActionButton("Generate Mockup", prompts.createMockupPrompt(), "primary", Layout)}
                 </div>
-                {renderActionButton("Finalize", prompts.finalizeUxPrompt(), "success")}
+                {renderActionButton("Finalize Stage", prompts.finalizeUxPrompt(), "success", CheckCircle2)}
               </div>
             )}
           </div>
@@ -792,21 +855,22 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 {hasReadme && (
                   <button
                     type="button"
                     onClick={() => void handleSave()}
                     disabled={saving || !documentPayload}
-                    className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
                   >
+                    <Save className="h-4 w-4" />
                     {saving ? "Saving..." : "Update"}
                   </button>
                 )}
                 {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig))}
+                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
                 {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig))}
+                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
               </div>
             )}
           </div>
@@ -818,12 +882,12 @@ export default function Home() {
           {renderFileBrowser()}
           {renderEditor()}
           {showActions && (
-            <div className="mt-auto flex items-center justify-between gap-3">
+            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
               <div className="flex gap-3">
                 {renderSaveDeleteButtons()}
-                {renderActionButton("Execute", prompts.executeDevOpsPrompt(stageConfig))}
+                {renderActionButton("ExecuteOps", prompts.executeDevOpsPrompt(stageConfig), "secondary", Terminal)}
               </div>
-              {renderActionButton("Finalize", prompts.finalizePrompt(stageConfig), "success")}
+              {renderActionButton("Finalize Stage", prompts.finalizePrompt(stageConfig), "success", CheckCircle2)}
             </div>
           )}
         </div>
@@ -838,24 +902,27 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 {hasReadme && (
                   <button
                     type="button"
                     onClick={() => void handleSave()}
                     disabled={saving || !documentPayload}
-                    className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
                   >
+                    <Save className="h-4 w-4" />
                     {saving ? "Saving..." : "Update"}
                   </button>
                 )}
                 {!hasReadme &&
                   renderActionButton(
                     "Create Proposal",
-                    prompts.createProposalPrompt(stageConfig)
+                    prompts.createProposalPrompt(stageConfig),
+                    "primary",
+                    FileText
                   )}
                 {hasReadme &&
-                  renderActionButton("Create Plan", prompts.createSprintPlanPrompt())}
+                  renderActionButton("Create Plan", prompts.createSprintPlanPrompt(), "primary", Layers)}
               </div>
             )}
           </div>
@@ -866,16 +933,17 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderEditor()}
             {showActions && (
-              <div className="mt-auto flex gap-3">
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
                 <button
                   type="button"
                   onClick={() => void handleSave()}
                   disabled={saving || !documentPayload}
-                  className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+                  className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
                 >
+                  <Save className="h-4 w-4" />
                   {saving ? "Saving..." : "Update"}
                 </button>
-                {renderActionButton("Create Backlogs", prompts.createBacklogsPrompt())}
+                {renderActionButton("Create Backlogs", prompts.createBacklogsPrompt(), "primary", Layers)}
               </div>
             )}
           </div>
@@ -886,13 +954,13 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {showActions && !selectedSprintFolder && (
               <div className="mb-2">
-                {renderActionButton("Develop all the sprints", prompts.developAllSprintsPrompt())}
+                {renderActionButton("Develop all sprints", prompts.developAllSprintsPrompt(), "secondary", Rocket)}
               </div>
             )}
             {selectedSprintFolder ? renderSprintFileBrowser() : renderSprintFolderList()}
             {selectedSprintFolder && renderEditor()}
             {showActions && selectedSprintFolder && (
-              <div className="mt-auto flex gap-3">{renderSprintButtons()}</div>
+              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">{renderSprintButtons()}</div>
             )}
           </div>
         );
@@ -907,19 +975,24 @@ export default function Home() {
   const renderEditor = () => {
     if (!documentPayload) {
       return (
-        <div className="rounded-lg border border-dashed border-[var(--color-border)] px-4 py-8 text-center text-sm text-[var(--color-text-secondary)]">
-          No document loaded.
+        <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-[var(--color-border)] bg-[var(--color-surface-alt)]/50 px-4 py-20 text-center text-sm text-[var(--color-text-secondary)]">
+          <FileText className="h-10 w-10 mb-3 opacity-20" />
+          <p>No document loaded.</p>
         </div>
       );
     }
 
     if (documentPayload.contentType === "text/html") {
       return (
-        <div className="rounded-lg border border-[var(--color-border)] overflow-hidden">
+        <div className="rounded-lg border border-[var(--color-border)] overflow-hidden bg-white shadow-sm">
+          <div className="flex items-center justify-between bg-gray-100 px-3 py-1.5 border-b border-gray-200">
+             <span className="text-xs text-gray-500 font-mono">{documentPayload.path}</span>
+             <ExternalLink className="h-3 w-3 text-gray-400" />
+          </div>
           <iframe
             title={`HTML preview: ${documentPayload.path}`}
             sandbox="allow-same-origin"
-            className="h-[520px] w-full bg-white"
+            className="h-[520px] w-full"
             src={`/api/html/${documentPayload.path
               .split("/")
               .map((seg) => encodeURIComponent(seg))
@@ -931,40 +1004,46 @@ export default function Home() {
 
     return (
       <div className="flex flex-1 flex-col gap-3 min-h-0">
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setMarkdownView("editor")}
-            className={`rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest transition ${
-              markdownView === "editor"
-                ? "bg-[var(--color-accent)] text-white"
-                : "border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]"
-            }`}
-          >
-            Editor
-          </button>
-          <button
-            type="button"
-            onClick={() => setMarkdownView("preview")}
-            className={`rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-widest transition ${
-              markdownView === "preview"
-                ? "bg-[var(--color-accent)] text-white"
-                : "border border-[var(--color-border)] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)]"
-            }`}
-          >
-            Preview
-          </button>
+        <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 bg-[var(--color-surface-alt)] rounded-lg p-1 border border-[var(--color-border)]">
+              <button
+                type="button"
+                onClick={() => setMarkdownView("editor")}
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest transition ${
+                  markdownView === "editor"
+                    ? "bg-[var(--color-surface)] text-[var(--color-accent)] shadow-sm"
+                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                }`}
+              >
+                <Edit3 className="h-3 w-3" />
+                Editor
+              </button>
+              <button
+                type="button"
+                onClick={() => setMarkdownView("preview")}
+                className={`flex items-center gap-1.5 rounded-md px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest transition ${
+                  markdownView === "preview"
+                    ? "bg-[var(--color-surface)] text-[var(--color-accent)] shadow-sm"
+                    : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]"
+                }`}
+              >
+                <Eye className="h-3 w-3" />
+                Preview
+              </button>
+            </div>
+            <span className="text-xs font-mono text-[var(--color-text-secondary)] opacity-50">{documentPayload.path}</span>
         </div>
+
         {markdownView === "editor" ? (
-          <div className="flex flex-1 flex-col min-h-0">
+          <div className="flex flex-1 flex-col min-h-0 relative group">
             <textarea
               value={editorContent}
               onChange={(e) => setEditorContent(e.target.value)}
-              className="min-h-0 flex-1 w-full resize-none rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-3 py-2 text-sm text-[var(--color-text-primary)] font-mono outline-none focus:border-[var(--color-focus)]"
+              className="min-h-0 flex-1 w-full resize-none rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-4 py-3 text-sm text-[var(--color-text-primary)] font-mono outline-none focus:border-[var(--color-focus)] focus:ring-1 focus:ring-[var(--color-focus)] transition shadow-inner"
             />
           </div>
         ) : (
-          <div className="min-h-0 flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] p-4 overflow-auto">
+          <div className="min-h-0 flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] p-6 overflow-auto shadow-inner">
             <div className="doc-markdown">
               <ReactMarkdown>{editorContent}</ReactMarkdown>
             </div>
@@ -983,16 +1062,18 @@ export default function Home() {
           type="button"
           onClick={() => void handleSave()}
           disabled={saving}
-          className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
         >
+          <Save className="h-4 w-4" />
           {saving ? "Saving..." : "Update"}
         </button>
         {!isReadme && (
           <button
             type="button"
             onClick={() => void handleDelete()}
-            className="rounded-lg bg-[var(--color-error)] px-4 py-2 text-sm font-semibold text-white hover:brightness-110 transition"
+            className="flex items-center gap-2 rounded-lg bg-[var(--color-surface-alt)] border border-[var(--color-error)] text-[var(--color-error)] px-4 py-2 text-sm font-semibold hover:bg-[var(--color-error)] hover:text-white transition"
           >
+            <Trash2 className="h-4 w-4" />
             Delete
           </button>
         )}
@@ -1011,14 +1092,15 @@ export default function Home() {
   };
 
   const renderFileBrowser = () => (
-    <div>
+    <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg p-3">
       {folderStack.length > 0 && (
         <button
           type="button"
           onClick={() => setFolderStack((prev) => prev.slice(0, -1))}
-          className="mb-2 text-xs text-[var(--color-accent-cyan)] hover:underline"
+          className="mb-3 text-xs flex items-center gap-1 text-[var(--color-text-secondary)] hover:text-[var(--color-accent-cyan)] transition"
         >
-          &larr; Up Directory
+          <ChevronLeft className="h-3 w-3" />
+          Back
         </button>
       )}
       <div className="flex flex-wrap gap-2">
@@ -1038,29 +1120,22 @@ export default function Home() {
                 void loadDocument(item.fullPath);
               }
             }}
-            className={`rounded-lg px-3 py-1.5 text-sm transition ${
+            className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition border ${
               currentPath === item.fullPath
-                ? "bg-[var(--color-accent)] text-white"
+                ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-md shadow-[var(--color-accent)]/10"
                 : item.isFolder
-                  ? "bg-[var(--color-surface-alt)] text-[var(--color-accent-cyan)] border border-[var(--color-border)] hover:border-[var(--color-accent)]"
-                  : "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border border-[var(--color-border)] hover:border-[var(--color-accent)]"
+                  ? "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border-[var(--color-border)] hover:border-[var(--color-accent)] hover:shadow-sm"
+                  : "bg-transparent text-[var(--color-text-secondary)] border-transparent hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-text-primary)]"
             }`}
           >
-            <span className="inline-flex items-center gap-2">
-              {item.isFolder ? (
-                "📁"
-              ) : item.name.toLowerCase().endsWith(".md") ? (
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  className="h-3.5 w-3.5"
-                  fill="currentColor"
-                >
-                  <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM7 12h10v2H7v-2zm0 4h6v2H7v-2z" />
-                </svg>
-              ) : null}
-              <span>{item.name}</span>
-            </span>
+            {item.isFolder ? (
+              <Folder className={`h-4 w-4 ${currentPath === item.fullPath ? "text-white" : "text-[var(--color-accent-cyan)]"}`} />
+            ) : item.name.toLowerCase().endsWith(".md") ? (
+              <FileText className="h-4 w-4 opacity-70" />
+            ) : (
+              <File className="h-4 w-4 opacity-70" />
+            )}
+            <span className="truncate max-w-[140px]">{item.name}</span>
           </button>
         ))}
       </div>
@@ -1075,33 +1150,32 @@ export default function Home() {
       .map((f) => ({ name: f.slice(prefix.length), fullPath: f }));
 
     return (
-      <div className="flex flex-wrap gap-2">
-        {items.map((item) => (
-          <button
-            key={item.fullPath}
-            type="button"
-            onClick={() => void loadDocument(item.fullPath)}
-            className={`rounded-lg px-3 py-1.5 text-sm border transition ${
-              currentPath === item.fullPath
-                ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)]"
-                : "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border-[var(--color-border)] hover:border-[var(--color-accent)]"
-            }`}
-          >
-            <span className="inline-flex items-center gap-2">
-              {item.name.toLowerCase().endsWith(".md") && (
-                <svg
-                  aria-hidden="true"
-                  viewBox="0 0 24 24"
-                  className="h-3.5 w-3.5"
-                  fill="currentColor"
-                >
-                  <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM7 12h10v2H7v-2zm0 4h6v2H7v-2z" />
-                </svg>
-              )}
-              <span>{item.name}</span>
-            </span>
-          </button>
-        ))}
+      <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg p-3">
+        <div className="mb-2 text-xs font-mono text-[var(--color-text-secondary)] uppercase tracking-wider flex items-center gap-2">
+            <Folder className="h-3 w-3" />
+            {subfolder}
+        </div>
+        <div className="flex flex-wrap gap-2">
+            {items.map((item) => (
+            <button
+                key={item.fullPath}
+                type="button"
+                onClick={() => void loadDocument(item.fullPath)}
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm border transition ${
+                currentPath === item.fullPath
+                    ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-md"
+                    : "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border-[var(--color-border)] hover:border-[var(--color-accent)] hover:shadow-sm"
+                }`}
+            >
+                {item.name.toLowerCase().endsWith(".md") ? (
+                    <FileText className="h-4 w-4" />
+                ) : (
+                    <Globe className="h-4 w-4" />
+                )}
+                <span>{item.name}</span>
+            </button>
+            ))}
+        </div>
       </div>
     );
   };
@@ -1110,24 +1184,28 @@ export default function Home() {
     if (!stageConfig || !selectedStage) return null;
 
     return (
-      <div className="flex flex-wrap gap-2">
-        {sprintFolders.map((sf) => (
-          <button
-            key={sf}
-            type="button"
-            onClick={() => {
-              setSelectedSprintFolder(sf);
-              setFolderStack([]);
-            }}
-            className={`rounded-lg px-3 py-1.5 text-xs border transition ${
-              selectedSprintFolder === sf
-                ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)]"
-                : "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border-[var(--color-border)] hover:border-[var(--color-accent)]"
-            }`}
-          >
-            {sf}
-          </button>
-        ))}
+      <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg p-3">
+        <p className="mb-3 text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">Sprints</p>
+        <div className="flex flex-wrap gap-2">
+            {sprintFolders.map((sf) => (
+            <button
+                key={sf}
+                type="button"
+                onClick={() => {
+                setSelectedSprintFolder(sf);
+                setFolderStack([]);
+                }}
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs border transition ${
+                selectedSprintFolder === sf
+                    ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-md"
+                    : "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border-[var(--color-border)] hover:border-[var(--color-accent)] hover:shadow-sm"
+                }`}
+            >
+                <Layers className="h-3.5 w-3.5" />
+                {sf}
+            </button>
+            ))}
+        </div>
       </div>
     );
   };
@@ -1178,7 +1256,7 @@ export default function Home() {
     });
 
     return (
-      <div>
+      <div className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-lg p-3">
         <button
           type="button"
           onClick={() => {
@@ -1191,9 +1269,10 @@ export default function Home() {
               setEditorContent("");
             }
           }}
-          className="mb-2 text-xs text-[var(--color-accent-cyan)] hover:underline"
+          className="mb-3 text-xs flex items-center gap-1 text-[var(--color-text-secondary)] hover:text-[var(--color-accent-cyan)] transition"
         >
-          &larr; {folderStack.length > 0 ? "Up Directory" : "Back to sprints"}
+          <ChevronLeft className="h-3 w-3" />
+          {folderStack.length > 0 ? "Up Directory" : "Back to sprints"}
         </button>
         <div className="flex flex-wrap gap-2">
           {items.map((item) => (
@@ -1212,29 +1291,22 @@ export default function Home() {
                   void loadDocument(item.fullPath);
                 }
               }}
-              className={`rounded-lg px-3 py-1.5 text-sm transition ${
+              className={`flex items-center gap-2 rounded-lg px-3 py-2 text-sm transition border ${
                 currentPath === item.fullPath
-                  ? "bg-[var(--color-accent)] text-white"
+                  ? "bg-[var(--color-accent)] text-white border-[var(--color-accent)] shadow-md"
                   : item.isFolder
-                    ? "bg-[var(--color-surface-alt)] text-[var(--color-accent-cyan)] border border-[var(--color-border)] hover:border-[var(--color-accent)]"
-                    : "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border border-[var(--color-border)] hover:border-[var(--color-accent)]"
+                    ? "bg-[var(--color-surface-alt)] text-[var(--color-text-primary)] border-[var(--color-border)] hover:border-[var(--color-accent)]"
+                    : "bg-transparent text-[var(--color-text-secondary)] border-transparent hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-text-primary)]"
               }`}
             >
-              <span className="inline-flex items-center gap-2">
                 {item.isFolder ? (
-                  "📁"
+                <Folder className={`h-4 w-4 ${currentPath === item.fullPath ? "text-white" : "text-[var(--color-accent-cyan)]"}`} />
                 ) : item.name.toLowerCase().endsWith(".md") ? (
-                  <svg
-                    aria-hidden="true"
-                    viewBox="0 0 24 24"
-                    className="h-3.5 w-3.5"
-                    fill="currentColor"
-                  >
-                    <path d="M6 2h9l5 5v15a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm8 1.5V8h4.5L14 3.5zM7 12h10v2H7v-2zm0 4h6v2H7v-2z" />
-                  </svg>
-                ) : null}
-                <span>{item.name}</span>
-              </span>
+                <FileText className="h-4 w-4 opacity-70" />
+                ) : (
+                <File className="h-4 w-4 opacity-70" />
+                )}
+              <span>{item.name}</span>
             </button>
           ))}
         </div>
@@ -1262,15 +1334,18 @@ export default function Home() {
           type="button"
           onClick={() => void handleSave()}
           disabled={saving}
-          className="rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50"
+          className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
         >
+          <Save className="h-4 w-4" />
           {saving ? "Saving..." : "Update"}
         </button>
         {isReadme
-          ? renderActionButton("Develop this sprint", prompts.developSprintPrompt(sprintFolder))
+          ? renderActionButton("Develop this sprint", prompts.developSprintPrompt(sprintFolder), "primary", Rocket)
           : renderActionButton(
               "Develop this backlog",
-              prompts.developBacklogPrompt(fileName.replace(".md", ""))
+              prompts.developBacklogPrompt(fileName.replace(".md", "")),
+              "primary",
+              Code2
             )}
       </>
     );
@@ -1278,56 +1353,62 @@ export default function Home() {
 
   // --- Main render ---
   return (
-    <div className="flex h-screen flex-col bg-[var(--color-background)] text-[var(--color-text-primary)]">
+    <div className="flex h-screen flex-col bg-[var(--color-background)] text-[var(--color-text-primary)] font-[var(--font-sans)]">
       {/* Header */}
-      <header className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-3 shrink-0">
-        <div>
-          <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
-            Dev Swarm
-          </p>
-          <h1 className="text-lg font-semibold font-[var(--font-display)]">WebUI</h1>
+      <header className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-surface)]/80 backdrop-blur-md px-6 py-3 shrink-0 z-20">
+        <div className="flex items-center gap-3">
+          <div className="bg-gradient-to-tr from-[var(--color-accent)] to-[var(--color-accent-cyan)] h-8 w-8 rounded-lg flex items-center justify-center shadow-lg shadow-[var(--color-accent)]/20">
+             <Menu className="text-white h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)] font-bold">
+              Gemini CLI
+            </p>
+            <h1 className="text-lg font-bold font-[var(--font-display)] leading-none">Dev Swarm</h1>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <button
             type="button"
             onClick={() => void doSync()}
             disabled={loading}
-            className="rounded-lg border border-[var(--color-border)] px-4 py-1.5 text-sm font-semibold text-[var(--color-text-primary)] hover:border-[var(--color-accent)] transition disabled:opacity-50"
+            className="group flex items-center gap-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-4 py-2 text-sm font-semibold text-[var(--color-text-primary)] hover:border-[var(--color-accent)] hover:bg-[var(--color-surface)] transition disabled:opacity-50"
           >
-            <span className="inline-flex items-center gap-2">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 24 24"
-                className="h-4 w-4"
-                fill="currentColor"
-              >
-                <path d="M12 6V3L8 7l4 4V8a4 4 0 1 1-4 4H6a6 6 0 1 0 6-6zm4 2h2a6 6 0 0 1-6 6v3l4-4-4-4v3a4 4 0 0 1 4-4z" />
-              </svg>
-              <span>Sync</span>
-            </span>
+            <RefreshCw className={`h-4 w-4 transition-transform ${loading ? "animate-spin" : "group-hover:rotate-180"}`} />
+            <span>Sync</span>
           </button>
-          <select
-            value={selectedAgent}
-            onChange={(e) => setSelectedAgent(e.target.value)}
-            disabled={agents.length === 0}
-            className="rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] px-3 py-1.5 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-focus)]"
-          >
-            {agents.length === 0 ? (
-              <option value="">No agents configured</option>
-            ) : (
-              agents.map((a) => (
-                <option key={a.id} value={a.id}>
-                  {a.name}
-                </option>
-              ))
-            )}
-          </select>
+          
+          <div className="relative">
+             <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                <Cpu className="h-4 w-4 text-[var(--color-text-secondary)]" />
+             </div>
+            <select
+                value={selectedAgent}
+                onChange={(e) => setSelectedAgent(e.target.value)}
+                disabled={agents.length === 0}
+                className="appearance-none rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] pl-9 pr-8 py-2 text-sm text-[var(--color-text-primary)] outline-none focus:border-[var(--color-focus)] focus:ring-1 focus:ring-[var(--color-focus)] transition cursor-pointer hover:bg-[var(--color-surface)]"
+            >
+                {agents.length === 0 ? (
+                <option value="">No agents</option>
+                ) : (
+                agents.map((a) => (
+                    <option key={a.id} value={a.id}>
+                    {a.name}
+                    </option>
+                ))
+                )}
+            </select>
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+                 <div className="h-1.5 w-1.5 rounded-full bg-[var(--color-success)] shadow-[0_0_5px_var(--color-success)]"></div>
+            </div>
+          </div>
         </div>
       </header>
 
       {/* Toast */}
       {toast && (
-        <div className="fixed right-6 top-6 z-50 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm shadow-lg">
+        <div className="fixed right-6 top-20 z-50 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-sm shadow-xl flex items-center gap-3 animate-in slide-in-from-right-10 fade-in duration-200">
+           {toast.variant === "error" ? <AlertCircle className="text-[var(--color-error)] h-5 w-5" /> : <CheckCircle2 className="text-[var(--color-success)] h-5 w-5" />}
           <p
             className={`font-semibold ${
               toast.variant === "error"
@@ -1343,65 +1424,65 @@ export default function Home() {
       {/* Main 3-panel layout */}
       <div className="flex flex-1 overflow-hidden">
         {/* Left Menu */}
-        <aside className="w-56 shrink-0 border-r border-[var(--color-border)] bg-[var(--color-surface)] overflow-y-auto">
-          <div className="px-4 py-4">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)] mb-3">
-              Stages
+        <aside className="w-64 shrink-0 border-r border-[var(--color-border)] bg-[var(--color-surface)] overflow-y-auto custom-scrollbar">
+          <div className="px-4 py-6">
+            <h2 className="text-xs font-bold uppercase tracking-widest text-[var(--color-text-secondary)] mb-4 pl-2 flex items-center gap-2">
+                <Layers className="h-3 w-3" />
+                Project Stages
             </h2>
             {loading ? (
-              <p className="text-xs text-[var(--color-text-secondary)]">Loading...</p>
+              <div className="flex flex-col gap-2 p-2">
+                 <div className="h-8 w-full bg-[var(--color-surface-alt)] rounded animate-pulse"></div>
+                 <div className="h-8 w-full bg-[var(--color-surface-alt)] rounded animate-pulse delay-75"></div>
+                 <div className="h-8 w-full bg-[var(--color-surface-alt)] rounded animate-pulse delay-150"></div>
+              </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {STAGE_GROUPS.map((group) => {
                   const groupStages = stages.filter((stage) =>
                     group.stageIds.includes(stage.stageId)
                   );
                   if (groupStages.length === 0) return null;
+                  const GroupIcon = group.icon;
                   return (
                     <div key={group.title} className="space-y-2">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-text-secondary)]">
+                      <p className="px-2 text-[10px] font-bold uppercase tracking-[0.1em] text-[var(--color-text-secondary)] opacity-70 flex items-center gap-2">
+                        <GroupIcon className="h-3 w-3" />
                         {group.title}
                       </p>
-                      <ul className="space-y-1">
-                        {groupStages.map((stage) => (
-                          <li key={stage.stageId}>
-                            <button
-                              type="button"
-                              onClick={() => setSelectedStageId(stage.stageId)}
-                              className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs transition ${
-                                stage.stageId === selectedStageId
-                                  ? "bg-[var(--color-accent)] text-white"
-                                  : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-alt)]"
-                              }`}
-                            >
-                              <span className="flex items-center gap-2 truncate">
-                                <span
-                                  className={`grid h-6 w-6 place-items-center rounded-md text-[10px] font-semibold ${
-                                    stage.stageId === selectedStageId
-                                      ? "bg-white/20 text-white"
-                                      : "bg-[var(--color-surface-alt)] text-[var(--color-text-secondary)]"
-                                  }`}
-                                >
-                                  {stage.stageId}
-                                </span>
-                                <span className="truncate">{stage.name}</span>
-                              </span>
-                              <span
-                                className={`ml-1 shrink-0 rounded-full px-1.5 py-0.5 text-[10px] font-medium uppercase ${STATUS_STYLES[stage.status]}`}
-                              >
-                                {stage.status === "not-started"
-                                  ? "new"
-                                  : stage.status === "in-progress"
-                                    ? "run"
-                                    : stage.status === "completed"
-                                      ? "done"
-                                      : stage.status === "skipped"
-                                        ? "skip"
-                                        : "err"}
-                              </span>
-                            </button>
-                          </li>
-                        ))}
+                      <ul className="space-y-0.5">
+                        {groupStages.map((stage) => {
+                             const StatusIcon = STATUS_ICONS[stage.status];
+                             const statusColor = STATUS_STYLES[stage.status];
+                             return (
+                                <li key={stage.stageId}>
+                                    <button
+                                    type="button"
+                                    onClick={() => setSelectedStageId(stage.stageId)}
+                                    className={`group flex w-full items-center justify-between rounded-lg px-2 py-2 text-left text-xs transition relative overflow-hidden ${
+                                        stage.stageId === selectedStageId
+                                        ? "bg-[var(--color-surface-alt)] text-white shadow-sm ring-1 ring-[var(--color-border)]"
+                                        : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-alt)]/50 hover:text-[var(--color-text-primary)]"
+                                    }`}
+                                    >
+                                    {stage.stageId === selectedStageId && <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[var(--color-accent)]"></div>}
+                                    <span className="flex items-center gap-3 truncate">
+                                        <span
+                                        className={`grid h-5 w-8 place-items-center rounded text-[9px] font-bold tracking-tighter ${
+                                            stage.stageId === selectedStageId
+                                            ? "bg-[var(--color-accent)] text-white"
+                                            : "bg-[var(--color-surface)] text-[var(--color-text-secondary)] border border-[var(--color-border)]"
+                                        }`}
+                                        >
+                                        {stage.stageId}
+                                        </span>
+                                        <span className={`truncate font-medium ${stage.stageId === selectedStageId ? "text-white" : ""}`}>{stage.name}</span>
+                                    </span>
+                                    <StatusIcon className={`h-3.5 w-3.5 ${statusColor}`} />
+                                    </button>
+                                </li>
+                            );
+                        })}
                       </ul>
                     </div>
                   );
@@ -1412,41 +1493,64 @@ export default function Home() {
         </aside>
 
         {/* Middle Panel */}
-        <main className="flex flex-1 flex-col overflow-hidden">
+        <main className="flex flex-1 flex-col overflow-hidden bg-[var(--color-background)] relative">
+          
           {/* Progress Menu */}
           {stageConfig && dynamicProgressSteps.length > 0 && !isSkipped && (
-            <div className="flex items-center gap-1 border-b border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-2 overflow-x-auto shrink-0">
+            <div className="flex items-center gap-1 border-b border-[var(--color-border)] bg-[var(--color-surface)]/50 backdrop-blur-sm px-6 py-2 overflow-x-auto shrink-0 z-10">
               {dynamicProgressSteps.map((step, idx) => (
-                <button
-                  key={step.key}
-                  type="button"
-                  onClick={() => setActiveProgressStep(step.key)}
-                  className={`rounded-full px-4 py-1 text-xs font-semibold transition whitespace-nowrap ${
-                    step.key === activeProgressStep
-                      ? "bg-[var(--color-accent)] text-white"
-                      : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-alt)]"
-                  }`}
-                >
-                  {idx + 1}. {step.label}
-                </button>
+                <div key={step.key} className="flex items-center">
+                    <button
+                        type="button"
+                        onClick={() => setActiveProgressStep(step.key)}
+                        className={`flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold transition whitespace-nowrap ${
+                            step.key === activeProgressStep
+                            ? "bg-[var(--color-accent)] text-white shadow-md shadow-[var(--color-accent)]/20"
+                            : "text-[var(--color-text-secondary)] hover:bg-[var(--color-surface-alt)] hover:text-[var(--color-text-primary)]"
+                        }`}
+                        >
+                        <span className={`flex items-center justify-center h-4 w-4 rounded-full text-[9px] ${step.key === activeProgressStep ? "bg-white/20" : "bg-[var(--color-surface-alt)]"}`}>
+                            {idx + 1}
+                        </span>
+                        {step.label}
+                    </button>
+                    {idx < dynamicProgressSteps.length - 1 && (
+                        <ChevronRight className="h-3 w-3 text-[var(--color-border)] mx-1" />
+                    )}
+                </div>
               ))}
             </div>
           )}
 
           {/* Stage Content */}
-          <div className="flex flex-1 min-h-0 flex-col px-6 py-5">
+          <div className="flex flex-1 min-h-0 flex-col px-8 py-6 max-w-5xl mx-auto w-full">
             {/* Stage header */}
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-6 flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-semibold font-[var(--font-display)]">
+                <h2 className="text-2xl font-bold font-[var(--font-display)] flex items-center gap-3">
+                    {selectedStage && (
+                        <span className="text-[var(--color-accent-cyan)] opacity-80 text-lg font-mono tracking-tighter">
+                            {selectedStage.stageId}
+                        </span>
+                    )}
                   {selectedStage
-                    ? `${selectedStage.stageId} ${selectedStage.name}`
+                    ? selectedStage.name
                     : "Select a stage"}
                 </h2>
                 {selectedStage && (
-                  <p className="text-xs text-[var(--color-text-secondary)]">
-                    {selectedStage.status} &middot; {selectedStage.files.length} files
-                  </p>
+                  <div className="flex items-center gap-3 mt-1">
+                     <span className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLES[selectedStage.status]} bg-[var(--color-surface-alt)] border border-[var(--color-border)]`}>
+                        {(() => {
+                            const Icon = STATUS_ICONS[selectedStage.status];
+                            return <Icon className="h-3 w-3" />;
+                        })()}
+                        {selectedStage.status}
+                     </span>
+                     <span className="text-xs text-[var(--color-text-secondary)] flex items-center gap-1">
+                        <File className="h-3 w-3" />
+                        {selectedStage.files.length} files
+                     </span>
+                  </div>
                 )}
               </div>
               {selectedStage?.isSkippable && !isSkipped && (
@@ -1456,46 +1560,52 @@ export default function Home() {
                     await toggleSkip(selectedStage.stageId, true);
                     await doSync();
                   }}
-                  className="rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-xs text-[var(--color-text-secondary)] hover:border-[var(--color-warning)] hover:text-[var(--color-warning)] transition"
+                  className="flex items-center gap-2 rounded-lg border border-[var(--color-border)] px-3 py-1.5 text-xs font-medium text-[var(--color-text-secondary)] hover:border-[var(--color-warning)] hover:text-[var(--color-warning)] transition bg-[var(--color-surface-alt)]"
                 >
+                  <SkipForward className="h-3.5 w-3.5" />
                   Skip Stage
                 </button>
               )}
             </div>
 
-            <div className="flex-1 min-h-0 flex flex-col overflow-y-auto">
+            <div className="flex-1 min-h-0 flex flex-col overflow-y-auto pr-2 custom-scrollbar">
               {renderStageContent()}
             </div>
           </div>
         </main>
 
         {/* Right Panel - AI Agent Log */}
-        <aside className="w-80 shrink-0 border-l border-[var(--color-border)] bg-[var(--color-surface)] flex flex-col">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)]">
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-widest text-[var(--color-text-secondary)]">
-                AI Agent Log
-              </h3>
-              <p className="text-[10px] text-[var(--color-text-secondary)]">
-                {agentRunning ? "Running..." : "Idle"}
-              </p>
+        <aside className="w-96 shrink-0 border-l border-[var(--color-border)] bg-[var(--color-surface)] flex flex-col shadow-xl z-10">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--color-border)] bg-[var(--color-surface-alt)]/50">
+            <div className="flex items-center gap-2">
+              <Terminal className="h-4 w-4 text-[var(--color-text-secondary)]" />
+              <div>
+                <h3 className="text-xs font-bold uppercase tracking-widest text-[var(--color-text-secondary)]">
+                    Agent Console
+                </h3>
+              </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-1">
+               <div className={`h-2 w-2 rounded-full ${agentRunning ? "bg-[var(--color-success)] animate-pulse" : "bg-[var(--color-border)]"}`}></div>
+               <span className="text-[10px] text-[var(--color-text-secondary)] font-mono uppercase mr-2">{agentRunning ? "Active" : "Idle"}</span>
+
               {agentRunning && (
                 <button
                   type="button"
                   onClick={() => void handleInterrupt()}
-                  className="rounded-lg bg-[var(--color-error)] px-3 py-1 text-[10px] font-semibold text-white hover:brightness-110 transition"
+                  className="rounded bg-[var(--color-error)]/10 border border-[var(--color-error)]/30 p-1 text-[var(--color-error)] hover:bg-[var(--color-error)] hover:text-white transition"
+                  title="Interrupt"
                 >
-                  Interrupt
+                  <Square className="h-3.5 w-3.5" />
                 </button>
               )}
               <button
                 type="button"
                 onClick={() => setConsoleEvents([])}
-                className="rounded-lg border border-[var(--color-border)] px-3 py-1 text-[10px] text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] transition"
+                className="rounded border border-[var(--color-border)] p-1 text-[var(--color-text-secondary)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition bg-[var(--color-surface)]"
+                title="Clear Output"
               >
-                Clear
+                <Eraser className="h-3.5 w-3.5" />
               </button>
             </div>
           </div>
@@ -1506,28 +1616,42 @@ export default function Home() {
               if (!el) return;
               setIsPinned(el.scrollHeight - el.scrollTop - el.clientHeight < 24);
             }}
-            className="flex-1 overflow-y-auto p-3 font-mono text-xs space-y-1"
+            className="flex-1 overflow-y-auto p-4 font-mono text-xs space-y-2 bg-[#0d1117]"
           >
             {consoleEvents.length === 0 ? (
-              <p className="text-[var(--color-text-secondary)]">Waiting for output...</p>
+              <div className="flex flex-col items-center justify-center h-full text-[var(--color-text-secondary)] opacity-50 gap-2">
+                 <Terminal className="h-8 w-8" />
+                 <p>Waiting for agent output...</p>
+              </div>
             ) : (
               consoleEvents.map((ev) => (
                 <div
                   key={ev.id}
-                  className={`${
+                  className={`border-l-2 pl-3 py-1 ${
+                    ev.category === "stderr"
+                      ? "border-[var(--color-error)] bg-[var(--color-error)]/5"
+                      : ev.category === "system"
+                        ? "border-[var(--color-accent-cyan)]"
+                        : ev.category === "status"
+                          ? "border-[var(--color-warning)] bg-[var(--color-warning)]/5"
+                          : "border-[var(--color-border)]"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-1 opacity-50 text-[10px]">
+                     <span>{new Date(ev.timestamp).toLocaleTimeString()}</span>
+                     <span className="uppercase">{ev.category}</span>
+                  </div>
+                  <div className={`whitespace-pre-wrap break-words leading-relaxed ${
                     ev.category === "stderr"
                       ? "text-[var(--color-error)]"
                       : ev.category === "system"
-                        ? "text-[var(--color-accent-cyan)]"
+                        ? "text-[var(--color-accent-cyan)] font-bold"
                         : ev.category === "status"
                           ? "text-[var(--color-warning)]"
                           : "text-[var(--color-text-primary)]"
-                  }`}
-                >
-                  <span className="text-[var(--color-text-secondary)] mr-1">
-                    [{new Date(ev.timestamp).toLocaleTimeString()}]
-                  </span>
-                  {ev.message}
+                  }`}>
+                    {ev.message}
+                  </div>
                 </div>
               ))
             )}
