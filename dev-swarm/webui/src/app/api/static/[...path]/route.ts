@@ -9,7 +9,7 @@ export async function GET(
     const { path } = await params;
     const filePath = path.join("/");
     const asset = readAsset(filePath);
-    return new Response(asset.content, {
+    return new Response(new Uint8Array(asset.content), {
       status: 200,
       headers: {
         "Content-Type": asset.contentType,
