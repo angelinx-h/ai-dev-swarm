@@ -181,6 +181,35 @@ A simple website where homeowners can post repair jobs and local handymen can re
 
 ---
 
+### Alternative: Use the Web UI
+
+If you prefer a visual interface over the command line, you can use the WebUI:
+
+```bash
+./webui.sh
+```
+
+This starts a local web server at **http://localhost:3001** (first run will install dependencies and build automatically). The WebUI provides:
+
+- Stage navigation and status overview
+- Markdown editor with live preview
+- AI agent streaming output
+- One-click stage actions
+
+**Important:** AI agent execution is disabled by default for safety. To enable it, edit `dev-swarm/.env` and set:
+
+```
+WEBUI_AGENT_EXECUTE=true
+```
+
+Only enable this on a dedicated machine or inside a Docker container.
+
+**Prerequisites for WebUI:**
+- Node.js 18+
+- pnpm (`npm install -g pnpm`)
+
+---
+
 ### Step 3: Start Your AI Journey
 
 Open your AI code agent (Claude Code, Codex, Copilot CLI, etc.) in your project folder.

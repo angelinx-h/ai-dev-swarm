@@ -46,6 +46,20 @@ For other AI Agents that do not support Agent skills natively, you can use them 
 }
 ```
 
+### Web UI (Optional)
+
+A visual web interface is available as an alternative to the command-line workflow.
+
+```bash
+./webui.sh
+```
+
+This launches the WebUI at **http://localhost:3001** (localhost only). It auto-installs dependencies and builds on first run.
+
+> **Note:** AI agent execution is disabled by default. To enable it, set `WEBUI_AGENT_EXECUTE=true` in `dev-swarm/.env`. Only enable this on a dedicated machine or inside a Docker container.
+
+See [dev-swarm/webui/README.md](dev-swarm/webui/README.md) for details.
+
 📖 **New to AI Dev Swarm?** Check out the [Complete User Manual](USER-MANUAL.md) for a step-by-step guide designed for non-technical users.
 
 Start with your ideas in `ideas.md`, then progress through structured stages:
