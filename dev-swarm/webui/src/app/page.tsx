@@ -57,7 +57,8 @@ import {
   File,
   XCircle,
   Menu,
-  ChevronRight
+  ChevronRight,
+  ArrowRight
 } from "lucide-react";
 
 const STATUS_ICONS: Record<Stage["status"], React.ElementType> = {
@@ -1357,7 +1358,7 @@ export default function Home() {
           </div>
           <div>
             <p className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-secondary)] font-bold">
-              Gemini CLI
+              AI Code
             </p>
             <h1 className="text-lg font-bold font-[var(--font-display)] leading-none">Dev Swarm</h1>
           </div>
@@ -1510,7 +1511,7 @@ export default function Home() {
                         {step.label}
                     </button>
                     {idx < dynamicProgressSteps.length - 1 && (
-                        <ChevronRight className="h-3 w-3 text-[var(--color-border)] mx-1" />
+                        <ArrowRight className="h-3 w-3 text-[var(--color-text-secondary)] mx-1" />
                     )}
                 </div>
               ))}
