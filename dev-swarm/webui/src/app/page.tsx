@@ -580,9 +580,6 @@ export default function Home() {
     );
   };
 
-  const showActions =
-    !(documentPayload?.contentType === "text/markdown" && markdownView === "preview");
-
   // --- Stage content renderer ---
   const renderStageContent = () => {
     if (!selectedStage || !stageConfig) return null;
@@ -634,12 +631,10 @@ export default function Home() {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {renderActionButton("Refine Ideas", prompts.refineIdeasPrompt(), "secondary", Edit3)}
-                {renderActionButton("Create Proposal", prompts.createProposalPrompt_InitIdeas(), "primary", FileText)}
-              </div>
-            )}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {renderActionButton("Refine Ideas", prompts.refineIdeasPrompt(), "secondary", Edit3)}
+              {renderActionButton("Create Proposal", prompts.createProposalPrompt_InitIdeas(), "primary", FileText)}
+            </div>
           </div>
         );
       }
@@ -647,8 +642,8 @@ export default function Home() {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {markdownView === "editor" && (
                 <button
                   type="button"
                   onClick={() => void handleSave()}
@@ -658,9 +653,9 @@ export default function Home() {
                   <Save className="h-4 w-4" />
                   {saving ? "Saving..." : "Update"}
                 </button>
-                {renderActionButton("Create Files", prompts.createFilesPrompt_InitIdeas(), "primary", Folder)}
-              </div>
-            )}
+              )}
+              {renderActionButton("Create Files", prompts.createFilesPrompt_InitIdeas(), "primary", Folder)}
+            </div>
           </div>
         );
       }
@@ -669,12 +664,10 @@ export default function Home() {
         <div className="flex flex-1 min-h-0 flex-col gap-4">
           {renderFileBrowser()}
           {renderEditor()}
-          {showActions && (
-            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
-              <div className="flex gap-3">{renderSaveDeleteButtons()}</div>
-              {renderActionButton("Finalize Stage", prompts.finalizePrompt_InitIdeas(), "success", CheckCircle2)}
-            </div>
-          )}
+          <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
+            <div className="flex gap-3">{renderSaveDeleteButtons()}</div>
+            {renderActionButton("Finalize Stage", prompts.finalizePrompt_InitIdeas(), "success", CheckCircle2)}
+          </div>
         </div>
       );
     }
@@ -686,25 +679,23 @@ export default function Home() {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {hasReadme && (
-                  <button
-                    type="button"
-                    onClick={() => void handleSave()}
-                    disabled={saving || !documentPayload}
-                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
-                  >
-                    <Save className="h-4 w-4" />
-                    {saving ? "Saving..." : "Update"}
-                  </button>
-                )}
-                {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
-                {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
-              </div>
-            )}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {hasReadme && markdownView === "editor" && (
+                <button
+                  type="button"
+                  onClick={() => void handleSave()}
+                  disabled={saving || !documentPayload}
+                  className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
+                >
+                  <Save className="h-4 w-4" />
+                  {saving ? "Saving..." : "Update"}
+                </button>
+              )}
+              {!hasReadme &&
+                renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
+              {hasReadme &&
+                renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
+            </div>
           </div>
         );
       }
@@ -713,12 +704,10 @@ export default function Home() {
         <div className="flex flex-1 min-h-0 flex-col gap-4">
           {renderFileBrowser()}
           {renderEditor()}
-          {showActions && (
-            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
-              <div className="flex gap-3">{renderSaveDeleteButtons()}</div>
-              {renderActionButton("Finalize Stage", prompts.finalizePrompt(stageConfig), "success", CheckCircle2)}
-            </div>
-          )}
+          <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
+            <div className="flex gap-3">{renderSaveDeleteButtons()}</div>
+            {renderActionButton("Finalize Stage", prompts.finalizePrompt(stageConfig), "success", CheckCircle2)}
+          </div>
         </div>
       );
     }
@@ -730,25 +719,23 @@ export default function Home() {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {hasReadme && (
-                  <button
-                    type="button"
-                    onClick={() => void handleSave()}
-                    disabled={saving || !documentPayload}
-                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
-                  >
-                    <Save className="h-4 w-4" />
-                    {saving ? "Saving..." : "Update"}
-                  </button>
-                )}
-                {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
-                {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
-              </div>
-            )}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {hasReadme && markdownView === "editor" && (
+                <button
+                  type="button"
+                  onClick={() => void handleSave()}
+                  disabled={saving || !documentPayload}
+                  className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
+                >
+                  <Save className="h-4 w-4" />
+                  {saving ? "Saving..." : "Update"}
+                </button>
+              )}
+              {!hasReadme &&
+                renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
+              {hasReadme &&
+                renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
+            </div>
           </div>
         );
       }
@@ -757,11 +744,9 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderFileBrowser()}
             {renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {renderSaveDeleteButtons()}
-              </div>
-            )}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {renderSaveDeleteButtons()}
+            </div>
           </div>
         );
       }
@@ -772,15 +757,13 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderSubfolderBrowser(researchName)}
             {renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
-                <div className="flex gap-3">
-                  {renderSaveDeleteButtons()}
-                  {renderActionButton("Run Research", prompts.researchPrompt(researchName), "primary", Search)}
-                </div>
-                {isLast && renderActionButton("Finalize Stage", prompts.finalizeResearchPrompt(), "success", CheckCircle2)}
+            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
+              <div className="flex gap-3">
+                {renderSaveDeleteButtons()}
+                {renderActionButton("Run Research", prompts.researchPrompt(researchName), "primary", Search)}
               </div>
-            )}
+              {isLast && renderActionButton("Finalize Stage", prompts.finalizeResearchPrompt(), "success", CheckCircle2)}
+            </div>
           </div>
         );
       }
@@ -793,25 +776,23 @@ export default function Home() {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {hasReadme && (
-                  <button
-                    type="button"
-                    onClick={() => void handleSave()}
-                    disabled={saving || !documentPayload}
-                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
-                  >
-                    <Save className="h-4 w-4" />
-                    {saving ? "Saving..." : "Update"}
-                  </button>
-                )}
-                {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
-                {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
-              </div>
-            )}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {hasReadme && markdownView === "editor" && (
+                <button
+                  type="button"
+                  onClick={() => void handleSave()}
+                  disabled={saving || !documentPayload}
+                  className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
+                >
+                  <Save className="h-4 w-4" />
+                  {saving ? "Saving..." : "Update"}
+                </button>
+              )}
+              {!hasReadme &&
+                renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
+              {hasReadme &&
+                renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
+            </div>
           </div>
         );
       }
@@ -820,11 +801,9 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {renderFileBrowser()}
             {renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {renderSaveDeleteButtons()}
-              </div>
-            )}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {renderSaveDeleteButtons()}
+            </div>
           </div>
         );
       }
@@ -833,15 +812,13 @@ export default function Home() {
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {uxMockupFolder && renderSubfolderBrowser(uxMockupFolder)}
             {renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
-                <div className="flex gap-3">
-                  {renderSaveDeleteButtons()}
-                  {renderActionButton("Generate Mockup", prompts.createMockupPrompt(), "primary", Layout)}
-                </div>
-                {renderActionButton("Finalize Stage", prompts.finalizeUxPrompt(), "success", CheckCircle2)}
+            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
+              <div className="flex gap-3">
+                {renderSaveDeleteButtons()}
+                {renderActionButton("Generate Mockup", prompts.createMockupPrompt(), "primary", Layout)}
               </div>
-            )}
+              {renderActionButton("Finalize Stage", prompts.finalizeUxPrompt(), "success", CheckCircle2)}
+            </div>
           </div>
         );
       }
@@ -854,25 +831,23 @@ export default function Home() {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {hasReadme && (
-                  <button
-                    type="button"
-                    onClick={() => void handleSave()}
-                    disabled={saving || !documentPayload}
-                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
-                  >
-                    <Save className="h-4 w-4" />
-                    {saving ? "Saving..." : "Update"}
-                  </button>
-                )}
-                {!hasReadme &&
-                  renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
-                {hasReadme &&
-                  renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
-              </div>
-            )}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {hasReadme && markdownView === "editor" && (
+                <button
+                  type="button"
+                  onClick={() => void handleSave()}
+                  disabled={saving || !documentPayload}
+                  className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
+                >
+                  <Save className="h-4 w-4" />
+                  {saving ? "Saving..." : "Update"}
+                </button>
+              )}
+              {!hasReadme &&
+                renderActionButton("Create Proposal", prompts.createProposalPrompt(stageConfig), "primary", FileText)}
+              {hasReadme &&
+                renderActionButton("Create Files", prompts.createFilesPrompt(stageConfig), "primary", Folder)}
+            </div>
           </div>
         );
       }
@@ -881,15 +856,13 @@ export default function Home() {
         <div className="flex flex-1 min-h-0 flex-col gap-4">
           {renderFileBrowser()}
           {renderEditor()}
-          {showActions && (
-            <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
-              <div className="flex gap-3">
-                {renderSaveDeleteButtons()}
-                {renderActionButton("ExecuteOps", prompts.executeDevOpsPrompt(stageConfig), "secondary", Terminal)}
-              </div>
-              {renderActionButton("Finalize Stage", prompts.finalizePrompt(stageConfig), "success", CheckCircle2)}
+          <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-[var(--color-border)]">
+            <div className="flex gap-3">
+              {renderSaveDeleteButtons()}
+              {renderActionButton("ExecuteOps", prompts.executeDevOpsPrompt(stageConfig), "secondary", Terminal)}
             </div>
-          )}
+            {renderActionButton("Finalize Stage", prompts.finalizePrompt(stageConfig), "success", CheckCircle2)}
+          </div>
         </div>
       );
     }
@@ -901,39 +874,8 @@ export default function Home() {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
             {hasReadme && renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
-                {hasReadme && (
-                  <button
-                    type="button"
-                    onClick={() => void handleSave()}
-                    disabled={saving || !documentPayload}
-                    className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
-                  >
-                    <Save className="h-4 w-4" />
-                    {saving ? "Saving..." : "Update"}
-                  </button>
-                )}
-                {!hasReadme &&
-                  renderActionButton(
-                    "Create Proposal",
-                    prompts.createProposalPrompt(stageConfig),
-                    "primary",
-                    FileText
-                  )}
-                {hasReadme &&
-                  renderActionButton("Create Plan", prompts.createSprintPlanPrompt(), "primary", Layers)}
-              </div>
-            )}
-          </div>
-        );
-      }
-      if (activeProgressStep === "plan") {
-        return (
-          <div className="flex flex-1 min-h-0 flex-col gap-4">
-            {renderEditor()}
-            {showActions && (
-              <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {hasReadme && markdownView === "editor" && (
                 <button
                   type="button"
                   onClick={() => void handleSave()}
@@ -943,23 +885,52 @@ export default function Home() {
                   <Save className="h-4 w-4" />
                   {saving ? "Saving..." : "Update"}
                 </button>
-                {renderActionButton("Create Backlogs", prompts.createBacklogsPrompt(), "primary", Layers)}
-              </div>
-            )}
+              )}
+              {!hasReadme &&
+                renderActionButton(
+                  "Create Proposal",
+                  prompts.createProposalPrompt(stageConfig),
+                  "primary",
+                  FileText
+                )}
+              {hasReadme &&
+                renderActionButton("Create Plan", prompts.createSprintPlanPrompt(), "primary", Layers)}
+            </div>
+          </div>
+        );
+      }
+      if (activeProgressStep === "plan") {
+        return (
+          <div className="flex flex-1 min-h-0 flex-col gap-4">
+            {renderEditor()}
+            <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">
+              {markdownView === "editor" && (
+                <button
+                  type="button"
+                  onClick={() => void handleSave()}
+                  disabled={saving || !documentPayload}
+                  className="flex items-center gap-2 rounded-lg bg-[var(--color-accent)] px-4 py-2 text-sm font-semibold text-white hover:bg-[var(--color-accent-hover)] transition disabled:opacity-50 shadow-md shadow-[var(--color-accent)]/20"
+                >
+                  <Save className="h-4 w-4" />
+                  {saving ? "Saving..." : "Update"}
+                </button>
+              )}
+              {renderActionButton("Create Backlogs", prompts.createBacklogsPrompt(), "primary", Layers)}
+            </div>
           </div>
         );
       }
       if (activeProgressStep === "backlogs") {
         return (
           <div className="flex flex-1 min-h-0 flex-col gap-4">
-            {showActions && !selectedSprintFolder && (
+            {!selectedSprintFolder && (
               <div className="mb-2">
                 {renderActionButton("Develop all sprints", prompts.developAllSprintsPrompt(), "secondary", Rocket)}
               </div>
             )}
             {selectedSprintFolder ? renderSprintFileBrowser() : renderSprintFolderList()}
             {selectedSprintFolder && renderEditor()}
-            {showActions && selectedSprintFolder && (
+            {selectedSprintFolder && (
               <div className="mt-auto flex gap-3 pt-4 border-t border-[var(--color-border)]">{renderSprintButtons()}</div>
             )}
           </div>
@@ -1054,7 +1025,7 @@ export default function Home() {
   };
 
   const renderSaveDeleteButtons = () => {
-    if (!documentPayload || documentPayload.contentType !== "text/markdown") return null;
+    if (!documentPayload || documentPayload.contentType !== "text/markdown" || markdownView === "preview") return null;
     const isReadme = documentPayload.path.endsWith("README.md");
     return (
       <>
