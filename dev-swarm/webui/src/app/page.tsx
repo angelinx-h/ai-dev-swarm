@@ -1017,7 +1017,161 @@ export default function Home() {
         ) : (
           <div className="min-h-0 flex-1 rounded-lg border border-[var(--color-border)] bg-[var(--color-surface-alt)] p-6 overflow-auto shadow-inner">
             <div className="doc-markdown">
-              <ReactMarkdown>{editorContent}</ReactMarkdown>
+              <ReactMarkdown
+                components={{
+                  code: ({ className, children, ...props }) => {
+                    const content = String(children).trim();
+                    // Basic heuristic: check if it looks like a relative file path
+                    // We only want to intercept if it matches a file/folder in the current stage
+                    // or ends with .md/.html
+                    
+                    const isFileLike = content.match(/^[\w\-. /]+\.(md|html)$/) || (content.match(/^[\w\-. /]+$/) && !content.includes('\n'));
+
+                    if (!isFileLike || !documentPayload?.path) {
+                        return (
+                            <code className={className} {...props}>
+                                {children}
+                            </code>
+                        );
+                    }
+
+                    const currentDir = documentPayload.path.substring(0, documentPayload.path.lastIndexOf("/"));
+                    let targetPath = content.startsWith("/") ? content.slice(1) : `${currentDir}/${content}`;
+                    if (content.startsWith("./")) {
+                        targetPath = `${currentDir}/${content.slice(2)}`;
+                    }
+
+                    // Check if file exists in stageFiles (which are relative to stage folder)
+                    // stageConfig.folder e.g. "06-ux"
+                    // targetPath e.g. "06-ux/README.md"
+                    
+                    if (stageConfig && targetPath.startsWith(stageConfig.folder + "/")) {
+                        const relPath = targetPath.slice(stageConfig.folder.length + 1); // e.g. "README.md"
+                        
+                        // Check exact file match
+                        const isFile = stageFiles.includes(relPath);
+                        // Check folder match (does relPath/index.html exist?)
+                        const isFolder = stageFiles.includes(`${relPath}/index.html`);
+
+                        if (isFile) {
+                            if (relPath.endsWith(".md")) {
+                                return (
+                                    <code 
+                                        className={`${className} cursor-pointer hover:underline hover:text-[var(--color-accent)] transition-colors`}
+                                        onClick={() => void loadDocument(targetPath)}
+                                        title={`Open ${relPath}`}
+                                        {...props}
+                                    >
+                                        {children}
+                                    </code>
+                                );
+                            }
+                            if (relPath.endsWith(".html")) {
+                                return (
+                                    <code 
+                                        className={`${className} cursor-pointer hover:underline hover:text-[var(--color-accent)] transition-colors`}
+                                        onClick={() => openStaticSite(relPath)}
+                                        title={`Preview ${relPath}`}
+                                        {...props}
+                                    >
+                                        {children}
+                                    </code>
+                                );
+                            }
+                        }
+                        
+                        if (isFolder) {
+                             return (
+                                <code 
+                                    className={`${className} cursor-pointer hover:underline hover:text-[var(--color-accent)] transition-colors`}
+                                    onClick={() => openStaticSite(`${relPath}/index.html`)}
+                                    title={`Preview ${relPath}`}
+                                    {...props}
+                                >
+                                    {children}
+                                </code>
+                            );
+                        }
+                    }
+
+                    return (
+                        <code className={className} {...props}>
+                            {children}
+                        </code>
+                    );
+                  },
+                  a: ({ href, children }) => {
+                    if (!href) return <span>{children}</span>;
+                    const isExternal = href.startsWith("http") || href.startsWith("https");
+                    
+                    if (isExternal) {
+                      return (
+                        <a href={href} target="_blank" rel="noopener noreferrer">
+                          {children}
+                        </a>
+                      );
+                    }
+
+                    // Handle internal file links
+                    return (
+                      <a
+                        href={href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          // Resolve path relative to current document location if possible
+                          // But here we might just have simple filenames or relative paths
+                          
+                          // Heuristic:
+                          // 1. If it ends with .html, openStaticSite
+                          // 2. If it ends with .md, loadDocument
+                          // 3. If it has no extension, assume folder -> openStaticSite(path/index.html)
+                          
+                          // We need to resolve against the current document's directory
+                          // documentPayload.path e.g. "06-ux/README.md"
+                          if (!documentPayload?.path) return;
+                          
+                          const currentDir = documentPayload.path.substring(0, documentPayload.path.lastIndexOf("/"));
+                          // Simple resolve: strictly supports "./" or just filename, no ".." yet for simplicity
+                          // or just basic concatenation
+                          let targetPath = href.startsWith("/") ? href.slice(1) : `${currentDir}/${href}`;
+                          
+                          // Handle ./ prefix
+                          if (href.startsWith("./")) {
+                             targetPath = `${currentDir}/${href.slice(2)}`;
+                          }
+
+                          if (targetPath.toLowerCase().endsWith(".html")) {
+                             // openStaticSite expects path relative to stage folder
+                             // stageConfig.folder e.g. "06-ux"
+                             // targetPath e.g. "06-ux/design-ui-preview.html"
+                             if (stageConfig && targetPath.startsWith(stageConfig.folder + "/")) {
+                                 const relPath = targetPath.slice(stageConfig.folder.length + 1);
+                                 openStaticSite(relPath);
+                             }
+                          } else if (targetPath.toLowerCase().endsWith(".md")) {
+                             void loadDocument(targetPath);
+                          } else {
+                             // Assume folder, append /index.html
+                             // Check if it looks like a folder (no dot usually, or explicitly ends in /)
+                             // For "html folder" case
+                             let folderPath = targetPath;
+                             if (!folderPath.endsWith("/")) folderPath += "/";
+                             
+                             if (stageConfig && folderPath.startsWith(stageConfig.folder + "/")) {
+                                 const relPath = folderPath.slice(stageConfig.folder.length + 1) + "index.html";
+                                 openStaticSite(relPath);
+                             }
+                          }
+                        }}
+                      >
+                        {children}
+                      </a>
+                    );
+                  },
+                }}
+              >
+                {editorContent}
+              </ReactMarkdown>
             </div>
           </div>
         )}
