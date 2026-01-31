@@ -6,20 +6,20 @@ Purpose: rules for AI agents when conducting research and designing technical sp
 
 Golden rule: the depth, length, and complexity of documentation must match the complexity of the project.
 
-- Do not treat a simple script (L2) like an enterprise platform (L5).
+- Do not treat a simple script like an enterprise platform.
 - Do not treat an open-source tool like a VC-backed startup.
 - Do not generate documentation that exceeds the volume of the actual code unless specifically requested.
 
 Project scale definitions and expectations:
-- L1 (Script), example: `cleanup.sh`  
+- Script, example: `cleanup.sh`
   Expectation: none, or a 1-paragraph README.
-- L2 (Simple tool), example: `mcp-skill-bridge`  
+- Simple tool, example: `mcp-skill-bridge`
   Expectation: minimal; 1-page tech spec; no market research.
-- L3 (Library/service), example: auth service  
+- Library/service, example: auth service
   Expectation: focused; public API docs; simple architecture diagram.
-- L4 (Application), example: task manager app  
+- Application, example: task manager app
   Expectation: standard; PRD; architecture; UI/UX flows.
-- L5 (Enterprise system), example: banking core  
+- Enterprise system, example: banking core
   Expectation: comprehensive; detailed compliance, scaling strategies, etc.
 
 ## 2. Audience definition: the expert developer
@@ -81,6 +81,6 @@ Rule 5.1: absolute adherence
 
 Before generating content, ask:
 1. Is this needed? (Or can I skip it?)
-2. Is this appropriate for the scale? (L2 vs L5)
+2. Is this appropriate for the scale? (simple tool vs enterprise system)
 3. Does the user already know this? (Expert audience)
 4. Am I hallucinating business value? (Open source vs commercial)

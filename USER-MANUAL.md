@@ -61,7 +61,7 @@ Traditional development requires:
 
 AI Dev Swarm adapts to your project size. Here's what's possible:
 
-### Level 0-1: Simple Scripts
+### Simple Scripts
 **Examples:**
 - A tool that renames files automatically
 - A script that sends you daily email summaries
@@ -71,7 +71,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 2: Useful Tools
+### Useful Tools
 **Examples:**
 - A command-line tool that converts files
 - A personal task automation tool
@@ -81,7 +81,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 3: Single Applications
+### Single Applications
 **Examples:**
 - A personal blog website
 - A simple inventory tracker
@@ -91,7 +91,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 4: Complete Products (MVP)
+### Complete Products (MVP)
 **Examples:**
 - An e-commerce store
 - A social platform for a niche community
@@ -101,7 +101,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 5-7: Large Scale Products
+### Large Scale Products
 **Examples:**
 - Multi-platform apps (web + mobile)
 - Marketplaces with multiple user types
@@ -281,7 +281,6 @@ AI Dev Swarm breaks product development into 12 clear stages (0-11). Each stage 
 - Clear problem statement
 - Target user description
 - Value proposition
-- Project classification (how big is this?)
 - Budget estimate
 
 **Time:** 15-30 minutes
@@ -655,11 +654,11 @@ As a QA Tester, I will verify the authentication flow...
 - Testing uses AI resources
 
 **Budget levels (examples):**
-- L2 Tool: $2-$10
-- L3 Single App: $10-$25
-- L4 MVP: $25-$50
-- L5 Multi-platform: $50-$100
-- L6-L7 Large scale: $100+
+- Simple tool: $2-$10
+- Single app: $10-$25
+- MVP: $25-$50
+- Multi-platform: $50-$100
+- Large scale: $100+
 
 **You approve the budget in Stage 0 - it constrains all future AI work**
 
@@ -858,9 +857,9 @@ ln -s /Users/yourname/projects/ai-dev-swarm/.claude/commands ~/.codex/prompts
 /prompts:skip ux
 ```
 
-**When to use:** When a stage is not needed for your project type (e.g., L2 tools might skip market research, UX, architecture, and deployment)
+**When to use:** When a stage is not needed for your project type (e.g., simple tools might skip market research, UX, architecture, and deployment)
 
-**Note:** Stage 0 (init-ideas) should never be skipped as it classifies your project and determines which stages are necessary.
+**Note:** Stage 0 (init-ideas) should never be skipped as it defines your project and determines which stages are necessary.
 
 ---
 
@@ -976,11 +975,10 @@ You: /stage 0
 ```
 
 AI will:
-- Classify your project (Personal Tool, L2)
 - Create problem statement
 - Create target user doc (you!)
 - Estimate cost (~$2-5)
-- Suggest skipping stages 1, 5, 6, 10 (typical for L2 tools)
+- Suggest skipping stages not needed for your project
 - Ask for approval
 
 ```
@@ -1076,7 +1074,7 @@ $ python budget.py summary
 $ python budget.py export --month 2024-01
 ```
 
-You try it, it works! Since this is an L2 tool that runs locally, you don't need Stage 10 (deployment). You're done!
+You try it, it works! Since this is a simple tool that runs locally, you don't need Stage 10 (deployment). You're done!
 
 ---
 
@@ -1449,18 +1447,18 @@ A: Yes! But you'll learn concepts along the way. You don't need to write code, b
 
 **Q: How long does a project take?**
 A:
-- Simple script (L0-L1): Few hours
-- Tool (L2): 1-2 days
-- Small app (L3): 1 week
-- MVP (L4): 2-4 weeks
-- Large product (L5+): 1-3 months
+- Simple script: Few hours
+- Tool: 1-2 days
+- Small app: 1 week
+- MVP: 2-4 weeks
+- Large product: 1-3 months
 
 **Q: How much does it cost?**
 A: Mostly your time. AI processing costs:
-- L2: $2-$10
-- L3: $10-$25
-- L4: $25-$50
-- L5+: $50-$200
+- Simple tool: $2-$10
+- Single app: $10-$25
+- MVP: $25-$50
+- Large product: $50-$200
 
 Plus hosting costs when you deploy (varies by service).
 
@@ -1523,9 +1521,9 @@ A: Just create new backlogs:
 
 **Q: Can I skip stages?**
 A: Depends on project size:
-- L0-L1: Only need stage 0
-- L2: Can skip 1, 4, 6, 7, 11
-- L3+: Should do all stages (except optional 4-tech-research)
+- Simple scripts: Only need stage 0
+- Small tools: Can skip 1, 4, 6, 7, 11
+- Larger projects: Should do all stages (except optional 4-tech-research)
 
 AI will tell you which stages to skip.
 
@@ -1557,7 +1555,7 @@ A: Yes! You can:
 A: Yes! It's your code. You own it.
 
 **Q: Is it production-ready?**
-A: For L4+ projects with full stages, yes. AI builds:
+A: For larger projects with full stages, yes. AI builds:
 - Secure code
 - Tested features
 - Scalable architecture
@@ -1584,7 +1582,7 @@ Best use: Validate ideas before hiring a team
 - `dev-swarm/docs/ai-agile-development.md` - Understand the methodology
 - `dev-swarm/docs/ai-feature-driven-development.md` - Feature approach
 - `dev-swarm/docs/repository-structure.md` - Folder organization
-- `dev-swarm/docs/software-dev-classification.md` - Project sizing
+
 
 ---
 

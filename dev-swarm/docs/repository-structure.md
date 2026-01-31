@@ -13,8 +13,8 @@ project-root/
 │  - Each project is different, it needs to have different design document files, different file names.
 │  - Do not copy these structure directly without analysis the project actually need to avoid any over development.
 │  - For a small project create tons of documents files is bad practice.
-│  - Smaller scale projects (per dev-swarm/docs/software-dev-classification.md) can skip stages/files.
-│  - Example for very small projects (L0-L1):
+│  - Smaller scale projects can skip stages/files.
+│  - Example for very small projects (simple scripts):
 │    00-init-ideas/README.md         # How to implement `{SRC}/script_name.sh` or refined requirements
 │    {SRC}/script_name.sh              # The script itself
 │
