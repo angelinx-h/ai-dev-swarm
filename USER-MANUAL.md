@@ -11,7 +11,7 @@ Version 1.0 | For Complete Beginners
 1. [Welcome to AI Dev Swarm](#welcome-to-ai-dev-swarm)
 2. [What You Can Build](#what-you-can-build)
 3. [Getting Started in 5 Minutes](#getting-started-in-5-minutes)
-4. [Understanding the 11-Stage Journey](#understanding-the-11-stage-journey)
+4. [Understanding the 12-Stage Journey](#understanding-the-12-stage-journey)
 5. [How to Work with AI Agents](#how-to-work-with-ai-agents)
 6. [Slash Commands - Your Quick Actions](#slash-commands---your-quick-actions)
 7. [Complete Workflow Examples](#complete-workflow-examples)
@@ -61,7 +61,7 @@ Traditional development requires:
 
 AI Dev Swarm adapts to your project size. Here's what's possible:
 
-### Level 0-1: Simple Scripts
+### Simple Scripts
 **Examples:**
 - A tool that renames files automatically
 - A script that sends you daily email summaries
@@ -71,7 +71,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 2: Useful Tools
+### Useful Tools
 **Examples:**
 - A command-line tool that converts files
 - A personal task automation tool
@@ -81,7 +81,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 3: Single Applications
+### Single Applications
 **Examples:**
 - A personal blog website
 - A simple inventory tracker
@@ -91,7 +91,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 4: Complete Products (MVP)
+### Complete Products (MVP)
 **Examples:**
 - An e-commerce store
 - A social platform for a niche community
@@ -101,7 +101,7 @@ AI Dev Swarm adapts to your project size. Here's what's possible:
 
 ---
 
-### Level 5-7: Large Scale Products
+### Large Scale Products
 **Examples:**
 - Multi-platform apps (web + mobile)
 - Marketplaces with multiple user types
@@ -181,6 +181,35 @@ A simple website where homeowners can post repair jobs and local handymen can re
 
 ---
 
+### Alternative: Use the Web UI
+
+If you prefer a visual interface over the command line, you can use the WebUI:
+
+```bash
+./webui.sh
+```
+
+This starts a local web server at **http://localhost:3001** (first run will install dependencies and build automatically). The WebUI provides:
+
+- Stage navigation and status overview
+- Markdown editor with live preview
+- AI agent streaming output
+- One-click stage actions
+
+**Important:** AI agent execution is disabled by default for safety. To enable it, edit `dev-swarm/.env` and set:
+
+```
+WEBUI_AGENT_EXECUTE=true
+```
+
+Only enable this on a dedicated machine or inside a Docker container.
+
+**Prerequisites for WebUI:**
+- Node.js 18+
+- pnpm (`npm install -g pnpm`)
+
+---
+
 ### Step 3: Start Your AI Journey
 
 Open your AI code agent (Claude Code, Codex, Copilot CLI, etc.) in your project folder.
@@ -226,16 +255,16 @@ The AI will:
 
 ---
 
-## Understanding the 11-Stage Journey
+## Understanding the 12-Stage Journey
 
-AI Dev Swarm breaks product development into 11 clear stages. Each stage builds on the previous one.
+AI Dev Swarm breaks product development into 12 clear stages (0-11). Each stage builds on the previous one.
 
 ### The Big Picture
 
 **Think of it like building a house:**
-- Stages 0-4: Planning (blueprints, permits, budgets)
-- Stages 5-7: Design (architecture, materials, layout)
-- Stages 8-10: Building (construction, finishing, move-in)
+- Stages 0-5: Planning (blueprints, permits, budgets, feasibility)
+- Stages 6-8: Design (architecture, materials, layout)
+- Stages 9-11: Building (construction, finishing, move-in)
 
 ---
 
@@ -252,7 +281,6 @@ AI Dev Swarm breaks product development into 11 clear stages. Each stage builds 
 - Clear problem statement
 - Target user description
 - Value proposition
-- Project classification (how big is this?)
 - Budget estimate
 
 **Time:** 15-30 minutes
@@ -344,7 +372,32 @@ The simplest version you can launch to test your idea with real users.
 
 ---
 
-### Stage 4: Product Requirements (PRD)
+### Stage 4: Tech Research (Optional)
+**What happens:** Validate technical feasibility before committing to full development
+
+**AI does:**
+- Creates proof of concepts (PoCs)
+- Evaluates third-party APIs and services
+- Tests critical technical paths
+- Runs performance benchmarks
+- Identifies technical blockers early
+
+**You get:**
+- Feasibility assessment
+- PoC results and recommendations
+- Technology evaluation reports
+- Go/no-go recommendations
+
+**Time:** 1-4 hours (varies by complexity)
+**Your involvement:** Review findings, make go/no-go decision
+
+**When to skip:** Simple projects, well-understood technologies, personal tools
+
+**This stage can save you weeks by catching technical blockers early!**
+
+---
+
+### Stage 5: Product Requirements (PRD)
 **What happens:** Lock down WHAT the product does (not HOW)
 
 **AI documents:**
@@ -366,7 +419,7 @@ The simplest version you can launch to test your idea with real users.
 
 ---
 
-### Stage 5: UX Design
+### Stage 6: UX Design
 **What happens:** Design how users will interact with your product
 
 **AI creates:**
@@ -386,7 +439,7 @@ The simplest version you can launch to test your idea with real users.
 
 ---
 
-### Stage 6: Architecture
+### Stage 7: Architecture
 **What happens:** Design the system structure
 
 **AI decides:**
@@ -408,7 +461,7 @@ The simplest version you can launch to test your idea with real users.
 
 ---
 
-### Stage 7: Tech Specs
+### Stage 8: Tech Specs
 **What happens:** Choose technologies and set standards
 
 **AI specifies:**
@@ -432,7 +485,7 @@ The simplest version you can launch to test your idea with real users.
 
 ---
 
-### Stage 8: DevOps Setup
+### Stage 9: DevOps Setup
 **What happens:** Prepare the development environment
 
 **AI sets up:**
@@ -451,7 +504,7 @@ The simplest version you can launch to test your idea with real users.
 
 ---
 
-### Stage 9: Development Sprints
+### Stage 10: Development Sprints
 **What happens:** AI builds your product feature by feature
 
 **This is where the magic happens!**
@@ -491,7 +544,7 @@ Sprint: User Authentication
 
 ---
 
-### Stage 10: Deployment
+### Stage 11: Deployment
 **What happens:** Launch your product to the world
 
 **AI handles:**
@@ -509,6 +562,8 @@ Sprint: User Authentication
 
 **Time:** 2-4 hours
 **Your involvement:** Approve deployment plan, verify it works
+
+**Congratulations - Your product is LIVE!**
 
 ---
 
@@ -535,20 +590,21 @@ Think of them as specialized AI assistants. Each skill is like hiring an expert 
 
 | Skill Name | What They Do | When to Use |
 |------------|--------------|-------------|
-| `dev-swarm-init-ideas` | Business analyst who organizes your ideas | Starting a new project |
-| `dev-swarm-market-research` | Market researcher who analyzes competitors | Validating your market |
-| `dev-swarm-personas` | UX researcher who defines users | Understanding your audience |
-| `dev-swarm-mvp` | Product manager who scopes MVP | Deciding what to build first |
-| `dev-swarm-prd` | Product manager who writes requirements | Documenting all features |
-| `dev-swarm-ux` | UX designer who creates user flows | Designing the experience |
-| `dev-swarm-architecture` | Software architect who designs system | Planning technical structure |
-| `dev-swarm-tech-specs` | Technical lead who chooses technology | Selecting tools and standards |
-| `dev-swarm-devops` | DevOps engineer who sets up tools | Preparing development |
-| `dev-swarm-project-management` | Project manager who plans sprints | Organizing development work |
+| `dev-swarm-stage-init-ideas` | Business analyst who organizes your ideas | Starting a new project |
+| `dev-swarm-stage-market-research` | Market researcher who analyzes competitors | Validating your market |
+| `dev-swarm-stage-personas` | UX researcher who defines users | Understanding your audience |
+| `dev-swarm-stage-mvp` | Product manager who scopes MVP | Deciding what to build first |
+| `dev-swarm-stage-tech-research` | Technical lead who validates feasibility | Testing critical tech assumptions |
+| `dev-swarm-stage-prd` | Product manager who writes requirements | Documenting all features |
+| `dev-swarm-stage-ux` | UX designer who creates user flows | Designing the experience |
+| `dev-swarm-stage-architecture` | Software architect who designs system | Planning technical structure |
+| `dev-swarm-stage-tech-specs` | Technical lead who chooses technology | Selecting tools and standards |
+| `dev-swarm-stage-devops` | DevOps engineer who sets up tools | Preparing development |
+| `dev-swarm-stage-sprints` | Project manager who plans sprints | Organizing development work |
 | `dev-swarm-code-development` | Software engineer who writes code | Building features |
 | `dev-swarm-code-review` | Code reviewer who checks quality | Ensuring code quality |
 | `dev-swarm-code-test` | QA tester who tests everything | Verifying it works |
-| `dev-swarm-deployment` | DevOps engineer who deploys | Launching to production |
+| `dev-swarm-stage-deployment` | DevOps engineer who deploys | Launching to production |
 
 ---
 
@@ -598,11 +654,11 @@ As a QA Tester, I will verify the authentication flow...
 - Testing uses AI resources
 
 **Budget levels (examples):**
-- L2 Tool: $2-$10
-- L3 Single App: $10-$25
-- L4 MVP: $25-$50
-- L5 Multi-platform: $50-$100
-- L6-L7 Large scale: $100+
+- Simple tool: $2-$10
+- Single app: $10-$25
+- MVP: $25-$50
+- Multi-platform: $50-$100
+- Large scale: $100+
 
 **You approve the budget in Stage 0 - it constrains all future AI work**
 
@@ -629,7 +685,7 @@ Slash commands are shortcuts to trigger specific actions. Think of them as quick
 
 ### Available Commands
 
-**All 7 slash commands:**
+**All 8 slash commands:**
 
 | Command | Claude Code / Copilot / opencode | OpenAI Codex | Description |
 |---------|----------------------------------|--------------|-------------|
@@ -640,6 +696,7 @@ Slash commands are shortcuts to trigger specific actions. Think of them as quick
 | review | `/review` | `/prompts:review` | Review code quality |
 | test | `/test` | `/prompts:test` | Test a feature |
 | backlog | `/backlog` | `/prompts:backlog` | Complete workflow: dev → review → test |
+| sprint | `/sprint` | `/prompts:sprint` | Process all backlogs in a sprint |
 
 ---
 
@@ -758,6 +815,32 @@ ln -s /Users/yourname/projects/ai-dev-swarm/.claude/commands ~/.codex/prompts
 
 ---
 
+#### `/sprint [sprint-name]`
+**Purpose:** Process all backlogs in a sprint through the complete workflow
+
+**Examples:**
+```
+# Claude Code / Copilot / opencode:
+/sprint 01            → Process all backlogs in sprint 01
+/sprint user-auth     → Process all backlogs in user-auth sprint
+
+# OpenAI Codex:
+/prompts:sprint 01
+/prompts:sprint user-auth
+```
+
+**When to use:** When you want to process an entire sprint's worth of features at once
+
+**What it does:**
+1. Locates the sprint folder (e.g., `SPRINT-01-user-auth`)
+2. Reads the sprint README.md for backlog order and dependencies
+3. For each backlog in the sprint, runs: dev → review → test
+4. Updates sprint status as backlogs complete
+
+**This is ideal for processing multiple related features in sequence!**
+
+---
+
 #### `/skip [stage-number-or-name]`
 **Purpose:** Skip a development stage by creating SKIP.md file
 
@@ -774,9 +857,9 @@ ln -s /Users/yourname/projects/ai-dev-swarm/.claude/commands ~/.codex/prompts
 /prompts:skip ux
 ```
 
-**When to use:** When a stage is not needed for your project type (e.g., L2 tools might skip market research, UX, architecture, and deployment)
+**When to use:** When a stage is not needed for your project type (e.g., simple tools might skip market research, UX, architecture, and deployment)
 
-**Note:** Stage 0 (init-ideas) should never be skipped as it classifies your project and determines which stages are necessary.
+**Note:** Stage 0 (init-ideas) should never be skipped as it defines your project and determines which stages are necessary.
 
 ---
 
@@ -892,11 +975,10 @@ You: /stage 0
 ```
 
 AI will:
-- Classify your project (Personal Tool, L2)
 - Create problem statement
 - Create target user doc (you!)
 - Estimate cost (~$2-5)
-- Suggest skipping stages 1, 5, 6, 10 (typical for L2 tools)
+- Suggest skipping stages not needed for your project
 - Ask for approval
 
 ```
@@ -992,7 +1074,7 @@ $ python budget.py summary
 $ python budget.py export --month 2024-01
 ```
 
-You try it, it works! Since this is an L2 tool that runs locally, you don't need Stage 10 (deployment). You're done!
+You try it, it works! Since this is a simple tool that runs locally, you don't need Stage 10 (deployment). You're done!
 
 ---
 
@@ -1177,35 +1259,41 @@ your-project/
 │   ├── out-of-scope.md
 │   └── success-metrics.md
 │
-├── 04-prd/                     # Stage 4: Requirements
+├── 04-tech-research/           # Stage 4: Technical feasibility (optional)
+│   ├── README.md
+│   ├── feasibility-assessment.md
+│   ├── poc-results.md
+│   └── poc/ (proof of concept code)
+│
+├── 05-prd/                     # Stage 5: Requirements
 │   ├── README.md
 │   ├── prd.md
 │   ├── functional-requirements.md
 │   └── non-functional-requirements.md
 │
-├── 05-ux/                      # Stage 5: UX design
+├── 06-ux/                      # Stage 6: UX design
 │   ├── README.md
 │   ├── user-flows.md
 │   ├── interaction-specs.md
 │   └── mockup/ (optional)
 │
-├── 06-architecture/            # Stage 6: System design
+├── 07-architecture/            # Stage 7: System design
 │   ├── README.md
 │   ├── system-overview.md
 │   └── architecture-diagram.md
 │
-├── 07-tech-specs/              # Stage 7: Technology choices
+├── 08-tech-specs/              # Stage 8: Technology choices
 │   ├── README.md
 │   ├── tech-stack.md
 │   ├── coding-standards.md
 │   └── testing-standards.md
 │
-├── 08-devops/                  # Stage 8: Development setup
+├── 09-devops/                  # Stage 9: Development setup
 │   ├── README.md
 │   ├── github-setup.md
 │   └── mcp-setup.md
 │
-├── 09-sprints/                 # Stage 9: Development work
+├── 10-sprints/                 # Stage 10: Development work
 │   ├── README.md
 │   ├── sprint-001/
 │   │   ├── README.md
@@ -1215,7 +1303,7 @@ your-project/
 │   └── sprint-002/
 │       └── ...
 │
-├── 10-deployment/              # Stage 10: Going live
+├── 11-deployment/              # Stage 11: Going live
 │   ├── README.md
 │   ├── infra/
 │   ├── releases/
@@ -1241,13 +1329,13 @@ your-project/
 
 ### Key Folders Explained
 
-**Planning Folders (00-04):**
-These contain documents describing WHAT you're building. No code here.
+**Planning Folders (00-05):**
+These contain documents describing WHAT you're building. No code here (except PoCs in 04).
 
-**Design Folders (05-07):**
+**Design Folders (06-08):**
 These describe HOW it works from user and system perspectives.
 
-**Development Folders (08-10):**
+**Development Folders (09-11):**
 This is where AI sets up tools and builds your product.
 
 **features/ - The Knowledge Base:**
@@ -1343,8 +1431,8 @@ Your first version won't be perfect. Plan for:
 ---
 
 ### 8. Understand the Difference Between Stages
-**Planning stages (0-4):** Can change easily, just documents
-**Implementation (9+):** Changes are harder, requires recoding
+**Planning stages (0-5):** Can change easily, just documents
+**Implementation (10+):** Changes are harder, requires recoding
 
 **Do lots of planning, then build once**
 
@@ -1359,26 +1447,26 @@ A: Yes! But you'll learn concepts along the way. You don't need to write code, b
 
 **Q: How long does a project take?**
 A:
-- Simple script (L0-L1): Few hours
-- Tool (L2): 1-2 days
-- Small app (L3): 1 week
-- MVP (L4): 2-4 weeks
-- Large product (L5+): 1-3 months
+- Simple script: Few hours
+- Tool: 1-2 days
+- Small app: 1 week
+- MVP: 2-4 weeks
+- Large product: 1-3 months
 
 **Q: How much does it cost?**
 A: Mostly your time. AI processing costs:
-- L2: $2-$10
-- L3: $10-$25
-- L4: $25-$50
-- L5+: $50-$200
+- Simple tool: $2-$10
+- Single app: $10-$25
+- MVP: $25-$50
+- Large product: $50-$200
 
 Plus hosting costs when you deploy (varies by service).
 
 **Q: Can I change my mind mid-project?**
 A: Yes, but:
-- Early stages (0-7): Easy to change
-- During development (9): Harder, may need to redo code
-- After deployment (10): Requires new development cycle
+- Early stages (0-8): Easy to change
+- During development (10): Harder, may need to redo code
+- After deployment (11): Requires new development cycle
 
 **Q: What if AI makes a mistake?**
 A:
@@ -1433,9 +1521,9 @@ A: Just create new backlogs:
 
 **Q: Can I skip stages?**
 A: Depends on project size:
-- L0-L1: Only need stage 0
-- L2: Can skip 1, 5, 6, 10
-- L3+: Should do all stages
+- Simple scripts: Only need stage 0
+- Small tools: Can skip 1, 4, 6, 7, 11
+- Larger projects: Should do all stages (except optional 4-tech-research)
 
 AI will tell you which stages to skip.
 
@@ -1467,7 +1555,7 @@ A: Yes! You can:
 A: Yes! It's your code. You own it.
 
 **Q: Is it production-ready?**
-A: For L4+ projects with full stages, yes. AI builds:
+A: For larger projects with full stages, yes. AI builds:
 - Secure code
 - Tested features
 - Scalable architecture
@@ -1494,7 +1582,7 @@ Best use: Validate ideas before hiring a team
 - `dev-swarm/docs/ai-agile-development.md` - Understand the methodology
 - `dev-swarm/docs/ai-feature-driven-development.md` - Feature approach
 - `dev-swarm/docs/repository-structure.md` - Folder organization
-- `dev-swarm/docs/software-dev-classification.md` - Project sizing
+
 
 ---
 
@@ -1590,7 +1678,7 @@ You now have everything you need to build software products without coding knowl
 **The three keys to success:**
 1. **Clear vision** - Know what problem you're solving
 2. **Active participation** - Review, test, provide feedback
-3. **Trust the process** - Follow the 11 stages
+3. **Trust the process** - Follow the 12 stages
 
 **Start today:**
 1. Write your idea in ideas.md

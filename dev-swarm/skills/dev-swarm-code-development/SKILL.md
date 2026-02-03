@@ -18,8 +18,9 @@ This skill implements backlogs through a structured feature-driven approach. As 
 ## Prerequisites
 
 This skill requires:
+- `04-prd/` - Product Requirements Document (business requirements and acceptance criteria)
 - `07-tech-specs/` - Engineering standards and constraints
-- `09-sprints/` folder with active sprint and backlogs
+- `10-sprints/` folder with active sprint and backlogs
 - `features/` folder with features-index.md (existing features knowledge base)
 - Understanding of the backlog type: FEATURE, CHANGE, BUG, or IMPROVE
 
@@ -28,7 +29,7 @@ This skill requires:
 **CRITICAL:** This skill follows a strict feature-driven approach where `feature-name` is the index for the entire project:
 
 **For Each Backlog:**
-1. Read `backlog` from `09-sprints/[sprint]/[BACKLOG_TYPE]-[feature-name]-<sub-feature>.md`
+1. Read `backlog` from `10-sprints/SPRINT-XX-descriptive-name/[BACKLOG_TYPE]-XX-[feature-name]-<sub-feature>.md`
 2. Extract the `feature-name` from the backlog file name
 3. Read `features/features-index.md` to find the feature file
 4. Read feature documentation in this order:
@@ -36,7 +37,7 @@ This skill requires:
    - `features/flows/[feature-name].md` - User flows and process flows (if exists)
    - `features/contracts/[feature-name].md` - API/data contracts (if exists)
    - `features/impl/[feature-name].md` - Implementation notes (if exists)
-5. Locate source code at `src/` using `features/impl/[feature-name].md`
+5. Locate source code at `{SRC}/` using `features/impl/[feature-name].md`
 6. Implement the code following `07-tech-specs/`
 7. Update `backlog` with development notes
 
@@ -44,25 +45,12 @@ This approach ensures AI developers can work on large projects without reading a
 
 ## Your Roles in This Skill
 
-- **Project Manager**: Ensure implementation aligns with backlog requirements and sprint goals. Track development progress and identify blockers. Coordinate with other roles when needed. Update backlog status during implementation. Ensure deliverables meet acceptance criteria.
-- **Tech Manager (Architect)**: Ensure implementation follows architectural principles and system design. Guide technical decisions and review integration points. Ensure code maintains separation of concerns and modularity. Verify technical dependencies are handled properly. Flag architectural risks during implementation.
-- **Product Manager**: Ensure implementation delivers intended user value and meets business goals. Verify features align with product vision. Review implementation against user stories and acceptance criteria. Provide input on user-facing functionality.
-- **Backend Developer (Engineer)**: Implement server-side functionality, APIs, and business logic. Design and optimize database queries. Handle authentication, authorization, and security. Integrate with third-party services. Write backend tests and API documentation. Follow coding standards and best practices for maintainability.
-- **Frontend Developer**: Implement user interfaces and client-side functionality. Build reusable components and ensure responsive design. Integrate with backend APIs and manage application state. Ensure accessibility and optimize client-side performance. Write frontend tests and follow UI/UX specifications.
-- **Database Administrator**: Design database schemas and optimize queries. Implement data migrations and manage schema changes. Ensure data integrity and proper indexing. Review database performance and suggest optimizations. Document database structures and relationships.
-- **AI Engineer**: Implement AI/ML model architecture and integration. Design prompt engineering strategies and LLM integration. Build vector database and embeddings functionality. Create model monitoring and evaluation pipelines. Handle AI costs, latency, and fallback strategies. Implement content generation and moderation systems.
-- **Legal Advisor**: Implement Terms of Service, Privacy Policy, Cookie Policy, and compliance pages. Ensure legal language is clear and compliant with regulations (GDPR, CCPA, etc.). Draft disclaimers and liability statements. Implement age restrictions and data handling documentation. Ensure content is legally accurate and complete.
-- **Customer Support**: Implement FAQ pages, contact us forms, help documentation, and troubleshooting guides. Write clear, user-friendly support content. Design self-service support flows. Create knowledge base structure. Write onboarding guides and tutorials.
-- **Content Moderator**: Implement content moderation workflows and reporting interfaces. Create moderation queue and review dashboards. Write community guidelines and content policies. Design user communication flows for moderation actions. Create appeals and dispute resolution interfaces.
-- **UI Designer**: Implement visual layout for all pages and components. Ensure consistent branding and styling. Make legal documents readable and accessible. Create intuitive navigation for help content. Design clear call-to-action buttons. Ensure mobile responsiveness and design system consistency.
+See `dev-swarm/docs/general-dev-stage-rule.md` for role selection guidance.
 
 ## Role Communication
 
-As an expert in your assigned roles, you must announce your actions before performing them using the following format:
+See `dev-swarm/docs/general-dev-stage-rule.md` for the required role announcement format.
 
-As a {Role} [and {Role}, ...], I will {action description}
-
-This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 ## Instructions
 
 Follow these steps in order for coding development:
@@ -73,14 +61,14 @@ Follow these steps in order for coding development:
 
 1. **Identify the backlog:**
    - User specifies which backlog to work on
-   - Or you select next backlog from `09-sprints/` in order
+   - Or you select next backlog from `10-sprints/` in order
 
    ```
-   09-sprints/
-   └── sprint-name/
-       └── [BACKLOG_TYPE]-[feature-name]-<sub-feature>.md
+   10-sprints/
+   └── SPRINT-XX-descriptive-name/
+       └── [BACKLOG_TYPE]-XX-[feature-name]-<sub-feature>.md
    ```
-   - Locate the sprint README at `09-sprints/[sprint-name]/README.md` for required progress log updates
+   - Locate the sprint README at `10-sprints/SPRINT-XX-descriptive-name/README.md` for required progress log updates
 
 2. **Read the backlog file:**
    - Understand task description and requirements
@@ -92,28 +80,32 @@ Follow these steps in order for coding development:
    - Identify acceptance criteria
 
 3. **Read source code structure standards:**
-   - Read `07-tech-specs/source-code-structure.md`
+   - Read `dev-swarm/docs/source-code-structure.md` for general guidelines
    - Note file naming conventions and directory structure
 
-4. **Read feature documentation (using feature-name as index):**
+4. **Read PRD and tech specs:**
+   - Read `04-prd/` (all markdown files) - Product requirements and acceptance criteria for the feature
+   - Read `07-tech-specs/` (all markdown files) - Technical specifications and engineering standards
+   - Understand the business context and technical constraints
+
+5. **Read feature documentation (using feature-name as index):**
    - Read `features/features-index.md` to confirm feature exists
    - Read `features/[feature-name].md` - Feature definition (WHAT/WHY/SCOPE)
    - Read `features/flows/[feature-name].md` - User flows (if exists)
    - Read `features/contracts/[feature-name].md` - API contracts (if exists)
    - Read `features/impl/[feature-name].md` - Implementation notes (if exists)
 
-5. **Locate existing source code:**
+6. **Locate existing source code:**
    - Use `features/impl/[feature-name].md` to find code locations
-   - Navigate to `src/` directory
+   - Navigate to `{SRC}/` directory
    - Review existing code structure and patterns
    - Identify files to modify (CHANGE/BUG/IMPROVE) or create (FEATURE)
 
-6. **Understand codebase patterns:**
-   - Read `07-tech-specs/coding-standards.md` for coding conventions
-   - Review existing code in `src/` using locations from `features/impl/[feature-name].md`
+7. **Understand codebase patterns:**
+   - Review existing code in `{SRC}/` using locations from `features/impl/[feature-name].md`
    - Note architectural patterns and integration points
 
-**DO NOT** read the entire codebase. Use `features/impl/[feature-name].md` to find only relevant files in `src/`.
+**DO NOT** read the entire codebase. Use `features/impl/[feature-name].md` to find only relevant files in `{SRC}/`.
 
 ### Step 1: Design the Implementation
 
@@ -138,14 +130,14 @@ Before writing code, create the feature design document:
 
 Once user approves the design:
 
-1. **Organize code in src/:**
-   - Follow `07-tech-specs/source-code-structure.md` for file organization
-   - Place code in appropriate locations within `src/` as defined by source-code-structure.md
+1. **Organize code in {SRC}/:**
+   - Follow `dev-swarm/docs/source-code-structure.md` for file organization guidelines
+   - Place code in appropriate locations within `{SRC}/`
    - Use file naming conventions defined in source-code-structure.md
 
 2. **Write the code:**
    - Implement according to the approved design
-   - Follow coding standards from `07-tech-specs/coding-standards.md`
+   - Follow coding standards
    - Write clean, modular, maintainable code
    - Include appropriate error handling
    - Avoid over-engineering (keep it simple)
@@ -227,15 +219,15 @@ After code is complete, create implementation documentation:
 
 3. Update `features/features-index.md` if needed
 
-4. **Update or create `src/README.md` (Project Documentation):**
-   - **IMPORTANT**: Developers should maintain project documentation in `src/README.md`, NOT in the root README.md
+4. **Update or create `{SRC}/README.md` (Project Documentation):**
+   - **IMPORTANT**: Developers should maintain project documentation in `{SRC}/README.md`, NOT in the root README.md
    - Add or update feature documentation:
      - Feature overview and purpose
      - Installation and setup instructions
      - Usage examples and API documentation
      - Configuration options
      - Troubleshooting tips
-   - Keep `src/README.md` as the primary technical reference for developers
+   - Keep `{SRC}/README.md` as the primary technical reference for developers
    - Include links to `features/` documentation for detailed specs
 
 ### Step 4: Verify Against Test Plan
@@ -256,50 +248,58 @@ Before marking complete:
    - List any test results
    - Flag anything needing QA attention
 
-### Step 5: Update Backlog with Development Notes
+### Step 5: Finalize and Commit
 
-**CRITICAL:** Update the backlog.md file to track development progress:
+**CRITICAL:** Follow this process to safely commit changes and update tracking:
 
-1. **Update backlog status:**
-   - Change status from "Not Started" to "In Code Review"
-   - Add a "Development Notes" section if not present
+1. **Update Tracking Files:**
+   - Update `backlog.md`:
+     - Change status from "Not Started" to "In Code Review"
+     - Add "Development Notes" section:
+       - **Files Created/Modified:** List changes
+       - **Implementation Approach:** Summary of work
+       - **Key Decisions:** Technical choices
+       - **Links:** To feature docs and impl docs
+   - Update `10-sprints/.../README.md`:
+     - Update status in table
+     - Add progress log entry
 
-2. **Document development findings:**
-   - **Files Created/Modified:** List all files changed with brief descriptions
-   - **Implementation Approach:** Summarize how requirements were implemented
-   - **Key Decisions:** Note any important technical decisions made
-   - **Integration Points:** Document how code integrates with other features
-   - **Known Issues:** Flag any potential issues for code review
-   - **Test Notes:** Any preliminary testing done during development
+2. **Request Human Review:**
+   - Present the work and the plan to commit
+   - Ask user: "Please review the changes. If approved, I will commit the code and update the backlog."
+   - **Wait for approval.**
 
-3. **Reference documentation created:**
-   - Link to `features/[feature-name].md`
-   - Link to `features/impl/[feature-name].md`
-   - Link to source code files in `src/` (locations documented in features/impl/[feature-name].md)
+3. **Commit the Code (Content):**
+   - Run `git add .` to stage all changes
+   - **Unstage** the backlog file and sprint README (`git reset HEAD <path-to-backlog> <path-to-sprint-readme>`) to keep metadata separate
+   - Check if there are staged changes:
+     - **If yes:**
+       - Draft conventional commit message (e.g., "feat: implement [feature-name]")
+       - Commit: `git commit -m "feat: ..."`
+       - Get Commit ID: `git rev-parse --short HEAD`
+     - **If no** (only docs/metadata changed):
+       - Skip to next step
 
-4. **Notify user:**
-   - Summarize what was implemented
-   - Reference documentation created
-   - Note any important decisions or tradeoffs
+4. **Update Backlog with Commit ID:**
+   - If a code commit was made, append "**Implementation Commit:** `[commit-id]`" to the "Development Notes" in `backlog.md`
+
+5. **Commit the Backlog (Metadata):**
+   - Stage `backlog.md` and sprint `README.md`
+   - Commit: `git commit -m "docs([feature-name]): update backlog status to In Code Review"`
+
+6. **Notify user:**
+   - Confirm completion
    - Suggest next step: "Ready for code review"
 
-5. **Update sprint README (README.md) (CRITICAL):**
-   - Update backlog status in the sprint backlog table
-   - Append a log entry in the sprint progress log for the Development step
-
-**These backlog.md and sprint README updates create the audit trail for code review and testing phases.**
+**This two-step commit process ensures code history is preserved before the backlog is updated with the commit reference.**
 
 ## Expected File Structure
 
 ```
 project-root/
-├── 07-tech-specs/
-│   ├── source-code-structure.md            # Code organization guide
-│   └── coding-standards.md                 # Coding conventions
-│
-├── 09-sprints/
-│   └── sprint-name/
-│       └── [BACKLOG_TYPE]-[feature-name]-<sub-feature>.md # Backlog entry point
+├── 10-sprints/
+│   └── SPRINT-XX-descriptive-name/
+│       └── [BACKLOG_TYPE]-XX-[feature-name]-<sub-feature>.md # Backlog entry point
 │
 ├── features/                                # Features knowledge base
 │   ├── features-index.md                   # Index of all features
@@ -311,9 +311,9 @@ project-root/
 │   └── impl/
 │       └── [feature-name].md               # Implementation notes (code locations)
 │
-└── src/                                     # Source code
+└── {SRC}/                                     # Source code
     ├── README.md                            # Project documentation (maintained by developers)
-    └── [organized as defined in 07-tech-specs/source-code-structure.md]
+    └── [organized per dev-swarm/docs/source-code-structure.md guidelines]
 ```
 
 ## File Templates

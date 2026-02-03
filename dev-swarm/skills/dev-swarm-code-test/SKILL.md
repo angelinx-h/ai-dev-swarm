@@ -21,10 +21,11 @@ This skill creates and executes comprehensive test suites to verify code quality
 This skill requires:
 - Code implementation completed
 - Code review completed (recommended)
-- `07-tech-specs/` - Engineering standards, including source-code-structure.md and testing-standards.md
+- `04-prd/` - Product Requirements Document (business requirements and acceptance criteria)
+- `07-tech-specs/` - Engineering standards and constraints
 - `features/` folder with feature design and implementation docs
-- `09-sprints/` folder with backlog and test plan
-- `src/` folder (organized as defined in source-code-structure.md)
+- `10-sprints/` folder with backlog and test plan
+- `{SRC}/` folder (organized as defined in source-code-structure.md)
 - Access to source code and running environment
 
 ## Feature-Driven Testing Workflow
@@ -32,7 +33,7 @@ This skill requires:
 **CRITICAL:** This skill follows a strict feature-driven approach where `feature-name` is the index for the entire project:
 
 **For Each Backlog:**
-1. Read backlog.md from `09-sprints/[sprint]/[BACKLOG_TYPE]-[feature-name]-<sub-feature>.md`
+1. Read backlog.md from `10-sprints/SPRINT-XX-descriptive-name/[BACKLOG_TYPE]-XX-[feature-name]-<sub-feature>.md`
 2. Extract the `feature-name` from the backlog file name
 3. Read `features/features-index.md` to find the feature file
 4. Read feature documentation in this order:
@@ -40,7 +41,7 @@ This skill requires:
    - `features/flows/[feature-name].md` - User flows and process flows (if exists)
    - `features/contracts/[feature-name].md` - API/data contracts (if exists)
    - `features/impl/[feature-name].md` - Implementation notes (if exists)
-5. Locate code and test files in `src/` using `features/impl/[feature-name].md`
+5. Locate code and test files in `{SRC}/` using `features/impl/[feature-name].md`
 6. Write/execute tests following `07-tech-specs/testing-standards.md`
 7. Update `backlog.md` with test results and findings
 
@@ -48,23 +49,12 @@ This approach ensures AI testers can test large projects without reading all cod
 
 ## Your Roles in This Skill
 
-- **QA Engineer (Quality Assurance Specialist)**: Lead test planning and execution. Design comprehensive test plans covering all scenarios. Write automated tests (unit, integration, E2E, API). Execute manual tests for complex user flows. Test across different environments and devices. Identify edge cases and boundary conditions. Analyze logs and debugging test failures. Create clear bug reports with reproduction steps. Suggest quality improvements and preventive measures.
-- **Security Engineer**: Perform security testing and vulnerability scanning. Test authentication and authorization flows. Verify input validation and sanitization. Test for common vulnerabilities (OWASP Top 10). Review security configurations and access controls. Test encryption and data protection. Conduct penetration testing if applicable.
-- **Tech Manager (Architect)**: Verify implementation aligns with architectural principles. Test system integration and component interactions. Validate technical dependencies work as expected. Test scalability and performance against architectural requirements. Identify technical risks and architectural issues during testing.
-- **Product Manager**: Verify implementation meets acceptance criteria and user stories. Test user flows match expected behavior. Validate features deliver intended user value. Review test coverage against functional requirements. Ensure quality meets product standards before release.
-- **UX Designer**: Conduct usability testing and review user experience. Verify UI matches design specifications and mockups. Test responsive design across devices. Validate accessibility compliance (WCAG). Test user flows for intuitiveness. Identify UX issues or improvements.
-- **AI Engineer**: Test AI/ML model performance and accuracy. Validate prompt engineering and LLM integration. Test vector database and embeddings functionality. Verify model monitoring and evaluation pipelines. Test AI fallback strategies and error handling. Validate content generation quality and moderation effectiveness.
-- **Legal Advisor**: Verify legal content accuracy and compliance. Review Terms of Service, Privacy Policy, and Cookie Policy for completeness. Ensure compliance with regulations (GDPR, CCPA, etc.). Validate disclaimers and liability statements. Test age restriction enforcement and data handling flows.
-- **Customer Support**: Test FAQ pages, help documentation, and support flows. Verify contact forms and troubleshooting guides work correctly. Test self-service support functionality. Validate knowledge base navigation and search. Ensure onboarding guides are clear and effective.
-- **Content Moderator**: Test content moderation workflows and reporting mechanisms. Verify moderation queue and review dashboard functionality. Test community guidelines enforcement. Validate user communication flows for moderation actions. Test appeals and dispute resolution processes.
+See `dev-swarm/docs/general-dev-stage-rule.md` for role selection guidance.
 
 ## Role Communication
 
-As an expert in your assigned roles, you must announce your actions before performing them using the following format:
+See `dev-swarm/docs/general-dev-stage-rule.md` for the required role announcement format.
 
-As a {Role} [and {Role}, ...], I will {action description}
-
-This communication pattern ensures transparency and allows for human-in-the-loop oversight at key decision points.
 ## Test Types Overview
 
 This skill handles multiple test types:
@@ -92,11 +82,11 @@ Follow these steps in order:
    - Or test latest reviewed backlog from sprint
 
    ```
-   09-sprints/
-   └── sprint-name/
-       └── [BACKLOG_TYPE]-[feature-name]-<sub-feature>.md
+   10-sprints/
+   └── SPRINT-XX-descriptive-name/
+       └── [BACKLOG_TYPE]-XX-[feature-name]-<sub-feature>.md
    ```
-   - Locate the sprint README at `09-sprints/[sprint-name]/README.md` for required progress log updates
+   - Locate the sprint README at `10-sprints/SPRINT-XX-descriptive-name/README.md` for required progress log updates
 
 2. **Read the backlog file:**
    - Understand requirements and acceptance criteria
@@ -108,34 +98,56 @@ Follow these steps in order:
    - Identify success criteria
 
 3. **Read testing standards:**
-   - Read `07-tech-specs/testing-standards.md`
    - Understand test coverage requirements
    - Note test frameworks and conventions
 
-4. **Read feature documentation (using feature-name as index):**
+4. **Read PRD and tech specs:**
+   - Read `04-prd/` (all markdown files) - Product requirements and acceptance criteria for the feature
+   - Read `07-tech-specs/` (all markdown files) - Technical specifications and engineering standards
+   - Understand the business context and technical constraints
+
+5. **Read feature documentation (using feature-name as index):**
    - Read `features/features-index.md` to confirm feature exists
    - Read `features/[feature-name].md` - Feature definition (expected behavior)
    - Read `features/flows/[feature-name].md` - User flows (test these flows)
    - Read `features/contracts/[feature-name].md` - API contracts (test these contracts)
    - Read `features/impl/[feature-name].md` - Implementation notes (what was built)
 
-5. **Locate code and tests:**
+6. **Locate code and tests:**
    - Use `features/impl/[feature-name].md` to find code locations
-   - Navigate to `src/` directory
-   - Check existing test files in `src/` (locations from features/impl/[feature-name].md)
+   - Navigate to `{SRC}/` directory
+   - Check existing test files in `{SRC}/` (locations from features/impl/[feature-name].md)
    - Identify files to test
 
-6. **Read sprint test plan:**
-   - Check `09-sprints/sprint/README.md` for sprint-level test plan
+7. **Read sprint test plan:**
+   - Check `10-sprints/SPRINT-XX-descriptive-name/README.md` for sprint-level test plan
    - Understand end-user test scenarios
    - Note manual vs automated test requirements
 
-7. **Determine test scope:**
+8. **Determine test scope:**
    - What test types are needed?
    - Manual or automated or both?
    - Environment requirements?
 
 **DO NOT** read the entire codebase. Use `feature-name` to find only relevant files.
+
+### Checklist and Status Rules (Backlog + Sprint)
+
+Apply these rules whenever you test a backlog or sprint:
+- For any checklist, acceptance criteria, or test plan, use task list items and mark results as:
+  - `[x]` = pass
+  - `[-]` = no test needed
+- After testing a backlog, update its status to `Done`.
+- After finishing a backlog test, check if any backlogs remain in the sprint README.
+  - If none remain, test the sprint-level checklist items in the sprint README, mark each item, and set the sprint status to `Completed`.
+
+### Test Method Priority
+
+Use this priority order when choosing test methods:
+1. `curl` commands (highest priority)
+2. `playwright-browser-*` skills for web UI (must use browser for any web UI item)
+3. Write test code
+4. Write unit tests
 
 ### Step 1: Design Test Strategy
 
@@ -186,7 +198,7 @@ Create automated test suites based on test type:
 
 #### Unit Tests
 
-Test individual functions/components:
+Test individual functions/components in isolation:
 
 **Best Practices:**
 - Test one thing per test case
@@ -326,7 +338,7 @@ For each issue found, create a backlog:
    - **Medium**: Minor feature broken, workaround exists
    - **Low**: Cosmetic issues, minor improvements
 
-2. **Create backlog file in `09-sprints/`:**
+2. **Create backlog file in `10-sprints/`:**
 
    **Test Bug Backlog Template:**
    ```markdown
@@ -406,38 +418,51 @@ Document test results:
    - **Failed**: Critical issues must be fixed before release
    - **Blocked**: Cannot test due to environment or dependency issues
 
-### Step 9: Update Backlog with Test Results
+### Step 9: Finalize and Commit
 
-**CRITICAL:** Update the backlog.md file to track testing progress:
+**CRITICAL:** Follow this process to safely commit changes and update tracking:
 
-1. **Update backlog status:**
-   - Change status from "In Testing" to "Done" (if all tests pass)
-   - Or change to "In Development" (if bugs found requiring fixes)
-   - Add a "Testing Notes" section if not present
+1. **Update Tracking Files:**
+   - Update `backlog.md`:
+     - Change status to `Done` after testing completes
+     - Mark all checklist items (acceptance criteria/test plan) as `[x]` pass or `[-]` no test needed
+     - Add "Testing Notes" section:
+       - **Test Summary:** Passed/Failed counts
+       - **Issues Found:** Bug backlogs created
+       - **Decision:** Passed/Failed
+   - Update feature documentation with test results
+   - Update `10-sprints/.../README.md`:
+     - Update status in table
+     - Add progress log entry
+     - If all backlogs are Done, mark sprint-level checklist items as `[x]` pass or `[-]` no test needed
+     - If sprint-level checks are complete, set sprint status to `Completed`
 
-2. **Document testing findings:**
-   - **Test Summary:** Total tests executed, passed, failed
-   - **Test Types Executed:** Unit, integration, API, UI, manual
-   - **Test Coverage:** Percentage of code/features tested
-   - **Issues Found:** Count of CHANGE/BUG/IMPROVE backlogs created
-   - **Test Decision:** Passed, Passed with minor issues, Failed, or Blocked
-   - **Test Evidence:** Screenshots, logs, performance metrics
-   - **Related Backlogs:** Link to created CHANGE/BUG/IMPROVE backlogs
+2. **Request Human Review:**
+   - Present the test results and plan to commit
+   - Ask user: "Please review the results. If approved, I will commit and close the backlog."
+   - **Wait for approval.**
 
-3. **Update feature documentation:**
-   - Add test notes to `features/impl/[feature-name].md`
-   - Document known issues or limitations discovered
-   - Note test coverage achieved
-   - Update with any testing insights
+3. **Commit the Tests/Fixes (Content):**
+   - Run `git add .` to stage all changes
+   - **Unstage** the backlog file and sprint README (`git reset HEAD <path-to-backlog> <path-to-sprint-readme>`)
+   - Check if there are staged changes:
+     - **If yes:**
+       - Draft conventional commit message (e.g., "test: add tests for [feature-name]")
+       - Commit: `git commit -m "test: ..."`
+       - Get Commit ID: `git rev-parse --short HEAD`
+     - **If no** (only current backlog updated):
+       - Skip to next step
 
-4. **Notify user:**
-   - Summarize test results
-   - Report pass/fail status
-   - List critical issues found
-   - Recommend next steps (fix bugs, deploy, etc.)
+4. **Update Backlog with Commit ID:**
+   - If a commit was made, append "**Test Commit:** `[commit-id]`" to the "Testing Notes" in `backlog.md`
 
-5. **Update sprint README (README.md) (CRITICAL):**
-   - Update backlog status in the sprint backlog table
-   - Append a log entry in the sprint progress log for the Testing step
+5. **Commit the Backlog (Metadata):**
+   - Stage `backlog.md` and sprint `README.md`
+   - Commit: `git commit -m "docs([feature-name]): update backlog status to Done"`
 
-**These backlog.md and sprint README updates create the audit trail showing testing was completed and results.**
+6. **Notify user:**
+   - Confirm completion
+   - If Done: "Backlog closed successfully"
+   - If Failed: "Backlog returned to development"
+
+**This two-step commit process ensures history is preserved before the backlog is updated with the commit reference.**

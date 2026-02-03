@@ -25,10 +25,11 @@ Fork and clone this project, then work with AI Code Agent below by default via A
 
 - `Claude Code`
 - `OpenAI Codex`
+- `Gemini CLI`: npm install -g @google/gemini-cli@preview (enable in settings)
 - `GitHub Copilot CLI`
 - `opencode`
 
-For `Gemini CLI` or other AI Agents that do not support Agent skills natively, you can use them as an MCP server by configuring:
+For other AI Agents that do not support Agent skills natively, you can use them as an MCP server by configuring:
 
 ```json
 {
@@ -43,30 +44,43 @@ For `Gemini CLI` or other AI Agents that do not support Agent skills natively, y
     }
   }
 }
-
-// refer to `.gemini/settings.json`
 ```
+
+### Web UI (Optional)
+
+A visual web interface is available as an alternative to the command-line workflow.
+
+```bash
+./webui.sh
+```
+
+This launches the WebUI at **http://localhost:3001** (localhost only). It auto-installs dependencies and builds on first run.
+
+> **Note:** AI agent execution is disabled by default. To enable it, set `WEBUI_AGENT_EXECUTE=true` in `dev-swarm/.env`. Only enable this on a dedicated machine or inside a Docker container.
+
+See [dev-swarm/webui/README.md](dev-swarm/webui/README.md) for details.
 
 📖 **New to AI Dev Swarm?** Check out the [Complete User Manual](USER-MANUAL.md) for a step-by-step guide designed for non-technical users.
 
 Start with your ideas in `ideas.md`, then progress through structured stages:
 
-**Planning & Strategy (Stages 0-4)**
+**Planning & Strategy (Stages 0-5)**
 - **Stage 0: Init Ideas** - Transform informal ideas into professional project documentation
 - **Stage 1: Market Research** - Validate the problem and analyze competitive landscape
 - **Stage 2: Personas** - Define user personas and prioritized user stories (P0/P1/P2)
 - **Stage 3: MVP** - Define minimum viable product scope and success metrics
-- **Stage 4: PRD** - Create comprehensive product requirements document
+- **Stage 4: Tech Research** - Validate technical feasibility with PoCs and technology spikes (optional)
+- **Stage 5: PRD** - Create comprehensive product requirements document
 
-### Design & Architecture (Stages 5-7)
-- **Stage 5: UX Design** - Design user flows, interactions, and mockups
-- **Stage 6: Architecture** - Define system components, data flow, and deployment boundaries
-- **Stage 7: Tech Specs** - Specify tech stack, security, coding standards, and theme guidelines
+### Design & Architecture (Stages 6-8)
+- **Stage 6: UX Design** - Design user flows, interactions, and mockups
+- **Stage 7: Architecture** - Define system components, data flow, and deployment boundaries
+- **Stage 8: Tech Specs** - Specify tech stack, security, coding standards, and theme guidelines
 
-### Development & Deployment (Stages 8-10)
-- **Stage 8: DevOps** - Setup development environment, GitHub, MCP tools, and Docker
-- **Stage 9: Sprints** - AI-accelerated feature development with backlogs and testing
-- **Stage 10: Deployment** - Deploy to staging/production with CI/CD pipelines
+### Development & Deployment (Stages 9-11)
+- **Stage 9: DevOps** - Setup development environment, GitHub, MCP tools, and Docker
+- **Stage 10: Sprints** - AI-accelerated feature development with backlogs and testing
+- **Stage 11: Deployment** - Deploy to staging/production with CI/CD pipelines
 
 ## Key Features (Planned)
 
@@ -95,12 +109,13 @@ This project uses the dev-swarm framework skills:
 - **market-research** - Market validation and competitive analysis
 - **personas** - User personas and story creation
 - **mvp** - MVP scope definition
+- **tech-research** - Technical feasibility validation (PoCs, spikes)
 - **prd** - Product requirements documentation
 - **ux** - User experience design
 - **architecture** - System architecture design
 - **tech-specs** - Technical specifications
 - **devops** - Development environment setup
-- **project-management** - Sprint and backlog management
+- **sprints** - Sprint and backlog management
 - **code-development** - Feature implementation
 - **code-review** - Code quality review
 - **code-test** - Comprehensive testing
@@ -111,7 +126,7 @@ This project uses the dev-swarm framework skills:
 
 - **[User Manual](USER-MANUAL.md)** - Complete beginner-friendly guide covering all stages, workflows, and examples
 - **Repository Structure** - See `dev-swarm/docs/repository-structure.md` for folder organization
-- **Stage Documentation** - Organized in numbered folders (00-10) representing each development stage
+- **Stage Documentation** - Organized in numbered folders (00-11) representing each development stage
 - **Knowledge Base** - Feature documentation in `features/` for AI reference
 - **Archive** - Completed work in `99-archive/`
 
